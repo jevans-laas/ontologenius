@@ -59,7 +59,7 @@ void IndividualBranch_t::setSteady_data_properties_name(DataPropertyBranch_t* da
   data_properties_name_.push_back(data_properties_name);
 }
 
-void IndividualBranch_t::setSteady_data_properties_data(data_t data_properties_data) noexcept
+void IndividualBranch_t::setSteady_data_properties_data(data_t& data_properties_data) noexcept
 {
   steady_.data_properties_data_.push_back(data_properties_data);
   data_properties_data_.push_back(data_properties_data);
@@ -81,13 +81,13 @@ void IndividualBranch_t::setSteady_distinct(IndividualBranch_t* distinct) noexce
     distinct_.push_back(distinct);
 }
 
-void IndividualBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
+void IndividualBranch_t::setSteady_dictionary(const std::string& lang, const std::string& word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void IndividualBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
+void IndividualBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

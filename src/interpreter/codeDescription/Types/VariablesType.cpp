@@ -36,7 +36,7 @@ VariablesType::VariablesType() : Namespace("var")
   functions_.push_back(op_sub_assign);
 }
 
-std::string VariablesType::add(std::string name)
+std::string VariablesType::add(const std::string& name)
 {
   std::string id = "";
 
@@ -64,21 +64,21 @@ std::string VariablesType::add(std::string name)
   return id;
 }
 
-std::string VariablesType::name(std::string id)
+std::string VariablesType::name(const std::string& id)
 {
   if(var_.find(id) != var_.end())
     return var_[id].name;
   return "";
 }
 
-std::unordered_set<std::string> VariablesType::get(std::string id)
+std::unordered_set<std::string> VariablesType::get(const std::string& id)
 {
   if(var_.find(id) != var_.end())
     return var_[id].values;
   return std::unordered_set<std::string>();
 }
 
-std::string VariablesType::toString(std::string id)
+std::string VariablesType::toString(const std::string& id)
 {
   std::string str = "";
   if(var_.find(id) != var_.end())
@@ -94,14 +94,14 @@ std::string VariablesType::toString(std::string id)
   return str;
 }
 
-bool VariablesType::set(std::string id, std::string value)
+bool VariablesType::set(const std::string& id, const std::string& value)
 {
   remove(id);
   insert(id, value);
   return true;
 }
 
-bool VariablesType::set(std::string id, std::unordered_set<std::string> value)
+bool VariablesType::set(const std::string& id, std::unordered_set<std::string>& value)
 {
   if(var_.find(id) != var_.end())
   {
@@ -111,7 +111,7 @@ bool VariablesType::set(std::string id, std::unordered_set<std::string> value)
   return false;
 }
 
-bool VariablesType::insert(std::string id, std::string value)
+bool VariablesType::insert(const std::string& id, const std::string& value)
 {
   if(var_.find(id) != var_.end())
   {
@@ -121,7 +121,7 @@ bool VariablesType::insert(std::string id, std::string value)
   return false;
 }
 
-bool VariablesType::insert(std::string id, std::unordered_set<std::string> value)
+bool VariablesType::insert(const std::string& id, std::unordered_set<std::string>& value)
 {
   if(var_.find(id) != var_.end())
   {
@@ -131,7 +131,7 @@ bool VariablesType::insert(std::string id, std::unordered_set<std::string> value
   return false;
 }
 
-bool VariablesType::remove(std::string id)
+bool VariablesType::remove(const std::string& id)
 {
   if(var_.find(id) != var_.end())
   {
@@ -141,7 +141,7 @@ bool VariablesType::remove(std::string id)
   return false;
 }
 
-bool VariablesType::remove(std::string id, std::string value)
+bool VariablesType::remove(const std::string& id, const std::string& value)
 {
   if(var_.find(id) != var_.end())
   {
@@ -151,7 +151,7 @@ bool VariablesType::remove(std::string id, std::string value)
   return false;
 }
 
-bool VariablesType::remove(std::string id, std::unordered_set<std::string> value)
+bool VariablesType::remove(const std::string& id, std::unordered_set<std::string>& value)
 {
   if(var_.find(id) != var_.end())
   {
@@ -166,7 +166,7 @@ bool VariablesType::remove(std::string id, std::unordered_set<std::string> value
   return false;
 }
 
-size_t VariablesType::size(std::string id)
+size_t VariablesType::size(const std::string& id)
 {
   if(var_.find(id) != var_.end())
     return var_[id].values.size();

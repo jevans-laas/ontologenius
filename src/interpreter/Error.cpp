@@ -25,21 +25,21 @@ Error::Error(Code* code)
   nb_wrng = 0;
 }
 
-void Error::printError(size_t pose, std::string message)
+void Error::printError(size_t pose, const std::string& message)
 {
   std::string msg = std::string(COLOR_RED + std::string("error: ") + COLOR_OFF + message);
   printMessage(pose, msg);
   nb_error++;
 }
 
-void Error::printWarning(size_t pose, std::string message)
+void Error::printWarning(size_t pose, const std::string& message)
 {
   std::string msg = std::string(COLOR_ORANGE + std::string("warning: ") + COLOR_OFF + message);
   printMessage(pose, msg);
   nb_wrng++;
 }
 
-void Error::printNote(size_t pose, std::string message)
+void Error::printNote(size_t pose, const std::string& message)
 {
   std::string msg = std::string(COLOR_BLUE + std::string("note: ") + COLOR_OFF + message);
   printMessage(pose, msg);
@@ -112,7 +112,7 @@ void Error::printCursor(size_t pose)
   std::cout << COLOR_GREEN << "^" << COLOR_OFF << std::endl;
 }
 
-void Error::printMessage(size_t pose, std::string message)
+void Error::printMessage(size_t pose, const std::string& message)
 {
   if(code_ != nullptr)
   {
@@ -136,7 +136,7 @@ void Error::printMessage(size_t pose, std::string message)
     while(full_line.find("__var[") != std::string::npos)
     {
       size_t var_pose = full_line.find("__var[");
-      size_t var_end = full_line.find("]", var_pose);
+      size_t var_end = full_line.find(']', var_pose);
       std::string var = full_line.substr(var_pose, var_end-var_pose+1);
       std::string ns_var = code_->variables_.ns() + "::" + code_->variables_.name(var);
       full_line.replace(var_pose, var.size(), ns_var);
@@ -147,7 +147,7 @@ void Error::printMessage(size_t pose, std::string message)
     while(full_line.find("__subsection[") != std::string::npos)
     {
       size_t subsection_pose = full_line.find("__subsection[");
-      size_t subsection_end = full_line.find("]", subsection_pose);
+      size_t subsection_end = full_line.find(']', subsection_pose);
       std::string subsection = full_line.substr(subsection_pose, subsection_end-subsection_pose+1+1);
       full_line.replace(subsection_pose, subsection.size(), std::string("{" + code_->subsections_[subsection].subsection->text + "}"));
       if(subsection_pose + 1 < (pose - error_begin + 1))
@@ -157,7 +157,7 @@ void Error::printMessage(size_t pose, std::string message)
     while(full_line.find("__comment[") != std::string::npos)
     {
       size_t comment_pose = full_line.find("__comment[");
-      size_t comment_end = full_line.find("]", comment_pose);
+      size_t comment_end = full_line.find(']', comment_pose);
       std::string comment = full_line.substr(comment_pose, comment_end-comment_pose+1);
       full_line.replace(comment_pose, comment.size(), code_->comments_[comment].comment );
       if(comment_pose + 1 < (pose - error_begin + 1))
@@ -167,7 +167,7 @@ void Error::printMessage(size_t pose, std::string message)
     while(full_line.find("__string[") != std::string::npos)
     {
       size_t string_pose = full_line.find("__string[");
-      size_t string_end = full_line.find("]", string_pose);
+      size_t string_end = full_line.find(']', string_pose);
       std::string strings = full_line.substr(string_pose, string_end-string_pose+1);
       full_line.replace(string_pose, strings.size(), std::string("\"" + code_->strings_.get(strings) + "\""));
       if(string_pose + 1 < (pose - error_begin + 1))

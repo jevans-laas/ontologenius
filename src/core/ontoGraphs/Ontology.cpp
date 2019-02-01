@@ -10,12 +10,12 @@
 
 #include <iostream>
 
-Ontology::Ontology(std::string language) : class_graph_(&individual_graph_, &object_property_graph_, &data_property_graph_),
-                                           object_property_graph_(&class_graph_),
-                                           data_property_graph_(&class_graph_),
-                                           individual_graph_(&class_graph_, &object_property_graph_, &data_property_graph_),
-                                           reader((Ontology&)*this),
-                                           writer((Ontology&)*this)
+Ontology::Ontology(const std::string& language) : class_graph_(&individual_graph_, &object_property_graph_, &data_property_graph_),
+                                                   object_property_graph_(&class_graph_),
+                                                   data_property_graph_(&class_graph_),
+                                                   individual_graph_(&class_graph_, &object_property_graph_, &data_property_graph_),
+                                                   reader((Ontology&)*this),
+                                                   writer((Ontology&)*this)
 {
   is_init_ = false;
   is_preloaded_ = false;
@@ -87,19 +87,19 @@ int Ontology::close()
     return 0;
 }
 
-int Ontology::readFromUri(std::string uri)
+int Ontology::readFromUri(const std::string& uri)
 {
   uri_.push_back(uri);
   return reader.readFromUri(uri);
 }
 
-int Ontology::readFromFile(std::string fileName)
+int Ontology::readFromFile(const std::string& fileName)
 {
   files_.push_back(fileName);
   return reader.readFromFile(fileName);
 }
 
-bool Ontology::preload(std::string fileName)
+bool Ontology::preload(const std::string& fileName)
 {
   writer.setFileName(fileName);
   if(fileName != "none")
@@ -128,7 +128,7 @@ bool Ontology::isInit(bool print)
   return is_init_;
 }
 
-void Ontology::setLanguage(std::string language)
+void Ontology::setLanguage(const std::string& language)
 {
   class_graph_.setLanguage(language);
   object_property_graph_.setLanguage(language);

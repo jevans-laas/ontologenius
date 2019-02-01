@@ -6,10 +6,10 @@
 class Namespace
 {
 public:
-  explicit Namespace(std::string name);
+  explicit Namespace(const std::string& name);
   ~Namespace() {}
 
-  bool isThisNamespace(std::string ns);
+  bool isThisNamespace(const std::string& ns);
   std::string ns() {return name_; }
 
 private:

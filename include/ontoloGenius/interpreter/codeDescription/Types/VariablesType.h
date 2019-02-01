@@ -22,23 +22,23 @@ public:
   VariablesType();
   ~VariablesType() {}
 
-  std::string add(std::string name);
+  std::string add(const std::string& name);
 
-  std::string name(std::string id);
-  std::unordered_set<std::string> get(std::string id);
-  std::string toString(std::string id);
+  std::string name(const std::string& id);
+  std::unordered_set<std::string> get(const std::string& id);
+  std::string toString(const std::string& id);
 
-  bool set(std::string id, std::string value);
-  bool set(std::string id, std::unordered_set<std::string> value);
+  bool set(const std::string& id, const std::string& value);
+  bool set(const std::string& id, std::unordered_set<std::string>& value);
 
-  bool insert(std::string id, std::string value);
-  bool insert(std::string id, std::unordered_set<std::string> value);
+  bool insert(const std::string& id, const std::string& value);
+  bool insert(const std::string& id, std::unordered_set<std::string>& value);
 
-  bool remove(std::string id);
-  bool remove(std::string id, std::string value);
-  bool remove(std::string id, std::unordered_set<std::string> value);
+  bool remove(const std::string& id);
+  bool remove(const std::string& id, const std::string& value);
+  bool remove(const std::string& id, std::unordered_set<std::string>& value);
 
-  size_t size(std::string id);
+  size_t size(const std::string& id);
 
 private:
   uint16_t nb_variables_;

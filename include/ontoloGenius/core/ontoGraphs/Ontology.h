@@ -12,17 +12,17 @@
 class Ontology
 {
 public:
-  explicit Ontology(std::string language = "en");
+  explicit Ontology(const std::string& language = "en");
   ~Ontology();
 
   int close();
 
-  int readFromUri(std::string uri);
-  int readFromFile(std::string fileName);
-  bool preload(std::string fileName);
+  int readFromUri(const std::string& uri);
+  int readFromFile(const std::string& fileName);
+  bool preload(const std::string& fileName);
 
   bool isInit(bool print = true);
-  void setLanguage(std::string language);
+  void setLanguage(const std::string& language);
   std::string getLanguage();
 
   ClassGraph class_graph_;

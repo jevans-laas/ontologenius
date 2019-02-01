@@ -14,7 +14,7 @@ FileManager::~FileManager()
     fclose(file_);
 }
 
-void FileManager::init(std::string file_name, std::string option)
+void FileManager::init(const std::string& file_name, const std::string& option)
 {
   std::string path = ros::package::getPath("ontologenius");
   path+= "/build/" + file_name + ".ont";
@@ -24,7 +24,7 @@ void FileManager::init(std::string file_name, std::string option)
     std::cout << "Fail to open file " << file_name << " with option '" << option << "'" << std::endl;
 }
 
-void FileManager::reset(std::string file_name)
+void FileManager::reset(const std::string& file_name)
 {
   std::string path = ros::package::getPath("ontologenius");
   path+= "/build/" + file_name + ".ont";

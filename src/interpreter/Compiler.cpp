@@ -56,7 +56,7 @@ void Compiler::compileIntructions(std::map<size_t, std::string> splited)
   for(; it != splited.end(); ++it)
   {
     std::cout << COLOR_GREEN << "==== Compile instruction" << COLOR_OFF << it->second << std::endl;
-    size_t dot = it->second.find(".");
+    size_t dot = it->second.find('.');
     if(dot != std::string::npos)
     {
       std::cout << COLOR_ORANGE << "--- function" << COLOR_OFF << std::endl;
@@ -64,8 +64,8 @@ void Compiler::compileIntructions(std::map<size_t, std::string> splited)
       code_->removeNonEffectiveCode(on);
       std::string instruction = it->second.substr(dot + 1);
 
-      if(on.find(" ") != std::string::npos)
-        error_.printError(it->first+it->second.find(" "), "unexpected expression after '" + on.substr(0,it->second.find(" ")) + "'");
+      if(on.find(' ') != std::string::npos)
+        error_.printError(it->first+it->second.find(' '), "unexpected expression after '" + on.substr(0,it->second.find(' ')) + "'");
       else if(on.find("__var[") != std::string::npos)
         onVariableInstruction(on, instruction, it->first + dot + 1);
       else if(on.find("__ont") != std::string::npos)
@@ -94,7 +94,7 @@ type_t Compiler::compileIntruction(std::string instruction, size_t pose)
 {
   type_t returned_type = type_unknow;
 
-  size_t dot = instruction.find(".");
+  size_t dot = instruction.find('.');
   std::cout << COLOR_GREEN << "==compile sub instruction " << COLOR_OFF << instruction << std::endl;
   if(dot != std::string::npos)
   {
@@ -103,8 +103,8 @@ type_t Compiler::compileIntruction(std::string instruction, size_t pose)
     code_->removeNonEffectiveCode(on);
     std::string subinstruction = instruction.substr(dot + 1);
 
-    if(on.find(" ") != std::string::npos)
-      error_.printError(pose+instruction.find(" "), "unexpected expression after '" + on.substr(0,instruction.find(" ")) + "'");
+    if(on.find(' ') != std::string::npos)
+      error_.printError(pose+instruction.find(' '), "unexpected expression after '" + on.substr(0,instruction.find(' ')) + "'");
     if(instruction.find("__var[") != std::string::npos)
       returned_type = onVariableInstruction(on, subinstruction, pose + dot + 1);
     else if(instruction.find("__ont") != std::string::npos)
@@ -143,7 +143,7 @@ std::map<size_t, std::string> Compiler::splitBySemicolon()
 
   while(stop != std::string::npos)
   {
-    stop = code_->text.find(";", start);
+    stop = code_->text.find(';', start);
     if(stop != std::string::npos)
     {
       std::string subcode = code_->text.substr(start, stop - start);
@@ -197,7 +197,7 @@ int Compiler::getIfOffset(std::string ifelse_id)
 type_t Compiler::onVariableInstruction(std::string variable, std::string instruction, size_t pose)
 {
   TextManipulator manipulator(instruction);
-  size_t bracket = instruction.find("(");
+  size_t bracket = instruction.find('(');
   std::string function = instruction.substr(0,bracket);
   std::cout << "on variable " << variable << "  " << function <<  std::endl;
   VariablesType var;
@@ -226,7 +226,7 @@ type_t Compiler::onVariableInstruction(std::string variable, std::string instruc
 type_t Compiler::onOntologyInstruction(std::string instruction, size_t pose)
 {
   TextManipulator manipulator(instruction);
-  size_t bracket = instruction.find("(");
+  size_t bracket = instruction.find('(');
   std::string function = instruction.substr(0,bracket);
   std::cout << "on onto " << function <<  std::endl;
   OntoFunctions onto;
@@ -256,7 +256,7 @@ type_t Compiler::onOntologyInstruction(std::string instruction, size_t pose)
 type_t Compiler::onPropertyInstruction(std::string indiv, std::string instruction, size_t pose)
 {
   TextManipulator manipulator(instruction);
-  size_t bracket = instruction.find("(");
+  size_t bracket = instruction.find('(');
 
   std::string function = instruction.substr(0,bracket);
   std::cout << "on property " << indiv << " : " <<  function <<  std::endl;
@@ -282,9 +282,9 @@ type_t Compiler::onPropertyInstruction(std::string indiv, std::string instructio
 void Compiler::getParameters(std::string arg, size_t pose, std::vector<std::string>& args, std::vector<size_t>& args_pose)
 {
   size_t start_arg = 0;
-  while(arg.find(",", start_arg) != std::string::npos)
+  while(arg.find(',', start_arg) != std::string::npos)
   {
-    size_t nex_arg = arg.find(",", start_arg);
+    size_t nex_arg = arg.find(',', start_arg);
     args.push_back(arg.substr(start_arg, nex_arg - start_arg));
     args_pose.push_back(pose+1+start_arg);
     start_arg = nex_arg+1;

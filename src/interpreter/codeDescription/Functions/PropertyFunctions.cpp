@@ -1,11 +1,11 @@
 #include "ontoloGenius/interpreter/codeDescription/Functions/PropertyFunctions.h"
 
-bool PropertyFunctions::functionExist(std::string name)
+bool PropertyFunctions::functionExist(const std::string& name)
 {
   return true;
 }
 
-FunctionDescriptor* PropertyFunctions::findFunction(std::string name)
+FunctionDescriptor* PropertyFunctions::findFunction(const std::string& name)
 {
   for(size_t i = 0; i < functions_.size(); i++)
   {

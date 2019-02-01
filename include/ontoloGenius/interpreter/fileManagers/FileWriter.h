@@ -11,8 +11,8 @@ public:
   FileWriter() {}
   ~FileWriter() {}
 
-  void write(std::string text);
-  void writeLine(std::string text) { write(text + "\n"); }
+  void write(const std::string& text);
+  void writeLine(const std::string& text) { write(text + "\n"); }
 
 private:
 };

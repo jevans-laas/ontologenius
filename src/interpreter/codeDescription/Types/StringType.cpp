@@ -23,7 +23,7 @@ StringType::StringType()
   functions_.push_back(op_assign);
 }
 
-std::string StringType::add(std::string text, size_t line_start, size_t line_stop)
+std::string StringType::add(const std::string& text, size_t line_start, size_t line_stop)
 {
   std::string id = "__string[" + std::to_string(nb_strings_) + "]";
   nb_strings_++;
@@ -37,21 +37,21 @@ std::string StringType::add(std::string text, size_t line_start, size_t line_sto
   return id;
 }
 
-std::string StringType::get(std::string id)
+std::string StringType::get(const std::string& id)
 {
   if(strings_.find(id) != strings_.end())
     return strings_[id].strings;
   return "";
 }
 
-size_t StringType::nbLines(std::string id)
+size_t StringType::nbLines(const std::string& id)
 {
   if(strings_.find(id) != strings_.end())
     return strings_[id].lines_count.getNbLines();
   return 0;
 }
 
-size_t StringType::size(std::string id)
+size_t StringType::size(const std::string& id)
 {
   if(strings_.find(id) != strings_.end())
     return strings_[id].strings.size();

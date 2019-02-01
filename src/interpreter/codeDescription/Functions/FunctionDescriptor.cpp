@@ -1,6 +1,6 @@
 #include "ontoloGenius/interpreter/codeDescription/Functions/FunctionDescriptor.h"
 
-FunctionDescriptor::FunctionDescriptor(std::string name, type_t return_type, std::vector<type_t> params_type)
+FunctionDescriptor::FunctionDescriptor(const std::string& name, type_t return_type, std::vector<type_t> params_type)
 {
   name_ = name;
   params_.push_back(params_type);
@@ -32,7 +32,7 @@ std::string FunctionDescriptor::getExplicitName()
     return explicit_name_;
 }
 
-type_t FunctionDescriptor::getReturnType(std::vector<type_t> params)
+type_t FunctionDescriptor::getReturnType(std::vector<type_t>& params)
 {
   for(size_t i = 0; i < params_.size(); i++)
   {
@@ -53,7 +53,7 @@ type_t FunctionDescriptor::getReturnType(std::vector<type_t> params)
   return type_unknow;
 }
 
-bool FunctionDescriptor::testParams(std::vector<type_t> params)
+bool FunctionDescriptor::testParams(std::vector<type_t>& params)
 {
   for(size_t i = 0; i < params_.size(); i++)
   {

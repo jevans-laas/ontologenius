@@ -34,7 +34,7 @@ void RosInterface::init(std::string& lang, std::string intern_file, std::vector<
   }
 
   if(onto_->preload(intern_file) == false)
-    for(auto file : files)
+    for(const auto& file : files)
       onto_->readFromFile(file);
 
   reasoners_.load();
@@ -433,7 +433,7 @@ void RosInterface::feedThread()
 
       std_msgs::String msg;
       std::vector<std::string> notifications = feeder_.getNotifications();
-      for(auto notif : notifications)
+      for(const auto& notif : notifications)
       {
         std::cout << notif << std::endl;
         msg.data = notif;
@@ -471,7 +471,7 @@ void RosInterface::periodicReasoning()
 
     std_msgs::String msg;
     std::vector<std::string> notifications = reasoners_.getNotifications();
-    for(auto notif : notifications)
+    for(const auto& notif : notifications)
     {
       std::cout << notif << std::endl;
       msg.data = notif;
@@ -511,7 +511,7 @@ void RosInterface::set2vector(const std::unordered_set<std::string>& word_set, s
 
 int RosInterface::getPropagationLevel(std::string& params)
 {
-  size_t delimitater = params.find("<");
+  size_t delimitater = params.find('<');
   if(delimitater != std::string::npos)
   {
     std::string param = params.substr(0, delimitater);
@@ -533,7 +533,7 @@ std::string RosInterface::getSelector(std::string& action, std::string& param)
   if(action.find("select:") == 0)
   {
     action = action.substr(std::string("select:").size());
-    size_t delimitater = param.find("=");
+    size_t delimitater = param.find('=');
     if(delimitater != std::string::npos)
     {
       select = param.substr(0, delimitater);

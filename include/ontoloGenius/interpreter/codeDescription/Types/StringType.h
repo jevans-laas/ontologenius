@@ -19,11 +19,11 @@ public:
   StringType();
   ~StringType() {}
 
-  std::string add(std::string text, size_t line_start, size_t line_stop);
-  std::string get(std::string id);
-  size_t nbLines(std::string id);
+  std::string add(const std::string& text, size_t line_start, size_t line_stop);
+  std::string get(const std::string& id);
+  size_t nbLines(const std::string& id);
 
-  size_t size(std::string id);
+  size_t size(const std::string& id);
 
 private:
   uint16_t nb_strings_;

@@ -20,7 +20,7 @@ private:
   void checkCode();
 
   void checkReserved();
-  void checkReservedWord(std::string symbol);
+  void checkReservedWord(const std::string& symbol);
   void checkBraquets();
   void checkStringAndComment();
   void getSubsections();
@@ -29,10 +29,10 @@ private:
   void getFromNamespace();
   void replaceOperator();
   std::map<size_t, std::string> splitBySemicolon();
-  int splitIfBlock(std::map<size_t, std::string>& splited, std::string ifelse_id);
+  int splitIfBlock(std::map<size_t, std::string>& splited, const std::string& ifelse_id);
   void checkInstructionValidity(std::map<size_t, std::string>& splited);
-  void checkInstructionValidity(size_t pose, std::string code, bool onFunction = false);
-  void checkArgumentValidity(size_t pose, std::string code);
+  void checkInstructionValidity(size_t pose, const std::string& code, bool onFunction = false);
+  void checkArgumentValidity(size_t pose, std::string& code);
 
   Code* code_;
   Error error_;

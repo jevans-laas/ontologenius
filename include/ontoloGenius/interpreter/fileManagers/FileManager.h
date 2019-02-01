@@ -9,8 +9,8 @@ public:
   FileManager();
   ~FileManager();
 
-  void init(std::string file_name, std::string option);
-  void reset(std::string file_name);
+  void init(const std::string& file_name, const std::string& option);
+  void reset(const std::string& file_name);
 protected:
   FILE* file_;
 };

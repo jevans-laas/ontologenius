@@ -11,8 +11,8 @@ public:
   FunctionContainer() {}
   ~FunctionContainer() {}
 
-  bool functionExist(std::string name);
-  FunctionDescriptor* findFunction(std::string name);
+  bool functionExist(const std::string& name);
+  FunctionDescriptor* findFunction(const std::string& name);
 
 protected:
   std::vector<FunctionDescriptor> functions_;

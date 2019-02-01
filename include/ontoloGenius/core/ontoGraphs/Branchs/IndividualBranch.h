@@ -52,11 +52,11 @@ public:
   void setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name) noexcept;
   void setSteady_object_properties_on(IndividualBranch_t* object_properties_on) noexcept;
   void setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name) noexcept;
-  void setSteady_data_properties_data(data_t data_properties_data) noexcept;
+  void setSteady_data_properties_data(data_t& data_properties_data) noexcept;
   void setSteady_same_as(IndividualBranch_t* same_as) noexcept;
   void setSteady_distinct(IndividualBranch_t* distinct) noexcept;
-  void setSteady_dictionary(std::string lang, std::string word) noexcept;
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
+  void setSteady_dictionary(const std::string& lang, const std::string& word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept;
 };
 
 class Triplet

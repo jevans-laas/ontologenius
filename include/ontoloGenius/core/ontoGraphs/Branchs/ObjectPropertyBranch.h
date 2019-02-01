@@ -43,12 +43,12 @@ public:
   void setSteady_inverse(ObjectPropertyBranch_t* inverse) noexcept;
   void setSteady_domain(ClassBranch_t* domain) noexcept;
   void setSteady_range(ClassBranch_t* range) noexcept;
-  void set_chain(std::vector<ObjectPropertyBranch_t*> chain) noexcept;
-  void setSteady_chain(std::vector<std::string> chain) noexcept;
+  void set_chain(std::vector<ObjectPropertyBranch_t*>& chain) noexcept;
+  void setSteady_chain(std::vector<std::string>& chain) noexcept;
   void setSteady_child(ObjectPropertyBranch_t* child) noexcept;
   void setSteady_mother(ObjectPropertyBranch_t* mother) noexcept;
-  void setSteady_dictionary(std::string lang, std::string word) noexcept;
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
+  void setSteady_dictionary(const std::string& lang, const std::string& word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept;
 };
 
 #endif

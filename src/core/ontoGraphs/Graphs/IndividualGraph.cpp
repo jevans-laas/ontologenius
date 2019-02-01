@@ -28,7 +28,7 @@ void IndividualGraph::close() noexcept
   container_.load(individuals_);
 }
 
-void IndividualGraph::add(std::string value, IndividualVectors_t& individual_vector) noexcept
+void IndividualGraph::add(const std::string& value, IndividualVectors_t& individual_vector) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
   //am I created ?
@@ -432,7 +432,7 @@ std::unordered_set<std::string> IndividualGraph::getRelatedFrom(const std::strin
         }
 
     std::unordered_set<std::string> up_set = getUp(individuals_[i], 1);
-    for(auto up : up_set)
+    for(const std::string& up : up_set)
       if(class_res.find(up) != class_res.end())
       {
         std::unordered_set<std::string> tmp = getSameAndClean(individuals_[i]);
@@ -537,9 +537,9 @@ std::unordered_set<std::string> IndividualGraph::getRelationWith(const std::stri
 
     std::unordered_set<ClassBranch_t*> up_set;
     getUpPtr(indiv, up_set, 1);
-    for(auto up : up_set)
+    for(const auto& up : up_set)
       class_graph_->getRelationWith(up, properties, depths, tmp_res, 0);
-    for(auto it : tmp_res)
+    for(const auto& it : tmp_res)
       res.insert(it);
   }
   return res;
@@ -622,7 +622,7 @@ std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& para
   std::unordered_set<std::string> res;
   std::string individual;
   std::string property;
-  size_t pose = param.find(":");
+  size_t pose = param.find(':');
   if(pose != std::string::npos)
   {
     individual = param.substr(0, pose);
@@ -753,7 +753,7 @@ std::unordered_set<std::string> IndividualGraph::getOn(const std::string& param)
   std::unordered_set<std::string> res;
   std::string individual;
   std::string property;
-  size_t pose = param.find(":");
+  size_t pose = param.find(':');
   if(pose != std::string::npos)
   {
     individual = param.substr(0, pose);
@@ -962,7 +962,7 @@ std::string IndividualGraph::getName(const std::string& value) noexcept
         {
           size_t myIndex = dis(gen);
           std::string word = branch->dictionary_[this->language_][myIndex];
-          if(word.find("_") == std::string::npos)
+          if(word.find('_') == std::string::npos)
           {
             res = word;
             break;
@@ -1810,7 +1810,7 @@ bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, DataProperty
   std::unordered_set<std::string> range = data_property_graph_->getRange(prop->value());
   if(range.size() != 0)
   {
-    std::unordered_set<std::string>::iterator intersection = std::find(range.begin(), range.end(), data.type_);
+    std::unordered_set<std::string>::iterator intersection = range.find(data.type_);
     if(intersection == range.end())
       return false;
   }

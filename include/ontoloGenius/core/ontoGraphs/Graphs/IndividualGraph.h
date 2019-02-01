@@ -55,7 +55,7 @@ public:
     return individuals_;
   }
 
-  void add(std::string value, IndividualVectors_t& individual_vector) noexcept;
+  void add(const std::string& value, IndividualVectors_t& individual_vector) noexcept;
   void add(std::vector<std::string>& distinct_) noexcept;
 
   std::unordered_set<std::string> getSame(const std::string& individual) noexcept;          //C1

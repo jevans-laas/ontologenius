@@ -36,25 +36,25 @@ size_t Code::getNbOfSublines(size_t& current_pose, size_t stop)
     {}
     else if(findHere(current_pose, "__comment["))
     {
-      size_t bracket = text.find("]", current_pose);
+      size_t bracket = text.find(']', current_pose);
       nb_of_sublines += comments_[text.substr(current_pose, bracket-current_pose+1)].lines_count.getNbLines() - 1;
       current_pose = bracket;
     }
     else if(findHere(current_pose, "__subsection["))
     {
-      size_t bracket = text.find("]", current_pose);
+      size_t bracket = text.find(']', current_pose);
       nb_of_sublines += subsections_[text.substr(current_pose, bracket-current_pose+1)].lines_count.getNbLines() - 1;
       current_pose = bracket;
     }
     else if(findHere(current_pose, "__ifelse["))
     {
-      size_t semicolon = text.find(";", current_pose);
+      size_t semicolon = text.find(';', current_pose);
       nb_of_sublines += ifelse_[text.substr(current_pose, semicolon-current_pose+1)].lines_count.getNbLines() - 1;
       current_pose = semicolon;
     }
     else if(findHere(current_pose, "__string["))
     {
-      size_t bracket = text.find("]", current_pose);
+      size_t bracket = text.find(']', current_pose);
       nb_of_sublines += strings_.nbLines(text.substr(current_pose, bracket-current_pose+1)) - 1;
       current_pose = bracket;
     }
@@ -81,7 +81,7 @@ void Code::goToEffectiveCode(std::string& code, size_t& pose)
     if(comment == 0)
     {
       done = false;
-      comment = code.find("]");
+      comment = code.find(']');
       pose += comment + 1;
       code = code.substr(comment + 1);
     }

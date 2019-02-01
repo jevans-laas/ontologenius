@@ -11,8 +11,8 @@ public:
   PropertyFunctions() {}
   ~PropertyFunctions() {}
 
-  bool functionExist(std::string name);
-  FunctionDescriptor* findFunction(std::string name);
+  bool functionExist(const std::string& name);
+  FunctionDescriptor* findFunction(const std::string& name);
 
 private:
 };

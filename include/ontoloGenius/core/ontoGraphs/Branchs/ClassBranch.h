@@ -50,12 +50,12 @@ public:
   void setSteady_child(ClassBranch_t* child) noexcept;
   void setSteady_individual_child(IndividualBranch_t* child) noexcept;
   void setSteady_mother(ClassBranch_t* mother) noexcept;
-  void setSteady_dictionary(std::string lang, std::string word) noexcept;
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
+  void setSteady_dictionary(const std::string& lang, const std::string& word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept;
   void setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name) noexcept;
   void setSteady_object_properties_on(ClassBranch_t* object_properties_on) noexcept;
   void setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name) noexcept;
-  void setSteady_data_properties_data(data_t data_properties_data) noexcept;
+  void setSteady_data_properties_data(const data_t& data_properties_data) noexcept;
 };
 
 #endif

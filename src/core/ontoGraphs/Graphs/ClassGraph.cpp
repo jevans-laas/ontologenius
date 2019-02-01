@@ -529,7 +529,7 @@ std::unordered_set<std::string> ClassGraph::getRelationWith(const std::string& _
     std::vector<int> depths;
     std::vector<std::string> tmp_res;
     getRelationWith(class_branch, properties, depths, tmp_res, 0);
-    for(auto it : tmp_res)
+    for(const auto& it : tmp_res)
       res.insert(it);
   }
   return res;
@@ -675,7 +675,7 @@ std::unordered_set<std::string> ClassGraph::getFrom(const std::string& param) no
   std::unordered_set<std::string> res;
   std::string _class;
   std::string property;
-  size_t pose = param.find(":");
+  size_t pose = param.find(':');
   if(pose != std::string::npos)
   {
     _class = param.substr(0, pose);
@@ -723,7 +723,7 @@ std::unordered_set<std::string> ClassGraph::getOn(const std::string& param) noex
   std::unordered_set<std::string> res;
   std::string _class;
   std::string property;
-  size_t pose = param.find(":");
+  size_t pose = param.find(':');
   if(pose != std::string::npos)
   {
     _class = param.substr(0, pose);
@@ -784,7 +784,7 @@ void ClassGraph::getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>
 std::unordered_set<std::string> ClassGraph::getWith(const std::string& param, int depth) noexcept
 {
   std::unordered_set<std::string> res;
-  size_t pose = param.find(":");
+  size_t pose = param.find(':');
   if(pose != std::string::npos)
   {
     std::string first_class = param.substr(0, pose);
@@ -1171,7 +1171,7 @@ void ClassGraph::setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPrope
   }
 }
 
-void ClassGraph::setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t data) noexcept
+void ClassGraph::setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t& data) noexcept
 {
   bool found = false;
   for(size_t i = 0; i < branch_from->steady_.data_properties_name_.size(); i++)
@@ -1451,7 +1451,7 @@ bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, DataPropertyBranch_t* 
   std::unordered_set<std::string> range = data_property_graph_->getRange(prop->value());
   if(range.size() != 0)
   {
-    std::unordered_set<std::string>::iterator intersection = std::find(range.begin(), range.end(), data.type_);
+    std::unordered_set<std::string>::iterator intersection = range.find(data.type_);
     if(intersection == range.end())
       return false;
   }

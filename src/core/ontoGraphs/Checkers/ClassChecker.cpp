@@ -174,7 +174,7 @@ void ClassChecker::checkDataPropertyRange() noexcept
       std::unordered_set<std::string> range = class_graph_->data_property_graph_->getRange(graph_vect_[i]->data_properties_name_[prop_i]->value());
       if(range.size() != 0)
       {
-        std::unordered_set<std::string>::iterator intersection = std::find(range.begin(), range.end(), graph_vect_[i]->data_properties_data_[prop_i].type_);
+        std::unordered_set<std::string>::iterator intersection = range.find(graph_vect_[i]->data_properties_data_[prop_i].type_);
         if(intersection == range.end())
           print_error("'" + graph_vect_[i]->data_properties_data_[prop_i].type_ + "' is not in range of '" + graph_vect_[i]->data_properties_name_[prop_i]->value() + "'");
       }

@@ -23,8 +23,8 @@ public:
   explicit OntologyReader(Ontology& onto);
   ~OntologyReader() {}
 
-  int readFromUri(std::string& uri, bool individual = false);
-  int readFromFile(std::string& fileName, bool individual = false);
+  int readFromUri(const std::string& uri, bool individual = false);
+  int readFromFile(const std::string& fileName, bool individual = false);
 
   void displayIndividualRules();
   bool empty() {return (elemLoaded == 0); }
@@ -37,8 +37,8 @@ private:
 
   int elemLoaded;
 
-  int read(TiXmlElement* rdf, std::string& name);
-  int readIndividual(TiXmlElement* rdf, std::string& name);
+  int read(TiXmlElement* rdf, const std::string& name);
+  int readIndividual(TiXmlElement* rdf, const std::string& name);
 
   void readClass(TiXmlElement* elem);
   void readIndividual(TiXmlElement* elem);
@@ -102,7 +102,7 @@ void OntologyReader::push(std::vector<bool>& vect, bool elem, const std::string&
 
 std::string OntologyReader::getName(const std::string& uri)
 {
-  size_t pos = uri.find("#");
+  size_t pos = uri.find('#');
   std::string result = uri.substr(pos+1);
   return result;
 }

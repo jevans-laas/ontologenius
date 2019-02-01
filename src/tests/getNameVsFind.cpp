@@ -41,14 +41,14 @@ private:
   size_t len;
   size_t cpt;
 
-  void init(std::string file_name, std::string option)
+  void init(std::string& file_name, const std::string& option)
   {
     file_ = fopen(file_name.c_str(), option.c_str());
     if(file_ == NULL)
       std::cout << "Fail to open file " << file_name << " with option '" << option << "'" << std::endl;
   }
 
-  void reset(std::string file_name)
+  void reset(std::string& file_name)
   {
     file_ = fopen(file_name.c_str(), "w");
     if(file_ == NULL)

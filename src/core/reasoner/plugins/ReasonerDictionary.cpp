@@ -70,13 +70,13 @@ void ReasonerDictionary::split(ValuedNode* node)
     for(i = 0; i < dic_size; i++)
     {
       std::string tmp = "";
-      tmp = tmp + it.second[i][0];
+      tmp += it.second[i][0];
       for(size_t char_i = 1; char_i < it.second[i].size(); char_i++)
       {
         if((it.second[i][char_i] >= 'A') && (it.second[i][char_i] <= 'Z'))
           if(it.second[i][char_i - 1] != ' ')
-            tmp = tmp + ' ';
-        tmp = tmp + it.second[i][char_i];
+            tmp += ' ';
+        tmp += it.second[i][char_i];
       }
       if (std::find(it.second.begin(), it.second.end(), tmp) == it.second.end())
         it.second.push_back(tmp);

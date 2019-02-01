@@ -74,7 +74,7 @@ void Parser::checkReserved()
   checkReservedWord("__var");
 }
 
-void Parser::checkReservedWord(std::string symbol)
+void Parser::checkReservedWord(const std::string& symbol)
 {
   bool eof = false;
   size_t pose = 0;
@@ -134,7 +134,7 @@ void Parser::checkStringAndComment()
     }
     else if(code_->text[pose] == '"')
     {
-      size_t string_end = code_->text.find("\"", pose+1);
+      size_t string_end = code_->text.find('\'', pose+1);
       if(string_end != std::string::npos)
       {
         std::string text = code_->text.substr(pose+1, string_end-pose - 1);
@@ -191,12 +191,12 @@ void Parser::getSubsections()
 
   do
   {
-    size_t bracket = code_->text.find("{", begin);
+    size_t bracket = code_->text.find('{', begin);
     if(bracket == std::string::npos)
       eof = true;
     else
     {
-      size_t bracket = code_->text.find("{", begin);
+      size_t bracket = code_->text.find('{', begin);
       size_t first_bracket = bracket;
       int cpt = 1;
       while((cpt != 0) && (code_->text[bracket] != '\0'))
@@ -240,7 +240,7 @@ void Parser::getSubsections()
   size_t bad_subsection = 0;
   do
   {
-    bad_subsection = code_->text.find("}", bad_subsection);
+    bad_subsection = code_->text.find('}', bad_subsection);
     if(bad_subsection == std::string::npos)
       eof = true;
     else
@@ -258,7 +258,7 @@ void Parser::getFromNamespace()
 
   do
   {
-    size_t ns_pose = code_->text.find(":", 0);
+    size_t ns_pose = code_->text.find(':', 0);
     if(ns_pose == std::string::npos)
       eof = true;
     else
@@ -314,7 +314,7 @@ std::map<size_t, std::string> Parser::splitBySemicolon()
 
   while(stop != std::string::npos)
   {
-    stop = code_->text.find(";", start);
+    stop = code_->text.find(';', start);
     if(stop != std::string::npos)
     {
       std::string subcode = code_->text.substr(start, stop - start);
@@ -337,7 +337,7 @@ std::map<size_t, std::string> Parser::splitBySemicolon()
   return splited;
 }
 
-int Parser::splitIfBlock(std::map<size_t, std::string>& splited, std::string ifelse_id)
+int Parser::splitIfBlock(std::map<size_t, std::string>& splited, const std::string& ifelse_id)
 {
   int offset = 0;
 
@@ -388,7 +388,7 @@ int Parser::splitIfBlock(std::map<size_t, std::string>& splited, std::string ife
 
   if(condition != "")
   {
-    size_t semicolon = condition.find(";");
+    size_t semicolon = condition.find(';');
     if(semicolon != std::string::npos)
       error_.printError(condition_start + semicolon, "expected ‘)’ before ';'");
   }
@@ -408,7 +408,7 @@ void Parser::checkInstructionValidity(std::map<size_t, std::string>& splited)
     size_t sub = code.find("__subsection[");
     if((sub == std::string::npos) || (sub != 0))
     {
-      if(code.find(".") == std::string::npos)
+      if(code.find('.') == std::string::npos)
         error_.printWarning(pose, "instruction with no effect");
       else
         checkInstructionValidity(pose, code);
@@ -419,7 +419,7 @@ void Parser::checkInstructionValidity(std::map<size_t, std::string>& splited)
   }
 }
 
-void Parser::checkInstructionValidity(size_t pose, std::string code, bool onFunction)
+void Parser::checkInstructionValidity(size_t pose, const std::string& code, bool onFunction)
 {
   std::string on = "";
   std::string func = "";
@@ -433,14 +433,14 @@ void Parser::checkInstructionValidity(size_t pose, std::string code, bool onFunc
   size_t dot = 0;
   if(onFunction == false)
   {
-    dot = code.find(".", 0);
+    dot = code.find('.', 0);
     on = code.substr(0, dot);
   }
   else
     on = "__onfunc";
 
   /*Getting function name*/
-  size_t open_arg = code.find("(", dot + 1);
+  size_t open_arg = code.find('(', dot + 1);
   func = code.substr(dot + 1, open_arg - dot - 1);
   word_integrity = code_->checkWordIntegrity(func);
   if(word_integrity != std::string::npos)
@@ -456,9 +456,9 @@ void Parser::checkInstructionValidity(size_t pose, std::string code, bool onFunc
     size_t close_arg = open_arg + arg.size() + 1;
 
     size_t start_arg = 0;
-    while(arg.find(",", start_arg) != std::string::npos)
+    while(arg.find(',', start_arg) != std::string::npos)
     {
-      size_t nex_arg = arg.find(",", start_arg);
+      size_t nex_arg = arg.find(',', start_arg);
       args.push_back(arg.substr(start_arg, nex_arg - start_arg));
       args_pose.push_back(pose+open_arg+1+start_arg);
       start_arg = nex_arg+1;
@@ -491,12 +491,12 @@ void Parser::checkInstructionValidity(size_t pose, std::string code, bool onFunc
     error_.printError(pose + dot + func.size(), "miss ‘(‘ after ‘" + func + "’");
 }
 
-void Parser::checkArgumentValidity(size_t pose, std::string code)
+void Parser::checkArgumentValidity(size_t pose, std::string& code)
 {
   code_->goToEffectiveCode(code, pose);
   if(code.find("__subsection[") == std::string::npos)
   {
-    if(code.find(".") != std::string::npos)
+    if(code.find('.') != std::string::npos)
       checkInstructionValidity(pose, code);
   }
   else

@@ -24,7 +24,7 @@ OntologyReader::OntologyReader(Ontology& onto)
 }
 
 
-int OntologyReader::readFromUri(std::string& uri, bool individual)
+int OntologyReader::readFromUri(const std::string& uri, bool individual)
 {
   std::string response = "";
   int err = send_request("GET", uri, "", &response);
@@ -43,7 +43,7 @@ int OntologyReader::readFromUri(std::string& uri, bool individual)
     return REQUEST_ERROR;
 }
 
-int OntologyReader::readFromFile(std::string& fileName, bool individual)
+int OntologyReader::readFromFile(const std::string& fileName, bool individual)
 {
   std::string response = "";
   std::string tmp = "";
@@ -62,7 +62,7 @@ int OntologyReader::readFromFile(std::string& fileName, bool individual)
     return readIndividual(rdf, fileName);
 }
 
-int OntologyReader::read(TiXmlElement* rdf, std::string& name)
+int OntologyReader::read(TiXmlElement* rdf, const std::string& name)
 {
   if(rdf == NULL)
   {
@@ -121,7 +121,7 @@ void OntologyReader::displayIndividualRules()
   std::cout << "************************************" << std::endl;
 }
 
-int OntologyReader::readIndividual(TiXmlElement* rdf, std::string& name)
+int OntologyReader::readIndividual(TiXmlElement* rdf, const std::string& name)
 {
   if(rdf == NULL)
   {
@@ -164,10 +164,10 @@ void OntologyReader::readClass(TiXmlElement* elem)
         pushLang(object_vector.dictionary_, subElem);
       else
       {
-        std::string ns = subElemName.substr(0,subElemName.find(":"));
+        std::string ns = subElemName.substr(0,subElemName.find(':'));
         if((ns != "owl") && (ns != "rdf") && (ns != "rdfs"))
         {
-          std::string property = subElemName.substr(subElemName.find(":")+1);
+          std::string property = subElemName.substr(subElemName.find(':')+1);
           if(testAttribute(subElem, "rdf:resource"))
           {
             push(object_vector.object_properties_name_, property, "$");
@@ -234,10 +234,10 @@ void OntologyReader::readIndividual(TiXmlElement* elem)
           pushLang(individual_vector.dictionary_, subElem);
         else
         {
-          std::string ns = subElemName.substr(0,subElemName.find(":"));
+          std::string ns = subElemName.substr(0,subElemName.find(':'));
           if((ns != "owl") && (ns != "rdf") && (ns != "rdfs"))
           {
-            std::string property = subElemName.substr(subElemName.find(":")+1);
+            std::string property = subElemName.substr(subElemName.find(':')+1);
             if(testAttribute(subElem, "rdf:resource"))
             {
               push(individual_vector.object_properties_name_, property, "$");

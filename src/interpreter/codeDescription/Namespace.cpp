@@ -1,11 +1,11 @@
 #include "ontoloGenius/interpreter/codeDescription/Namespace.h"
 
-Namespace::Namespace(std::string name)
+Namespace::Namespace(const std::string& name)
 {
   name_ = name;
 }
 
-bool Namespace::isThisNamespace(std::string ns)
+bool Namespace::isThisNamespace(const std::string& ns)
 {
   if(ns == name_)
     return true;

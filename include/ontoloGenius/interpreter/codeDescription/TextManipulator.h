@@ -12,20 +12,20 @@
 class TextManipulator
 {
 public:
-  explicit TextManipulator(std::string textual) {text = textual;}
+  explicit TextManipulator(const std::string& textual) {text = textual;}
   ~TextManipulator() {}
 
   std::string text;
   LinesCounter lines_counter_;
   size_t first_char_pose;
 
-  size_t getInBraquet(size_t begin, std::string& in_bracket, std::string& text);
+  size_t getInBraquet(size_t begin, std::string in_bracket, const std::string& text);
   bool findBefore(size_t begin, char symbol);
-  bool findJustBefore(size_t begin, std::string symbol);
+  bool findJustBefore(size_t begin, const std::string& symbol);
   std::string getWordBefore(size_t begin);
   std::string getWordAfter(size_t begin, bool just_after = true);
-  size_t findAfter(size_t begin, std::string symbol);
-  bool findHere(size_t begin, std::string symbol);
+  size_t findAfter(size_t begin, const std::string& symbol);
+  bool findHere(size_t begin, const std::string& symbol);
 
   void print() {std::cout << text << std::endl; }
   void remove(char character);

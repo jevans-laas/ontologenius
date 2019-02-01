@@ -1,6 +1,6 @@
 #include "ontoloGenius/interpreter/codeDescription/Functions/FunctionContainer.h"
 
-bool FunctionContainer::functionExist(std::string name)
+bool FunctionContainer::functionExist(const std::string& name)
 {
   for(size_t i = 0; i < functions_.size(); i++)
   {
@@ -10,7 +10,7 @@ bool FunctionContainer::functionExist(std::string name)
   return false;
 }
 
-FunctionDescriptor* FunctionContainer::findFunction(std::string name)
+FunctionDescriptor* FunctionContainer::findFunction(const std::string& name)
 {
   for(size_t i = 0; i < functions_.size(); i++)
   {

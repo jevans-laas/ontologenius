@@ -23,7 +23,7 @@ std::string language;
 std::string intern_file = "none";
 std::vector<std::string> files;
 
-bool deleteInterface(std::string name)
+bool deleteInterface(const std::string& name)
 {
   interfaces_[name]->stop();
   try

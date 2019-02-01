@@ -14,9 +14,9 @@ public:
   explicit Error(Code* code = nullptr);
   ~Error() {}
 
-  void printError(size_t pose, std::string message);
-  void printWarning(size_t pose, std::string message);
-  void printNote(size_t pose, std::string message);
+  void printError(size_t pose, const std::string& message);
+  void printWarning(size_t pose, const std::string& message);
+  void printNote(size_t pose, const std::string& message);
 
   void printStatus();
 
@@ -31,7 +31,7 @@ private:
 
   size_t getBeginOfLine(size_t line_nb);
   void printCursor(size_t pose);
-  void printMessage(size_t pose, std::string message);
+  void printMessage(size_t pose, const std::string& message);
 };
 
 #endif

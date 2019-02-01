@@ -40,7 +40,7 @@ public:
 
   void linkGraph(ClassGraph* class_graph) noexcept {class_graph_ = class_graph; }
 
-  void add(std::string value, DataPropertyVectors_t& property_vectors) noexcept;
+  void add(const std::string& value, DataPropertyVectors_t& property_vectors) noexcept;
   void add(std::vector<std::string>& disjoints) noexcept;
 
   std::unordered_set<std::string> getDisjoint(const std::string& value) noexcept;

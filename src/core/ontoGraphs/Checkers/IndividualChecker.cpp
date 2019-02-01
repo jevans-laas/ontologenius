@@ -33,7 +33,7 @@ void IndividualChecker::checkSame() noexcept
     std::unordered_set<std::string> same = individual_graph_->getSame(graph_vect_[i]->value());
     std::unordered_set<std::string> distinct;
 
-    for (std::string it : same)
+    for (const std::string& it : same)
     {
       std::unordered_set<std::string> tmp = individual_graph_->getDistincts(it);
       distinct.insert(tmp.begin(), tmp.end());
@@ -195,7 +195,7 @@ void IndividualChecker::checkDataPropertyRange() noexcept
       std::unordered_set<std::string> range = individual_graph_->data_property_graph_->getRange(graph_vect_[i]->data_properties_name_[prop_i]->value());
       if(range.size() != 0)
       {
-        std::unordered_set<std::string>::iterator intersection = std::find(range.begin(), range.end(), graph_vect_[i]->data_properties_data_[prop_i].type_);
+        std::unordered_set<std::string>::iterator intersection = range.find(graph_vect_[i]->data_properties_data_[prop_i].type_);
         if(intersection == range.end())
           print_error("'" + graph_vect_[i]->data_properties_data_[prop_i].type_ + "' is not in range of '" + graph_vect_[i]->data_properties_name_[prop_i]->value() + "'");
       }

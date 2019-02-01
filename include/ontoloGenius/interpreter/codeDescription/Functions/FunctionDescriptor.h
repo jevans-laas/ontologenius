@@ -9,17 +9,17 @@
 class FunctionDescriptor
 {
 public:
-  FunctionDescriptor(std::string name, type_t return_type, std::vector<type_t> params_type);
+  FunctionDescriptor(const std::string& name, type_t return_type, std::vector<type_t> params_type);
   ~FunctionDescriptor() {}
 
   bool overload(type_t return_type, std::vector<type_t> params_type);
 
-  void addExplicitName(std::string name) { explicit_name_ = name; }
+  void addExplicitName(const std::string& name) { explicit_name_ = name; }
   std::string getExplicitName();
   std::string getName();
-  type_t getReturnType(std::vector<type_t> params);
+  type_t getReturnType(std::vector<type_t>& params);
 
-  bool testParams(std::vector<type_t> params);
+  bool testParams(std::vector<type_t>& params);
   size_t testNbParams(size_t nb);
   std::string getDeclaration(size_t nb);
 

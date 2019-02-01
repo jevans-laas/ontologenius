@@ -15,7 +15,7 @@ public:
 
   void writeDictionary(ValuedNodeData* node);
 
-  void writeString(std::string text);
+  void writeString(const std::string& text);
 };
 
 #endif

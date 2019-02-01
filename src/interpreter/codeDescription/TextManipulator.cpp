@@ -1,6 +1,6 @@
 #include "ontoloGenius/interpreter/codeDescription/TextManipulator.h"
 
-size_t TextManipulator::getInBraquet(size_t begin, std::string& in_bracket, std::string& text)
+size_t TextManipulator::getInBraquet(size_t begin, std::string in_bracket, const std::string& text)
 {
   size_t bracket = begin;
   while((text[bracket] == ' ') || (text[bracket] == '\n'))
@@ -42,7 +42,7 @@ bool TextManipulator::findBefore(size_t begin, char symbol)
     return false;
 }
 
-bool TextManipulator::findJustBefore(size_t begin, std::string symbol)
+bool TextManipulator::findJustBefore(size_t begin, const std::string& symbol)
 {
   for(size_t i = 0; i < symbol.size(); i++)
   {
@@ -90,7 +90,7 @@ Return the position of the first caracter of the searched symbol if the symbol w
 return std::string::npos even else
 /!\ begin can be on the last caracter of the precedent word
 */
-size_t TextManipulator::findAfter(size_t begin, std::string symbol)
+size_t TextManipulator::findAfter(size_t begin, const std::string& symbol)
 {
   while((text[begin+1] == ' ') || (text[begin+1] == '\n'))
     begin += 1;
@@ -108,7 +108,7 @@ Return true the symbol was found
 return false even else
 /!\ begin must be on the first caracter
 */
-bool TextManipulator::findHere(size_t begin, std::string symbol)
+bool TextManipulator::findHere(size_t begin, const std::string& symbol)
 {
   size_t pose = text.find(symbol, begin);
 

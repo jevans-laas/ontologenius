@@ -61,7 +61,7 @@ void DataPropertyBranch_t::setSteady_domain(ClassBranch_t* domain) noexcept
 void DataPropertyBranch_t::setSteady_range(std::string range) noexcept
 {
   data_t tmp;
-  tmp.type_ = range;
+  tmp.type_ = std::move(range);
   steady_.ranges_.push_back(tmp);
   ranges_.push_back(tmp);
 }
@@ -82,13 +82,13 @@ void DataPropertyBranch_t::setSteady_mother(DataPropertyBranch_t* mother) noexce
     mothers_.push_back(mother);
 }
 
-void DataPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
+void DataPropertyBranch_t::setSteady_dictionary(const std::string& lang, const std::string& word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void DataPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
+void DataPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

@@ -3,7 +3,7 @@
 
 #include "ontoloGenius/core/ontoGraphs/Graphs/ClassGraph.h"
 
-void DataPropertyGraph::add(std::string value, DataPropertyVectors_t& property_vectors) noexcept
+void DataPropertyGraph::add(const std::string& value, DataPropertyVectors_t& property_vectors) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
   /**********************

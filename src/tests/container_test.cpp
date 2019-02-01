@@ -43,14 +43,14 @@ private:
   size_t len;
   size_t cpt;
 
-  void init(std::string file_name, std::string option)
+  void init(std::string& file_name, const std::string& option)
   {
     file_ = fopen(file_name.c_str(), option.c_str());
     if(file_ == NULL)
       std::cout << "Fail to open file " << file_name << " with option '" << option << "'" << std::endl;
   }
 
-  void reset(std::string file_name)
+  void reset(std::string& file_name)
   {
     file_ = fopen(file_name.c_str(), "w");
     if(file_ == NULL)
@@ -96,7 +96,7 @@ double findAll(BranchContainerBase<ValuedNode>* container, std::vector<ValuedNod
   return time_span.count() / words.size();
 }
 
-double findAllNTime(BranchContainerBase<ValuedNode>* container, std::vector<ValuedNode*> words, size_t n)
+double findAllNTime(BranchContainerBase<ValuedNode>* container, std::vector<ValuedNode*>& words, size_t n)
 {
   double sum = 0;
   for(size_t i = 0; i < n; i++)

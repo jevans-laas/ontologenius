@@ -87,12 +87,12 @@ void ObjectPropertyBranch_t::setSteady_range(ClassBranch_t* range) noexcept
     ranges_.push_back(range);
 }
 
-void ObjectPropertyBranch_t::set_chain(std::vector<ObjectPropertyBranch_t*> chain) noexcept
+void ObjectPropertyBranch_t::set_chain(std::vector<ObjectPropertyBranch_t*>& chain) noexcept
 {
   chains_.push_back(chain);
 }
 
-void ObjectPropertyBranch_t::setSteady_chain(std::vector<std::string> chain) noexcept
+void ObjectPropertyBranch_t::setSteady_chain(std::vector<std::string>& chain) noexcept
 {
   steady_.str_chains_.push_back(chain);
 }
@@ -113,13 +113,13 @@ void ObjectPropertyBranch_t::setSteady_mother(ObjectPropertyBranch_t* mother) no
     mothers_.push_back(mother);
 }
 
-void ObjectPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
+void ObjectPropertyBranch_t::setSteady_dictionary(const std::string& lang, const std::string& word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void ObjectPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
+void ObjectPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>>& dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

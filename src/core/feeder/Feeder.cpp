@@ -166,7 +166,7 @@ void Feeder::classIndividualLangage(feed_t& feed) noexcept
 
 void Feeder::applyProperty(feed_t& feed) noexcept
 {
-  size_t pose = feed.on_.find(":");
+  size_t pose = feed.on_.find(':');
   std::string type = "";
   std::string data = "";
   bool data_property = false;
