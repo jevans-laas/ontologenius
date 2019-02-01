@@ -47,16 +47,16 @@ public:
 
   explicit IndividualBranch_t(std::string value = "") : ValuedNode(value) {mark = false; }
 
-  void setFullSteady();
-  void setSteady_is_a(ClassBranch_t* is_a);
-  void setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name);
-  void setSteady_object_properties_on(IndividualBranch_t* object_properties_on);
-  void setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name);
-  void setSteady_data_properties_data(data_t data_properties_data);
-  void setSteady_same_as(IndividualBranch_t* same_as);
-  void setSteady_distinct(IndividualBranch_t* distinct);
-  void setSteady_dictionary(std::string lang, std::string word);
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary);
+  void setFullSteady() noexcept;
+  void setSteady_is_a(ClassBranch_t* is_a) noexcept;
+  void setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name) noexcept;
+  void setSteady_object_properties_on(IndividualBranch_t* object_properties_on) noexcept;
+  void setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name) noexcept;
+  void setSteady_data_properties_data(data_t data_properties_data) noexcept;
+  void setSteady_same_as(IndividualBranch_t* same_as) noexcept;
+  void setSteady_distinct(IndividualBranch_t* distinct) noexcept;
+  void setSteady_dictionary(std::string lang, std::string word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
 };
 
 class Triplet
@@ -64,7 +64,7 @@ class Triplet
 public:
   void push(IndividualBranch_t* from,
             ObjectPropertyBranch_t* prop,
-            IndividualBranch_t* on)
+            IndividualBranch_t* on) noexcept
   {
     from_.push_back(from);
     prop_.push_back(prop);
@@ -72,7 +72,7 @@ public:
   }
   bool exist(IndividualBranch_t* from,
             ObjectPropertyBranch_t* prop,
-            IndividualBranch_t* on)
+            IndividualBranch_t* on) noexcept
   {
     for(auto from_i : from_)
       if(from_i == from)

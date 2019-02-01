@@ -10,17 +10,17 @@ public:
   explicit ClassChecker(ClassGraph* graph) : ValidityChecker(graph) {class_graph_ = graph;}
   ~ClassChecker() {}
 
-  size_t check();
-  void printStatus(){ValidityChecker<ClassBranch_t>::printStatus("class", "classes", graph_vect_.size());}
+  size_t check() noexcept;
+  void printStatus() noexcept {ValidityChecker<ClassBranch_t>::printStatus("class", "classes", graph_vect_.size());}
 
 private:
-  void checkDisjoint();
+  void checkDisjoint() noexcept;
 
-  void checkObectPropertyDomain();
-  void checkObectPropertyRange();
+  void checkObectPropertyDomain() noexcept;
+  void checkObectPropertyRange() noexcept;
 
-  void checkDataPropertyDomain();
-  void checkDataPropertyRange();
+  void checkDataPropertyDomain() noexcept;
+  void checkDataPropertyRange() noexcept;
 
   ClassGraph* class_graph_;
 };

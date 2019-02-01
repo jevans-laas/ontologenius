@@ -1,7 +1,7 @@
 #include "ontoloGenius/core/ontoGraphs/Checkers/ObjectPropertyChecker.h"
 #include <unordered_set>
 
-size_t ObjectPropertyChecker::check()
+size_t ObjectPropertyChecker::check() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(property_graph_->mutex_);
   graph_size = graph_vect_.size();
@@ -15,7 +15,7 @@ size_t ObjectPropertyChecker::check()
   return getErrors();
 }
 
-void ObjectPropertyChecker::checkDisjoint()
+void ObjectPropertyChecker::checkDisjoint() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -32,7 +32,7 @@ void ObjectPropertyChecker::checkDisjoint()
   }
 }
 
-void ObjectPropertyChecker::checkCharacteristics()
+void ObjectPropertyChecker::checkCharacteristics() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {

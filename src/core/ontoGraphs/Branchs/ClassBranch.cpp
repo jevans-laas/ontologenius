@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void ClassBranch_t::setFullSteady()
+void ClassBranch_t::setFullSteady() noexcept
 {
   steady_.disjoints_.clear();
   for(size_t i = 0; i < disjoints_.size(); i++)
@@ -46,7 +46,7 @@ void ClassBranch_t::setFullSteady()
     steady_.data_properties_data_.push_back(data_properties_data_[i]);
 }
 
-void ClassBranch_t::setSteady_disjoint(ClassBranch_t* disjoint)
+void ClassBranch_t::setSteady_disjoint(ClassBranch_t* disjoint) noexcept
 {
   if(std::find(steady_.disjoints_.begin(), steady_.disjoints_.end(), disjoint) == steady_.disjoints_.end())
     steady_.disjoints_.push_back(disjoint);
@@ -54,7 +54,7 @@ void ClassBranch_t::setSteady_disjoint(ClassBranch_t* disjoint)
     disjoints_.push_back(disjoint);
 }
 
-void ClassBranch_t::setSteady_child(ClassBranch_t* child)
+void ClassBranch_t::setSteady_child(ClassBranch_t* child) noexcept
 {
   if(std::find(steady_.childs_.begin(), steady_.childs_.end(), child) == steady_.childs_.end())
     steady_.childs_.push_back(child);
@@ -62,7 +62,7 @@ void ClassBranch_t::setSteady_child(ClassBranch_t* child)
     childs_.push_back(child);
 }
 
-void ClassBranch_t::setSteady_individual_child(IndividualBranch_t* child)
+void ClassBranch_t::setSteady_individual_child(IndividualBranch_t* child) noexcept
 {
   if(std::find(steady_.individual_childs_.begin(), steady_.individual_childs_.end(), child) == steady_.individual_childs_.end())
     steady_.individual_childs_.push_back(child);
@@ -70,7 +70,7 @@ void ClassBranch_t::setSteady_individual_child(IndividualBranch_t* child)
     individual_childs_.push_back(child);
 }
 
-void ClassBranch_t::setSteady_mother(ClassBranch_t* mother)
+void ClassBranch_t::setSteady_mother(ClassBranch_t* mother) noexcept
 {
   if(std::find(steady_.mothers_.begin(), steady_.mothers_.end(), mother) == steady_.mothers_.end())
     steady_.mothers_.push_back(mother);
@@ -78,37 +78,37 @@ void ClassBranch_t::setSteady_mother(ClassBranch_t* mother)
     mothers_.push_back(mother);
 }
 
-void ClassBranch_t::setSteady_dictionary(std::string lang, std::string word)
+void ClassBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void ClassBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary)
+void ClassBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;
 }
 
-void ClassBranch_t::setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name)
+void ClassBranch_t::setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name) noexcept
 {
   steady_.object_properties_name_.push_back(object_properties_name);
   object_properties_name_.push_back(object_properties_name);
 }
 
-void ClassBranch_t::setSteady_object_properties_on(ClassBranch_t* object_properties_on)
+void ClassBranch_t::setSteady_object_properties_on(ClassBranch_t* object_properties_on) noexcept
 {
   steady_.object_properties_on_.push_back(object_properties_on);
   object_properties_on_.push_back(object_properties_on);
 }
 
-void ClassBranch_t::setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name)
+void ClassBranch_t::setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name) noexcept
 {
   steady_.data_properties_name_.push_back(data_properties_name);
   data_properties_name_.push_back(data_properties_name);
 }
 
-void ClassBranch_t::setSteady_data_properties_data(data_t data_properties_data)
+void ClassBranch_t::setSteady_data_properties_data(data_t data_properties_data) noexcept
 {
   steady_.data_properties_data_.push_back(data_properties_data);
   data_properties_data_.push_back(data_properties_data);

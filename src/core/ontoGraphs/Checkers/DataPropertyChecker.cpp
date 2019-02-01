@@ -1,7 +1,7 @@
 #include "ontoloGenius/core/ontoGraphs/Checkers/DataPropertyChecker.h"
 #include <unordered_set>
 
-size_t DataPropertyChecker::check()
+size_t DataPropertyChecker::check() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(property_graph_->mutex_);
   graph_size = graph_vect_.size();
@@ -14,7 +14,7 @@ size_t DataPropertyChecker::check()
   return getErrors();
 }
 
-void DataPropertyChecker::checkDisjoint()
+void DataPropertyChecker::checkDisjoint() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {

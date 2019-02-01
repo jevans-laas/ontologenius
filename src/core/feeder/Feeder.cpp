@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-bool Feeder::run()
+bool Feeder::run() noexcept
 {
   bool has_run = false;
   std::queue<feed_t> feeds = feed_storage_.get();
@@ -44,7 +44,7 @@ bool Feeder::run()
   return has_run;
 }
 
-void Feeder::addDelClass(action_t& action, std::string& name)
+void Feeder::addDelClass(action_t& action, std::string& name) noexcept
 {
   if(action == action_add)
     onto_->class_graph_.create(name);
@@ -55,7 +55,7 @@ void Feeder::addDelClass(action_t& action, std::string& name)
   }
 }
 
-void Feeder::addDelIndiv(action_t& action, std::string& name)
+void Feeder::addDelIndiv(action_t& action, std::string& name) noexcept
 {
   if(action == action_add)
     onto_->individual_graph_.createIndividual(name);
@@ -66,7 +66,7 @@ void Feeder::addDelIndiv(action_t& action, std::string& name)
   }
 }
 
-void Feeder::addInheritage(feed_t& feed)
+void Feeder::addInheritage(feed_t& feed) noexcept
 {
   if(onto_->data_property_graph_.findBranch(feed.from_) != nullptr)
     modifyDataPropertyInheritance(feed);
@@ -80,7 +80,7 @@ void Feeder::addInheritage(feed_t& feed)
     classIndividualIsA(feed);
 }
 
-void Feeder::modifyDataPropertyInheritance(feed_t& feed)
+void Feeder::modifyDataPropertyInheritance(feed_t& feed) noexcept
 {
   DataPropertyBranch_t* tmp = onto_->data_property_graph_.findBranch(feed.from_);
   if(feed.action_ == action_add)
@@ -89,7 +89,7 @@ void Feeder::modifyDataPropertyInheritance(feed_t& feed)
     onto_->data_property_graph_.remove(tmp, feed.prop_, feed.on_);
 }
 
-void Feeder::modifyDataPropertyInheritanceInvert(feed_t& feed)
+void Feeder::modifyDataPropertyInheritanceInvert(feed_t& feed) noexcept
 {
   DataPropertyBranch_t* tmp = onto_->data_property_graph_.findBranch(feed.on_);
   if(feed.action_ == action_add)
@@ -98,7 +98,7 @@ void Feeder::modifyDataPropertyInheritanceInvert(feed_t& feed)
     notifications_.push_back("[FAIL][data property can not be removed by inverse]" + current_str_feed_);
 }
 
-void Feeder::modifyObjectPropertyInheritance(feed_t& feed)
+void Feeder::modifyObjectPropertyInheritance(feed_t& feed) noexcept
 {
   ObjectPropertyBranch_t* tmp = onto_->object_property_graph_.findBranch(feed.from_);
   if(feed.action_ == action_add)
@@ -107,7 +107,7 @@ void Feeder::modifyObjectPropertyInheritance(feed_t& feed)
     onto_->object_property_graph_.remove(tmp, feed.prop_, feed.on_);
 }
 
-void Feeder::modifyObjectPropertyInheritanceInvert(feed_t& feed)
+void Feeder::modifyObjectPropertyInheritanceInvert(feed_t& feed) noexcept
 {
   ObjectPropertyBranch_t* tmp = onto_->object_property_graph_.findBranch(feed.on_);
   if(feed.action_ == action_add)
@@ -116,7 +116,7 @@ void Feeder::modifyObjectPropertyInheritanceInvert(feed_t& feed)
     notifications_.push_back("[FAIL][object property can not be removed by inverse]" + current_str_feed_);
 }
 
-void Feeder::classIndividualIsA(feed_t& feed)
+void Feeder::classIndividualIsA(feed_t& feed) noexcept
 {
   if(feed.action_ == action_add)
   {
@@ -142,7 +142,7 @@ void Feeder::classIndividualIsA(feed_t& feed)
   }
 }
 
-void Feeder::classIndividualLangage(feed_t& feed)
+void Feeder::classIndividualLangage(feed_t& feed) noexcept
 {
   if(feed.action_ == action_add)
   {
@@ -164,7 +164,7 @@ void Feeder::classIndividualLangage(feed_t& feed)
   }
 }
 
-void Feeder::applyProperty(feed_t& feed)
+void Feeder::applyProperty(feed_t& feed) noexcept
 {
   size_t pose = feed.on_.find(":");
   std::string type = "";

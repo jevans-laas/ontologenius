@@ -43,19 +43,19 @@ public:
     delete nodes_;
   }
 
-  virtual B* find(const std::string& word);
-  virtual std::vector<B*> find(bool (*comp)(B*, std::string, std::string), const std::string& word, const std::string& lang);
-  virtual void load(std::vector<B*>& vect);
-  virtual void insert(B* branch);
-  virtual void erase(B* branch);
+  virtual B* find(const std::string& word) noexcept;
+  virtual std::vector<B*> find(bool (*comp)(B*, std::string, std::string), const std::string& word, const std::string& lang) noexcept;
+  virtual void load(std::vector<B*>& vect) noexcept;
+  virtual void insert(B* branch) noexcept;
+  virtual void erase(B* branch) noexcept;
 private:
   BranchNode_t<B>* nodes_;
   BranchNode_t<B>* nodes_end_;
   size_t buffer_size_;
   size_t nb_elem_;
 
-  void insertEnd(std::string id, B* branch);
-  void reconf(BranchNode_t<B>* node);
+  void insertEnd(std::string id, B* branch) noexcept;
+  void reconf(BranchNode_t<B>* node) noexcept;
 };
 
 template <typename B>
@@ -74,7 +74,7 @@ BranchContainerDyn<B>::BranchContainerDyn(const BranchContainerDyn& base)
 }
 
 template <typename B>
-B* BranchContainerDyn<B>::find(const std::string& word)
+B* BranchContainerDyn<B>::find(const std::string& word) noexcept
 {
   B* tmp = nullptr;
   size_t i = 0;
@@ -94,7 +94,7 @@ B* BranchContainerDyn<B>::find(const std::string& word)
 }
 
 template <typename B>
-std::vector<B*> BranchContainerDyn<B>::find(bool (*comp)(B*, std::string, std::string), const std::string& word, const std::string& lang)
+std::vector<B*> BranchContainerDyn<B>::find(bool (*comp)(B*, std::string, std::string), const std::string& word, const std::string& lang) noexcept
 {
   std::vector<B*> res;
 
@@ -106,7 +106,7 @@ std::vector<B*> BranchContainerDyn<B>::find(bool (*comp)(B*, std::string, std::s
 }
 
 template <typename B>
-void BranchContainerDyn<B>::load(std::vector<B*>& vect)
+void BranchContainerDyn<B>::load(std::vector<B*>& vect) noexcept
 {
   for(size_t i = 0; i < vect.size(); i++)
     insertEnd(vect[i]->value(), vect[i]);
@@ -116,13 +116,13 @@ void BranchContainerDyn<B>::load(std::vector<B*>& vect)
 }
 
 template <typename B>
-void BranchContainerDyn<B>::insert(B* branch)
+void BranchContainerDyn<B>::insert(B* branch) noexcept
 {
   insertEnd(branch->value(), branch);
 }
 
 template <typename B>
-void BranchContainerDyn<B>::erase(B* branch)
+void BranchContainerDyn<B>::erase(B* branch) noexcept
 {
   for(BranchNode_t<B>* node = nodes_; node->next != nullptr; node = node->next)
     if(node->next->branch == branch)
@@ -135,7 +135,7 @@ void BranchContainerDyn<B>::erase(B* branch)
 }
 
 template <typename B>
-void BranchContainerDyn<B>::insertEnd(std::string id, B* branch)
+void BranchContainerDyn<B>::insertEnd(std::string id, B* branch) noexcept
 {
   BranchNode_t<B>* tmp = new BranchNode_t<B>;
   tmp->id = id;
@@ -145,7 +145,7 @@ void BranchContainerDyn<B>::insertEnd(std::string id, B* branch)
 }
 
 template <typename B>
-void BranchContainerDyn<B>::reconf(BranchNode_t<B>* node)
+void BranchContainerDyn<B>::reconf(BranchNode_t<B>* node) noexcept
 {
  BranchNode_t<B>* tmp = node->next;
  node->next = tmp->next;

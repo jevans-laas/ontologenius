@@ -10,10 +10,10 @@ public:
   explicit DataPropertyChecker(DataPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
   ~DataPropertyChecker() {}
 
-  size_t check();
-  void printStatus(){ValidityChecker<DataPropertyBranch_t>::printStatus(std::string("data property"), std::string("data properties"), graph_vect_.size());}
+  size_t check() noexcept;
+  void printStatus() noexcept {ValidityChecker<DataPropertyBranch_t>::printStatus(std::string("data property"), std::string("data properties"), graph_vect_.size());}
 private:
-  void checkDisjoint();
+  void checkDisjoint() noexcept;
 
   DataPropertyGraph* property_graph_;
 };

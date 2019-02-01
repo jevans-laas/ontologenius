@@ -3,7 +3,7 @@
 
 #include "ontoloGenius/core/ontoGraphs/Graphs/ClassGraph.h"
 
-void ObjectPropertyGraph::add(std::string value, ObjectPropertyVectors_t& property_vectors)
+void ObjectPropertyGraph::add(std::string value, ObjectPropertyVectors_t& property_vectors) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
   /**********************
@@ -222,7 +222,7 @@ void ObjectPropertyGraph::add(std::string value, ObjectPropertyVectors_t& proper
 
 }
 
-void ObjectPropertyGraph::add(std::vector<std::string>& disjoints)
+void ObjectPropertyGraph::add(std::vector<std::string>& disjoints) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
 
@@ -276,7 +276,7 @@ void ObjectPropertyGraph::add(std::vector<std::string>& disjoints)
 }
 
 
-std::unordered_set<std::string> ObjectPropertyGraph::getDisjoint(const std::string& value)
+std::unordered_set<std::string> ObjectPropertyGraph::getDisjoint(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
@@ -289,7 +289,7 @@ std::unordered_set<std::string> ObjectPropertyGraph::getDisjoint(const std::stri
   return res;
 }
 
-void ObjectPropertyGraph::getDisjoint(ObjectPropertyBranch_t* branch, std::unordered_set<ObjectPropertyBranch_t*>& res)
+void ObjectPropertyGraph::getDisjoint(ObjectPropertyBranch_t* branch, std::unordered_set<ObjectPropertyBranch_t*>& res) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
 
@@ -298,7 +298,7 @@ void ObjectPropertyGraph::getDisjoint(ObjectPropertyBranch_t* branch, std::unord
       getDownPtr(branch->disjoints_[disjoint_i], res);
 }
 
-std::unordered_set<std::string> ObjectPropertyGraph::getInverse(const std::string& value)
+std::unordered_set<std::string> ObjectPropertyGraph::getInverse(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
@@ -311,7 +311,7 @@ std::unordered_set<std::string> ObjectPropertyGraph::getInverse(const std::strin
   return res;
 }
 
-std::unordered_set<std::string> ObjectPropertyGraph::getDomain(const std::string& value)
+std::unordered_set<std::string> ObjectPropertyGraph::getDomain(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
@@ -324,7 +324,7 @@ std::unordered_set<std::string> ObjectPropertyGraph::getDomain(const std::string
   return res;
 }
 
-void ObjectPropertyGraph::getDomainPtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth)
+void ObjectPropertyGraph::getDomainPtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
 
@@ -333,7 +333,7 @@ void ObjectPropertyGraph::getDomainPtr(ObjectPropertyBranch_t* branch, std::unor
       class_graph_->getDownPtr(branch->domains_[domain_i], res, depth);
 }
 
-std::unordered_set<std::string> ObjectPropertyGraph::getRange(const std::string& value)
+std::unordered_set<std::string> ObjectPropertyGraph::getRange(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
@@ -346,7 +346,7 @@ std::unordered_set<std::string> ObjectPropertyGraph::getRange(const std::string&
   return res;
 }
 
-void ObjectPropertyGraph::getRangePtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth)
+void ObjectPropertyGraph::getRangePtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ObjectPropertyBranch_t>::mutex_);
   if(branch != nullptr)
@@ -354,7 +354,7 @@ void ObjectPropertyGraph::getRangePtr(ObjectPropertyBranch_t* branch, std::unord
       class_graph_->getDownPtr(branch->ranges_[range_i], res, depth);
 }
 
-std::unordered_set<std::string> ObjectPropertyGraph::select(std::unordered_set<std::string>& on, const std::string& selector)
+std::unordered_set<std::string> ObjectPropertyGraph::select(std::unordered_set<std::string>& on, const std::string& selector) noexcept
 {
   std::unordered_set<std::string> res;
   for(const std::string& it : on)
@@ -366,7 +366,7 @@ std::unordered_set<std::string> ObjectPropertyGraph::select(std::unordered_set<s
   return res;
 }
 
-bool ObjectPropertyGraph::add(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool ObjectPropertyGraph::add(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   if(relation != "")
   {
@@ -394,7 +394,7 @@ bool ObjectPropertyGraph::add(ObjectPropertyBranch_t* prop, std::string& relatio
   return true;
 }
 
-bool ObjectPropertyGraph::addInvert(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool ObjectPropertyGraph::addInvert(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   if(relation != "")
   {
@@ -415,7 +415,7 @@ bool ObjectPropertyGraph::addInvert(ObjectPropertyBranch_t* prop, std::string& r
   return true;
 }
 
-bool ObjectPropertyGraph::remove(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool ObjectPropertyGraph::remove(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   return false;
 }

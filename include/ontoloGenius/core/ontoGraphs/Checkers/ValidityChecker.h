@@ -30,13 +30,13 @@ protected:
   bool is_analysed;
   size_t graph_size;
 
-  void print_error(std::string err)
+  void print_error(std::string err) noexcept
   {
     std::cout << COLOR_RED << err << COLOR_OFF << std::endl;
     nb_error_++;
   }
 
-  void print_warning(std::string warn)
+  void print_warning(std::string warn) noexcept
   {
     std::cout << COLOR_ORANGE << warn << COLOR_OFF << std::endl;
     nb_warn_++;
@@ -44,7 +44,7 @@ protected:
 
   virtual void printStatus() = 0;
 
-  void printStatus(std::string type, std::string types, size_t nb)
+  void printStatus(std::string type, std::string types, size_t nb) noexcept
   {
     if(is_analysed)
     {
@@ -68,7 +68,7 @@ protected:
     }
   }
 
-  std::string findIntersection(std::unordered_set<std::string>& base, std::unordered_set<std::string>& comp)
+  std::string findIntersection(std::unordered_set<std::string>& base, std::unordered_set<std::string>& comp) noexcept
   {
     std::string res = "";
     for(auto it : comp)
@@ -82,7 +82,7 @@ protected:
     return res;
   }
 
-  inline ClassBranch_t* findIntersection(std::unordered_set<ClassBranch_t*>& base, std::unordered_set<ClassBranch_t*>& comp)
+  inline ClassBranch_t* findIntersection(std::unordered_set<ClassBranch_t*>& base, std::unordered_set<ClassBranch_t*>& comp) noexcept
   {
     for (ClassBranch_t* it : comp)
     {
@@ -92,8 +92,8 @@ protected:
     return nullptr;
   }
 
-  size_t getErrors() {return nb_error_; }
-  size_t getWarnings() {return nb_warn_; }
+  size_t getErrors() noexcept {return nb_error_; }
+  size_t getWarnings() noexcept {return nb_warn_; }
 
 private:
   size_t nb_error_;

@@ -22,13 +22,13 @@ IndividualGraph::~IndividualGraph()
   individuals_.clear();
 }
 
-void IndividualGraph::close()
+void IndividualGraph::close() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
   container_.load(individuals_);
 }
 
-void IndividualGraph::add(std::string value, IndividualVectors_t& individual_vector)
+void IndividualGraph::add(std::string value, IndividualVectors_t& individual_vector) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
   //am I created ?
@@ -156,7 +156,7 @@ void IndividualGraph::add(std::string value, IndividualVectors_t& individual_vec
   individuals_.push_back(me);
 }
 
-void IndividualGraph::add(std::vector<std::string>& distinct)
+void IndividualGraph::add(std::vector<std::string>& distinct) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
 
@@ -210,7 +210,7 @@ void IndividualGraph::add(std::vector<std::string>& distinct)
 *
 *********/
 
-void IndividualGraph::addObjectPropertyName(IndividualBranch_t* me, std::string& name, bool deduced)
+void IndividualGraph::addObjectPropertyName(IndividualBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties = false;
 
@@ -256,7 +256,7 @@ void IndividualGraph::addObjectPropertyName(IndividualBranch_t* me, std::string&
   }
 }
 
-void IndividualGraph::addObjectPropertyOn(IndividualBranch_t* me, std::string& name, bool deduced)
+void IndividualGraph::addObjectPropertyOn(IndividualBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties_on = false;
 
@@ -283,7 +283,7 @@ void IndividualGraph::addObjectPropertyOn(IndividualBranch_t* me, std::string& n
   }
 }
 
-void IndividualGraph::addDataPropertyName(IndividualBranch_t* me, std::string& name, bool deduced)
+void IndividualGraph::addDataPropertyName(IndividualBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties = false;
 
@@ -329,7 +329,7 @@ void IndividualGraph::addDataPropertyName(IndividualBranch_t* me, std::string& n
   }
 }
 
-void IndividualGraph::addDataPropertyData(IndividualBranch_t* me, data_t& data, bool deduced)
+void IndividualGraph::addDataPropertyData(IndividualBranch_t* me, data_t& data, bool deduced) noexcept
 {
   if(deduced == false)
     me->setSteady_data_properties_data(data);
@@ -343,12 +343,12 @@ void IndividualGraph::addDataPropertyData(IndividualBranch_t* me, data_t& data, 
 *
 *********/
 
-std::unordered_set<std::string> IndividualGraph::getSame(const std::string& individual)
+std::unordered_set<std::string> IndividualGraph::getSame(const std::string& individual) noexcept
 {
   return getSameAndClean(container_.find(individual));
 }
 
-std::unordered_set<std::string> IndividualGraph::getDistincts(const std::string& individual)
+std::unordered_set<std::string> IndividualGraph::getDistincts(const std::string& individual) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -362,7 +362,7 @@ std::unordered_set<std::string> IndividualGraph::getDistincts(const std::string&
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelationFrom(const std::string& individual, int depth)
+std::unordered_set<std::string> IndividualGraph::getRelationFrom(const std::string& individual, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -389,7 +389,7 @@ std::unordered_set<std::string> IndividualGraph::getRelationFrom(const std::stri
   return res;
 }
 
-void IndividualGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth)
+void IndividualGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth) noexcept
 {
   if(class_branch != nullptr)
   {
@@ -401,7 +401,7 @@ void IndividualGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordere
   }
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelatedFrom(const std::string& property)
+std::unordered_set<std::string> IndividualGraph::getRelatedFrom(const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -444,7 +444,7 @@ std::unordered_set<std::string> IndividualGraph::getRelatedFrom(const std::strin
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelationOn(const std::string& individual, int depth)
+std::unordered_set<std::string> IndividualGraph::getRelationOn(const std::string& individual, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -468,7 +468,7 @@ std::unordered_set<std::string> IndividualGraph::getRelationOn(const std::string
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelatedOn(const std::string& property)
+std::unordered_set<std::string> IndividualGraph::getRelatedOn(const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -496,7 +496,7 @@ std::unordered_set<std::string> IndividualGraph::getRelatedOn(const std::string&
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelationWith(const std::string& individual)
+std::unordered_set<std::string> IndividualGraph::getRelationWith(const std::string& individual) noexcept
 {
   std::unordered_set<std::string> res;
 
@@ -545,7 +545,7 @@ std::unordered_set<std::string> IndividualGraph::getRelationWith(const std::stri
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getRelatedWith(const std::string& individual)
+std::unordered_set<std::string> IndividualGraph::getRelatedWith(const std::string& individual) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -590,7 +590,7 @@ std::unordered_set<std::string> IndividualGraph::getRelatedWith(const std::strin
   return res;
 }
 
-bool IndividualGraph::getRelatedWith(ClassBranch_t* class_branch, const std::string& data, std::unordered_set<ClassBranch_t*>& next_step, std::unordered_set<uint32_t>& took)
+bool IndividualGraph::getRelatedWith(ClassBranch_t* class_branch, const std::string& data, std::unordered_set<ClassBranch_t*>& next_step, std::unordered_set<uint32_t>& took) noexcept
 {
   bool res = false;
   if(class_branch != nullptr)
@@ -617,7 +617,7 @@ bool IndividualGraph::getRelatedWith(ClassBranch_t* class_branch, const std::str
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& param)
+std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& param) noexcept
 {
   std::unordered_set<std::string> res;
   std::string individual;
@@ -632,7 +632,7 @@ std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& para
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& individual, const std::string& property)
+std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& individual, const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -698,7 +698,7 @@ std::unordered_set<std::string> IndividualGraph::getFrom(const std::string& indi
   return res;
 }
 
-bool IndividualGraph::getFrom(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, const std::string& data, std::unordered_set<uint32_t>& down_classes, std::unordered_set<ClassBranch_t*>& next_step, std::unordered_set<uint32_t>& doNotTake)
+bool IndividualGraph::getFrom(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, const std::string& data, std::unordered_set<uint32_t>& down_classes, std::unordered_set<ClassBranch_t*>& next_step, std::unordered_set<uint32_t>& doNotTake) noexcept
 {
   if(class_branch != nullptr)
   {
@@ -748,7 +748,7 @@ bool IndividualGraph::getFrom(ClassBranch_t* class_branch, std::unordered_set<ui
   return false;
 }
 
-std::unordered_set<std::string> IndividualGraph::getOn(const std::string& param)
+std::unordered_set<std::string> IndividualGraph::getOn(const std::string& param) noexcept
 {
   std::unordered_set<std::string> res;
   std::string individual;
@@ -763,7 +763,7 @@ std::unordered_set<std::string> IndividualGraph::getOn(const std::string& param)
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getOn(const std::string& individual, const std::string& property)
+std::unordered_set<std::string> IndividualGraph::getOn(const std::string& individual, const std::string& property) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -800,7 +800,7 @@ std::unordered_set<std::string> IndividualGraph::getOn(const std::string& indivi
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getWith(const std::string& param, int depth)
+std::unordered_set<std::string> IndividualGraph::getWith(const std::string& param, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   size_t pose = param.find(":");
@@ -813,7 +813,7 @@ std::unordered_set<std::string> IndividualGraph::getWith(const std::string& para
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getWith(const std::string& first_individual, const std::string& second_individual, int depth)
+std::unordered_set<std::string> IndividualGraph::getWith(const std::string& first_individual, const std::string& second_individual, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -848,7 +848,7 @@ std::unordered_set<std::string> IndividualGraph::getWith(const std::string& firs
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getUp(IndividualBranch_t* indiv, int depth, unsigned int current_depth)
+std::unordered_set<std::string> IndividualGraph::getUp(IndividualBranch_t* indiv, int depth, unsigned int current_depth) noexcept
 {
   current_depth++;
   std::unordered_set<std::string> res;
@@ -864,14 +864,14 @@ std::unordered_set<std::string> IndividualGraph::getUp(IndividualBranch_t* indiv
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getUp(const std::string& individual, int depth)
+std::unordered_set<std::string> IndividualGraph::getUp(const std::string& individual, int depth) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
   IndividualBranch_t* indiv = container_.find(individual);
   return getUp(indiv, depth);
 }
 
-void IndividualGraph::getUpPtr(IndividualBranch_t* indiv, std::unordered_set<ClassBranch_t*>& res, int depth, unsigned int current_depth)
+void IndividualGraph::getUpPtr(IndividualBranch_t* indiv, std::unordered_set<ClassBranch_t*>& res, int depth, unsigned int current_depth) noexcept
 {
   current_depth++;
   if(indiv != nullptr)
@@ -885,12 +885,12 @@ void IndividualGraph::getUpPtr(IndividualBranch_t* indiv, std::unordered_set<Cla
   }
 }
 
-std::unordered_set<uint32_t> IndividualGraph::getSameId(const std::string& individual)
+std::unordered_set<uint32_t> IndividualGraph::getSameId(const std::string& individual) noexcept
 {
   return getSameIdAndClean(container_.find(individual));
 }
 
-void IndividualGraph::getSame(IndividualBranch_t* individual, std::unordered_set<IndividualBranch_t*>& res)
+void IndividualGraph::getSame(IndividualBranch_t* individual, std::unordered_set<IndividualBranch_t*>& res) noexcept
 {
   if(individual != nullptr)
   {
@@ -902,7 +902,7 @@ void IndividualGraph::getSame(IndividualBranch_t* individual, std::unordered_set
   }
 }
 
-std::unordered_set<std::string> IndividualGraph::getSameAndClean(IndividualBranch_t* individual)
+std::unordered_set<std::string> IndividualGraph::getSameAndClean(IndividualBranch_t* individual) noexcept
 {
   std::unordered_set<IndividualBranch_t*> sames;
   getSame(individual, sames);
@@ -915,7 +915,7 @@ std::unordered_set<std::string> IndividualGraph::getSameAndClean(IndividualBranc
   return res;
 }
 
-std::unordered_set<uint32_t> IndividualGraph::getSameIdAndClean(IndividualBranch_t* individual)
+std::unordered_set<uint32_t> IndividualGraph::getSameIdAndClean(IndividualBranch_t* individual) noexcept
 {
   std::unordered_set<IndividualBranch_t*> sames;
   getSame(individual, sames);
@@ -928,7 +928,7 @@ std::unordered_set<uint32_t> IndividualGraph::getSameIdAndClean(IndividualBranch
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::select(std::unordered_set<std::string>& on, const std::string& class_selector)
+std::unordered_set<std::string> IndividualGraph::select(std::unordered_set<std::string>& on, const std::string& class_selector) noexcept
 {
   std::unordered_set<std::string> res;
   for(const std::string& it : on)
@@ -940,7 +940,7 @@ std::unordered_set<std::string> IndividualGraph::select(std::unordered_set<std::
   return res;
 }
 
-std::string IndividualGraph::getName(const std::string& value)
+std::string IndividualGraph::getName(const std::string& value) noexcept
 {
   std::string res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -981,7 +981,7 @@ std::string IndividualGraph::getName(const std::string& value)
   return res;
 }
 
-std::vector<std::string> IndividualGraph::getNames(const std::string& value)
+std::vector<std::string> IndividualGraph::getNames(const std::string& value) noexcept
 {
   std::vector<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -998,7 +998,7 @@ std::vector<std::string> IndividualGraph::getNames(const std::string& value)
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::find(const std::string& value)
+std::unordered_set<std::string> IndividualGraph::find(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<IndividualBranch_t>::mutex_);
@@ -1012,7 +1012,7 @@ std::unordered_set<std::string> IndividualGraph::find(const std::string& value)
   return res;
 }
 
-std::unordered_set<std::string> IndividualGraph::getType(const std::string& class_selector)
+std::unordered_set<std::string> IndividualGraph::getType(const std::string& class_selector) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock_class(class_graph_->mutex_);
 
@@ -1025,17 +1025,16 @@ std::unordered_set<std::string> IndividualGraph::getType(const std::string& clas
       class_graph_->getDownIndividual(down, res);
   }
 
-
   return res;
 }
 
-void IndividualGraph::cleanMarks(std::unordered_set<IndividualBranch_t*>& indSet)
+void IndividualGraph::cleanMarks(std::unordered_set<IndividualBranch_t*>& indSet) noexcept
 {
   for(IndividualBranch_t* it : indSet)
     it->mark = false;
 }
 
-std::unordered_set<std::string> IndividualGraph::set2set(std::unordered_set<IndividualBranch_t*>& indSet, bool clean)
+std::unordered_set<std::string> IndividualGraph::set2set(std::unordered_set<IndividualBranch_t*>& indSet, bool clean) noexcept
 {
   std::unordered_set<std::string> res;
   for(IndividualBranch_t* it : indSet)
@@ -1047,7 +1046,7 @@ std::unordered_set<std::string> IndividualGraph::set2set(std::unordered_set<Indi
   return res;
 }
 
-ClassBranch_t* IndividualGraph::upgradeToBranch(IndividualBranch_t* indiv)
+ClassBranch_t* IndividualGraph::upgradeToBranch(IndividualBranch_t* indiv) noexcept
 {
   if(indiv != nullptr)
   {
@@ -1070,7 +1069,7 @@ ClassBranch_t* IndividualGraph::upgradeToBranch(IndividualBranch_t* indiv)
   return nullptr;
 }
 
-void IndividualGraph::createIndividual(std::string& name)
+void IndividualGraph::createIndividual(std::string& name) noexcept
 {
   IndividualBranch_t* indiv = findBranch(name);
   if(indiv == nullptr)
@@ -1082,7 +1081,7 @@ void IndividualGraph::createIndividual(std::string& name)
   }
 }
 
-void IndividualGraph::deleteIndividual(IndividualBranch_t* indiv)
+void IndividualGraph::deleteIndividual(IndividualBranch_t* indiv) noexcept
 {
   if(indiv != nullptr)
   {
@@ -1151,7 +1150,7 @@ void IndividualGraph::deleteIndividual(IndividualBranch_t* indiv)
   }
 }
 
-void IndividualGraph::redirectDeleteIndividual(IndividualBranch_t* indiv, ClassBranch_t* _class)
+void IndividualGraph::redirectDeleteIndividual(IndividualBranch_t* indiv, ClassBranch_t* _class) noexcept
 {
   if(indiv != nullptr)
   {
@@ -1226,7 +1225,7 @@ void IndividualGraph::redirectDeleteIndividual(IndividualBranch_t* indiv, ClassB
   }
 }
 
-void IndividualGraph::addLang(std::string& indiv, std::string& lang, std::string& name)
+void IndividualGraph::addLang(std::string& indiv, std::string& lang, std::string& name) noexcept
 {
   IndividualBranch_t* branch = findBranch(indiv);
   if(branch != nullptr)
@@ -1238,7 +1237,7 @@ void IndividualGraph::addLang(std::string& indiv, std::string& lang, std::string
   }
 }
 
-void IndividualGraph::addInheritage(std::string& indiv, std::string& class_inherited)
+void IndividualGraph::addInheritage(std::string& indiv, std::string& class_inherited) noexcept
 {
   IndividualBranch_t* branch = findBranch(indiv);
   if(branch != nullptr)
@@ -1265,7 +1264,7 @@ void IndividualGraph::addInheritage(std::string& indiv, std::string& class_inher
   }
 }
 
-void IndividualGraph::addInheritageInvert(std::string& indiv, std::string& class_inherited)
+void IndividualGraph::addInheritageInvert(std::string& indiv, std::string& class_inherited) noexcept
 {
   ClassBranch_t* inherited = class_graph_->findBranch(class_inherited);
   if(inherited != nullptr)
@@ -1287,7 +1286,7 @@ void IndividualGraph::addInheritageInvert(std::string& indiv, std::string& class
   }
 }
 
-void IndividualGraph::addInheritageInvertUpgrade(std::string& indiv, std::string& class_inherited)
+void IndividualGraph::addInheritageInvertUpgrade(std::string& indiv, std::string& class_inherited) noexcept
 {
   IndividualBranch_t* tmp = findBranch(class_inherited);
   if(tmp != nullptr)
@@ -1310,7 +1309,7 @@ void IndividualGraph::addInheritageInvertUpgrade(std::string& indiv, std::string
   }
 }
 
-bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property, std::string& indiv_on)
+bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property, std::string& indiv_on) noexcept
 {
   IndividualBranch_t* branch_from = findBranch(indiv_from);
   if(branch_from != nullptr)
@@ -1357,7 +1356,7 @@ bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property
   return false;
 }
 
-bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property, std::string& type, std::string& data)
+bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property, std::string& type, std::string& data) noexcept
 {
   IndividualBranch_t* branch_from = findBranch(indiv_from);
   if(branch_from != nullptr)
@@ -1393,7 +1392,7 @@ bool IndividualGraph::addProperty(std::string& indiv_from, std::string& property
   return false;
 }
 
-bool IndividualGraph::addPropertyInvert(std::string& indiv_from, std::string& property, std::string& indiv_on)
+bool IndividualGraph::addPropertyInvert(std::string& indiv_from, std::string& property, std::string& indiv_on) noexcept
 {
   IndividualBranch_t* branch_on = findBranch(indiv_on);
   if(branch_on != nullptr)
@@ -1440,7 +1439,7 @@ bool IndividualGraph::addPropertyInvert(std::string& indiv_from, std::string& pr
   return false;
 }
 
-void IndividualGraph::removeLang(std::string& indiv, std::string& lang, std::string& name)
+void IndividualGraph::removeLang(std::string& indiv, std::string& lang, std::string& name) noexcept
 {
   IndividualBranch_t* branch = findBranch(indiv);
 
@@ -1462,7 +1461,7 @@ void IndividualGraph::removeLang(std::string& indiv, std::string& lang, std::str
   }
 }
 
-void IndividualGraph::removeInheritage(std::string& class_base, std::string& class_inherited)
+void IndividualGraph::removeInheritage(std::string& class_base, std::string& class_inherited) noexcept
 {
   IndividualBranch_t* branch_base = findBranch(class_base);
   ClassBranch_t* branch_inherited = class_graph_->findBranch(class_inherited);
@@ -1503,7 +1502,7 @@ void IndividualGraph::removeInheritage(std::string& class_base, std::string& cla
   branch_inherited->updated_ = true;
 }
 
-bool IndividualGraph::removeProperty(IndividualBranch_t* branch_from, ObjectPropertyBranch_t* property, IndividualBranch_t* branch_on)
+bool IndividualGraph::removeProperty(IndividualBranch_t* branch_from, ObjectPropertyBranch_t* property, IndividualBranch_t* branch_on) noexcept
 {
   bool updated = false;
   for(size_t i = 0; i < branch_from->object_properties_name_.size();)
@@ -1556,7 +1555,7 @@ bool IndividualGraph::removeProperty(IndividualBranch_t* branch_from, ObjectProp
   return true;
 }
 
-bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& property, std::string& indiv_on)
+bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& property, std::string& indiv_on) noexcept
 {
   IndividualBranch_t* branch_from = findBranch(indiv_from);
   if(branch_from != nullptr)
@@ -1572,7 +1571,7 @@ bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& prope
   return false;
 }
 
-bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& property, std::string& type, std::string& data)
+bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& property, std::string& type, std::string& data) noexcept
 {
   IndividualBranch_t* branch_from = findBranch(indiv_from);
   if(branch_from != nullptr)
@@ -1617,13 +1616,13 @@ bool IndividualGraph::removeProperty(std::string& indiv_from, std::string& prope
   return false;
 }
 
-void IndividualGraph::setObjectPropertiesUpdated(std::vector<IndividualBranch_t*> branchs)
+void IndividualGraph::setObjectPropertiesUpdated(std::vector<IndividualBranch_t*> branchs) noexcept
 {
   for(auto branch : branchs)
     branch->updated_ = true;
 }
 
-void IndividualGraph::removePropertyInverse(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on)
+void IndividualGraph::removePropertyInverse(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on) noexcept
 {
   for(ObjectPropertyBranch_t* invert : property->inverses_)
   {
@@ -1647,7 +1646,7 @@ void IndividualGraph::removePropertyInverse(IndividualBranch_t* indiv_from, Obje
   }
 }
 
-void IndividualGraph::removePropertySymetric(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on)
+void IndividualGraph::removePropertySymetric(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on) noexcept
 {
   if(property->properties_.symetric_property_ == true)
   {
@@ -1671,7 +1670,7 @@ void IndividualGraph::removePropertySymetric(IndividualBranch_t* indiv_from, Obj
   }
 }
 
-void IndividualGraph::removePropertyChain(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on)
+void IndividualGraph::removePropertyChain(IndividualBranch_t* indiv_from, ObjectPropertyBranch_t* property, IndividualBranch_t* indiv_on) noexcept
 {
   for(size_t k = 0; k < property->chains_.size(); k++)
   {
@@ -1697,7 +1696,7 @@ void IndividualGraph::removePropertyChain(IndividualBranch_t* indiv_from, Object
   }
 }
 
-std::vector<IndividualBranch_t*> IndividualGraph::resolveLink(std::vector<ObjectPropertyBranch_t*>& chain, IndividualBranch_t* indiv_on, size_t index)
+std::vector<IndividualBranch_t*> IndividualGraph::resolveLink(std::vector<ObjectPropertyBranch_t*>& chain, IndividualBranch_t* indiv_on, size_t index) noexcept
 {
   std::vector<IndividualBranch_t*> new_on;
   if(chain.size() > 0)
@@ -1719,7 +1718,7 @@ std::vector<IndividualBranch_t*> IndividualGraph::resolveLink(std::vector<Object
   return new_on;
 }
 
-bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, ObjectPropertyBranch_t* prop, IndividualBranch_t* on)
+bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, ObjectPropertyBranch_t* prop, IndividualBranch_t* on) noexcept
 {
   std::unordered_set<ClassBranch_t*> up_from;
   getUpPtr(from, up_from);
@@ -1777,7 +1776,7 @@ bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, ObjectProper
   return true;
 }
 
-bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, DataPropertyBranch_t* prop, data_t& data)
+bool IndividualGraph::checkRangeAndDomain(IndividualBranch_t* from, DataPropertyBranch_t* prop, data_t& data) noexcept
 {
   std::unordered_set<ClassBranch_t*> up_from;
   getUpPtr(from, up_from);

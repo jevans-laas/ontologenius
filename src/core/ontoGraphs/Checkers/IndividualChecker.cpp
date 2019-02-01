@@ -5,7 +5,7 @@
 #include "ontoloGenius/core/ontoGraphs/Graphs/ObjectPropertyGraph.h"
 #include "ontoloGenius/core/ontoGraphs/Graphs/DataPropertyGraph.h"
 
-size_t IndividualChecker::check()
+size_t IndividualChecker::check() noexcept
 {
   graph_size = graph_vect_.size();
   checkSame();
@@ -26,7 +26,7 @@ size_t IndividualChecker::check()
   return getErrors();
 }
 
-void IndividualChecker::checkSame()
+void IndividualChecker::checkSame() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -45,7 +45,7 @@ void IndividualChecker::checkSame()
   }
 }
 
-void IndividualChecker::checkReflexive()
+void IndividualChecker::checkReflexive() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(individual_graph_->mutex_);
   for(size_t i = 0; i < graph_size; i++)
@@ -66,7 +66,7 @@ void IndividualChecker::checkReflexive()
   }
 }
 
-void IndividualChecker::checkObectPropertyDomain()
+void IndividualChecker::checkObectPropertyDomain() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -106,7 +106,7 @@ void IndividualChecker::checkObectPropertyDomain()
   }
 }
 
-void IndividualChecker::checkObectPropertyRange()
+void IndividualChecker::checkObectPropertyRange() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -145,7 +145,7 @@ void IndividualChecker::checkObectPropertyRange()
   }
 }
 
-void IndividualChecker::checkDataPropertyDomain()
+void IndividualChecker::checkDataPropertyDomain() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -185,7 +185,7 @@ void IndividualChecker::checkDataPropertyDomain()
   }
 }
 
-void IndividualChecker::checkDataPropertyRange()
+void IndividualChecker::checkDataPropertyRange() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(individual_graph_->mutex_);
   for(size_t i = 0; i < graph_size; i++)
@@ -203,7 +203,7 @@ void IndividualChecker::checkDataPropertyRange()
   }
 }
 
-void IndividualChecker::checkAssymetric()
+void IndividualChecker::checkAssymetric() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(individual_graph_->mutex_);
   for(size_t i = 0; i < graph_size; i++)
@@ -217,7 +217,7 @@ void IndividualChecker::checkAssymetric()
   }
 }
 
-bool IndividualChecker::symetricExist(IndividualBranch_t* indiv_on, ObjectPropertyBranch_t* sym_prop, IndividualBranch_t* sym_indiv)
+bool IndividualChecker::symetricExist(IndividualBranch_t* indiv_on, ObjectPropertyBranch_t* sym_prop, IndividualBranch_t* sym_indiv) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(individual_graph_->mutex_);
   for(size_t i = 0; i < sym_indiv->object_properties_name_.size(); i++)

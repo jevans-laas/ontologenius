@@ -27,8 +27,8 @@ class ValuedNode : public UpdatableNode, public ValuedNodeData
 public:
   explicit ValuedNode(const std::string& value) : UpdatableNode() {index_ = table_.add(value); }
 
-  uint32_t get() {return index_; }
-  std::string value() {return table_[index_]; }
+  uint32_t get() noexcept {return index_; }
+  std::string value() noexcept {return table_[index_]; }
 
   static WordTable table_;
 private:

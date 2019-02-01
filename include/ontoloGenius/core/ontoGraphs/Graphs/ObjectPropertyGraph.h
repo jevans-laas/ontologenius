@@ -40,29 +40,29 @@ public:
   explicit ObjectPropertyGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
   ~ObjectPropertyGraph() {}
 
-  void linkGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
+  void linkGraph(ClassGraph* class_graph) noexcept {class_graph_ = class_graph; }
 
-  void add(std::string value, ObjectPropertyVectors_t& property_vectors);
-  void add(std::vector<std::string>& disjoints);
+  void add(std::string value, ObjectPropertyVectors_t& property_vectors) noexcept;
+  void add(std::vector<std::string>& disjoints) noexcept;
 
-  std::unordered_set<std::string> getDisjoint(const std::string& value);
-  std::unordered_set<std::string> getInverse(const std::string& value);
-  std::unordered_set<std::string> getDomain(const std::string& value);
-  void getDomainPtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1);
-  std::unordered_set<std::string> getRange(const std::string& value);
-  void getRangePtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1);
-  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& selector);
+  std::unordered_set<std::string> getDisjoint(const std::string& value) noexcept;
+  std::unordered_set<std::string> getInverse(const std::string& value) noexcept;
+  std::unordered_set<std::string> getDomain(const std::string& value) noexcept;
+  void getDomainPtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1) noexcept;
+  std::unordered_set<std::string> getRange(const std::string& value) noexcept;
+  void getRangePtr(ObjectPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1) noexcept;
+  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& selector) noexcept;
 
-  void getDisjoint(ObjectPropertyBranch_t* branch, std::unordered_set<ObjectPropertyBranch_t*>& res);
+  void getDisjoint(ObjectPropertyBranch_t* branch, std::unordered_set<ObjectPropertyBranch_t*>& res) noexcept;
 
-  bool add(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data);
-  bool addInvert(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data);
-  bool remove(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data);
+  bool add(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
+  bool addInvert(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
+  bool remove(ObjectPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
 
 private:
   ClassGraph* class_graph_;
 
-  void isMyDisjoint(ObjectPropertyBranch_t* me, std::string& disjoint, std::map<std::string, ObjectPropertyBranch_t*>& vect, bool& find, bool all = true)
+  void isMyDisjoint(ObjectPropertyBranch_t* me, std::string& disjoint, std::map<std::string, ObjectPropertyBranch_t*>& vect, bool& find, bool all = true) noexcept
   {
     if(find)
       return;
@@ -77,7 +77,7 @@ private:
     }
   }
 
-  void isMyInverse(ObjectPropertyBranch_t* me, std::string& inverse, std::map<std::string, ObjectPropertyBranch_t*>& vect, bool& find, bool all = true)
+  void isMyInverse(ObjectPropertyBranch_t* me, std::string& inverse, std::map<std::string, ObjectPropertyBranch_t*>& vect, bool& find, bool all = true) noexcept
   {
     if(find)
       return;
@@ -92,7 +92,7 @@ private:
     }
   }
 
-  void isMyDomain(ObjectPropertyBranch_t* me, std::string& domain, std::map<std::string, ClassBranch_t*>& vect, bool& find)
+  void isMyDomain(ObjectPropertyBranch_t* me, std::string& domain, std::map<std::string, ClassBranch_t*>& vect, bool& find) noexcept
   {
     if(find)
       return;
@@ -105,7 +105,7 @@ private:
     }
   }
 
-  void isMyRange(ObjectPropertyBranch_t* me, std::string& range, std::map<std::string, ClassBranch_t*>& vect, bool& find)
+  void isMyRange(ObjectPropertyBranch_t* me, std::string& range, std::map<std::string, ClassBranch_t*>& vect, bool& find) noexcept
   {
     if(find)
       return;
@@ -118,7 +118,7 @@ private:
     }
   }
 
-  void getNextChainLink(ObjectPropertyBranch_t** next, std::string& next_link, std::map<std::string, ObjectPropertyBranch_t*>& vect)
+  void getNextChainLink(ObjectPropertyBranch_t** next, std::string& next_link, std::map<std::string, ObjectPropertyBranch_t*>& vect) noexcept
   {
     if(*next == nullptr)
     {

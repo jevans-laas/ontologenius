@@ -4,7 +4,7 @@
 #include "ontoloGenius/core/ontoGraphs/Graphs/ObjectPropertyGraph.h"
 #include "ontoloGenius/core/ontoGraphs/Graphs/DataPropertyGraph.h"
 
-size_t ClassChecker::check()
+size_t ClassChecker::check() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(class_graph_->mutex_);
   graph_size = graph_vect_.size();
@@ -23,7 +23,7 @@ size_t ClassChecker::check()
   return getErrors();
 }
 
-void ClassChecker::checkDisjoint()
+void ClassChecker::checkDisjoint() noexcept
 {
   for(ClassBranch_t* branch : graph_vect_)
   {
@@ -45,7 +45,7 @@ void ClassChecker::checkDisjoint()
   }
 }
 
-void ClassChecker::checkObectPropertyDomain()
+void ClassChecker::checkObectPropertyDomain() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -85,7 +85,7 @@ void ClassChecker::checkObectPropertyDomain()
   }
 }
 
-void ClassChecker::checkObectPropertyRange()
+void ClassChecker::checkObectPropertyRange() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -124,7 +124,7 @@ void ClassChecker::checkObectPropertyRange()
   }
 }
 
-void ClassChecker::checkDataPropertyDomain()
+void ClassChecker::checkDataPropertyDomain() noexcept
 {
   for(size_t i = 0; i < graph_size; i++)
   {
@@ -164,7 +164,7 @@ void ClassChecker::checkDataPropertyDomain()
   }
 }
 
-void ClassChecker::checkDataPropertyRange()
+void ClassChecker::checkDataPropertyRange() noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(class_graph_->mutex_);
   for(size_t i = 0; i < graph_size; i++)

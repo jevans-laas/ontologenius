@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void IndividualBranch_t::setFullSteady()
+void IndividualBranch_t::setFullSteady() noexcept
 {
   steady_.is_a_.clear();
   for(size_t i = 0; i < is_a_.size(); i++)
@@ -33,7 +33,7 @@ void IndividualBranch_t::setFullSteady()
     steady_.distinct_.push_back(distinct_[i]);
 }
 
-void IndividualBranch_t::setSteady_is_a(ClassBranch_t* is_a)
+void IndividualBranch_t::setSteady_is_a(ClassBranch_t* is_a) noexcept
 {
   if(std::find(steady_.is_a_.begin(), steady_.is_a_.end(), is_a) == steady_.is_a_.end())
     steady_.is_a_.push_back(is_a);
@@ -41,31 +41,31 @@ void IndividualBranch_t::setSteady_is_a(ClassBranch_t* is_a)
     is_a_.push_back(is_a);
 }
 
-void IndividualBranch_t::setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name)
+void IndividualBranch_t::setSteady_object_properties_name(ObjectPropertyBranch_t* object_properties_name) noexcept
 {
   steady_.object_properties_name_.push_back(object_properties_name);
   object_properties_name_.push_back(object_properties_name);
 }
 
-void IndividualBranch_t::setSteady_object_properties_on(IndividualBranch_t* object_properties_on)
+void IndividualBranch_t::setSteady_object_properties_on(IndividualBranch_t* object_properties_on) noexcept
 {
   steady_.object_properties_on_.push_back(object_properties_on);
   object_properties_on_.push_back(object_properties_on);
 }
 
-void IndividualBranch_t::setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name)
+void IndividualBranch_t::setSteady_data_properties_name(DataPropertyBranch_t* data_properties_name) noexcept
 {
   steady_.data_properties_name_.push_back(data_properties_name);
   data_properties_name_.push_back(data_properties_name);
 }
 
-void IndividualBranch_t::setSteady_data_properties_data(data_t data_properties_data)
+void IndividualBranch_t::setSteady_data_properties_data(data_t data_properties_data) noexcept
 {
   steady_.data_properties_data_.push_back(data_properties_data);
   data_properties_data_.push_back(data_properties_data);
 }
 
-void IndividualBranch_t::setSteady_same_as(IndividualBranch_t* same_as)
+void IndividualBranch_t::setSteady_same_as(IndividualBranch_t* same_as) noexcept
 {
   if(std::find(steady_.same_as_.begin(), steady_.same_as_.end(), same_as) == steady_.same_as_.end())
     steady_.same_as_.push_back(same_as);
@@ -73,7 +73,7 @@ void IndividualBranch_t::setSteady_same_as(IndividualBranch_t* same_as)
     same_as_.push_back(same_as);
 }
 
-void IndividualBranch_t::setSteady_distinct(IndividualBranch_t* distinct)
+void IndividualBranch_t::setSteady_distinct(IndividualBranch_t* distinct) noexcept
 {
   if(std::find(steady_.distinct_.begin(), steady_.distinct_.end(), distinct) == steady_.distinct_.end())
     steady_.distinct_.push_back(distinct);
@@ -81,13 +81,13 @@ void IndividualBranch_t::setSteady_distinct(IndividualBranch_t* distinct)
     distinct_.push_back(distinct);
 }
 
-void IndividualBranch_t::setSteady_dictionary(std::string lang, std::string word)
+void IndividualBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void IndividualBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary)
+void IndividualBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

@@ -3,7 +3,7 @@
 
 #include "ontoloGenius/core/ontoGraphs/Graphs/ClassGraph.h"
 
-void DataPropertyGraph::add(std::string value, DataPropertyVectors_t& property_vectors)
+void DataPropertyGraph::add(std::string value, DataPropertyVectors_t& property_vectors) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
   /**********************
@@ -134,7 +134,7 @@ void DataPropertyGraph::add(std::string value, DataPropertyVectors_t& property_v
     me->dictionary_["en"].push_back(me->value());
 }
 
-void DataPropertyGraph::add(std::vector<std::string>& disjoints)
+void DataPropertyGraph::add(std::vector<std::string>& disjoints) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
 
@@ -188,7 +188,7 @@ void DataPropertyGraph::add(std::vector<std::string>& disjoints)
 }
 
 
-std::unordered_set<std::string> DataPropertyGraph::getDisjoint(const std::string& value)
+std::unordered_set<std::string> DataPropertyGraph::getDisjoint(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
@@ -201,7 +201,7 @@ std::unordered_set<std::string> DataPropertyGraph::getDisjoint(const std::string
   return res;
 }
 
-std::unordered_set<std::string> DataPropertyGraph::getDomain(const std::string& value)
+std::unordered_set<std::string> DataPropertyGraph::getDomain(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
@@ -214,7 +214,7 @@ std::unordered_set<std::string> DataPropertyGraph::getDomain(const std::string& 
   return res;
 }
 
-void DataPropertyGraph::getDomainPtr(DataPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth)
+void DataPropertyGraph::getDomainPtr(DataPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
 
@@ -223,7 +223,7 @@ void DataPropertyGraph::getDomainPtr(DataPropertyBranch_t* branch, std::unordere
       class_graph_->getDownPtr(branch->domains_[domain_i], res, depth);
 }
 
-std::unordered_set<std::string> DataPropertyGraph::getRange(const std::string& value)
+std::unordered_set<std::string> DataPropertyGraph::getRange(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<DataPropertyBranch_t>::mutex_);
@@ -236,7 +236,7 @@ std::unordered_set<std::string> DataPropertyGraph::getRange(const std::string& v
   return res;
 }
 
-std::unordered_set<std::string> DataPropertyGraph::select(std::unordered_set<std::string>& on, const std::string& selector)
+std::unordered_set<std::string> DataPropertyGraph::select(std::unordered_set<std::string>& on, const std::string& selector) noexcept
 {
   std::unordered_set<std::string> res;
   for(const std::string& it : on)
@@ -248,7 +248,7 @@ std::unordered_set<std::string> DataPropertyGraph::select(std::unordered_set<std
   return res;
 }
 
-bool DataPropertyGraph::add(DataPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool DataPropertyGraph::add(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   if(relation != "")
   {
@@ -276,7 +276,7 @@ bool DataPropertyGraph::add(DataPropertyBranch_t* prop, std::string& relation, s
   return true;
 }
 
-bool DataPropertyGraph::addInvert(DataPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool DataPropertyGraph::addInvert(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   if(relation != "")
   {
@@ -297,7 +297,7 @@ bool DataPropertyGraph::addInvert(DataPropertyBranch_t* prop, std::string& relat
   return true;
 }
 
-bool DataPropertyGraph::remove(DataPropertyBranch_t* prop, std::string& relation, std::string& data)
+bool DataPropertyGraph::remove(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept
 {
   return false;
 }

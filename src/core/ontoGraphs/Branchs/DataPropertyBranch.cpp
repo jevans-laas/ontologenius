@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void DataPropertyBranch_t::setFullSteady()
+void DataPropertyBranch_t::setFullSteady() noexcept
 {
   steady_.disjoints_.clear();
   for(size_t i = 0; i < disjoints_.size(); i++)
@@ -36,7 +36,7 @@ void DataPropertyBranch_t::setFullSteady()
   }
 }
 
-void DataPropertyBranch_t::setSteady_disjoint(DataPropertyBranch_t* disjoint)
+void DataPropertyBranch_t::setSteady_disjoint(DataPropertyBranch_t* disjoint) noexcept
 {
   if(std::find(steady_.disjoints_.begin(), steady_.disjoints_.end(), disjoint) == steady_.disjoints_.end())
     steady_.disjoints_.push_back(disjoint);
@@ -44,13 +44,13 @@ void DataPropertyBranch_t::setSteady_disjoint(DataPropertyBranch_t* disjoint)
     disjoints_.push_back(disjoint);
 }
 
-void DataPropertyBranch_t::setSteady_properties(Properties_t properties)
+void DataPropertyBranch_t::setSteady_properties(Properties_t properties) noexcept
 {
   steady_.properties_ = properties;
   properties_ = properties;
 }
 
-void DataPropertyBranch_t::setSteady_domain(ClassBranch_t* domain)
+void DataPropertyBranch_t::setSteady_domain(ClassBranch_t* domain) noexcept
 {
   if(std::find(steady_.domains_.begin(), steady_.domains_.end(), domain) == steady_.domains_.end())
     steady_.domains_.push_back(domain);
@@ -58,7 +58,7 @@ void DataPropertyBranch_t::setSteady_domain(ClassBranch_t* domain)
     domains_.push_back(domain);
 }
 
-void DataPropertyBranch_t::setSteady_range(std::string range)
+void DataPropertyBranch_t::setSteady_range(std::string range) noexcept
 {
   data_t tmp;
   tmp.type_ = range;
@@ -66,7 +66,7 @@ void DataPropertyBranch_t::setSteady_range(std::string range)
   ranges_.push_back(tmp);
 }
 
-void DataPropertyBranch_t::setSteady_child(DataPropertyBranch_t* child)
+void DataPropertyBranch_t::setSteady_child(DataPropertyBranch_t* child) noexcept
 {
   if(std::find(steady_.childs_.begin(), steady_.childs_.end(), child) == steady_.childs_.end())
     steady_.childs_.push_back(child);
@@ -74,7 +74,7 @@ void DataPropertyBranch_t::setSteady_child(DataPropertyBranch_t* child)
     childs_.push_back(child);
 }
 
-void DataPropertyBranch_t::setSteady_mother(DataPropertyBranch_t* mother)
+void DataPropertyBranch_t::setSteady_mother(DataPropertyBranch_t* mother) noexcept
 {
   if(std::find(steady_.mothers_.begin(), steady_.mothers_.end(), mother) == steady_.mothers_.end())
     steady_.mothers_.push_back(mother);
@@ -82,13 +82,13 @@ void DataPropertyBranch_t::setSteady_mother(DataPropertyBranch_t* mother)
     mothers_.push_back(mother);
 }
 
-void DataPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word)
+void DataPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void DataPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary)
+void DataPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

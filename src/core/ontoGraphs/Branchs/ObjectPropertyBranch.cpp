@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void ObjectPropertyBranch_t::setFullSteady()
+void ObjectPropertyBranch_t::setFullSteady() noexcept
 {
   steady_.disjoints_.clear();
   for(size_t i = 0; i < disjoints_.size(); i++)
@@ -49,7 +49,7 @@ void ObjectPropertyBranch_t::setFullSteady()
   }
 }
 
-void ObjectPropertyBranch_t::setSteady_disjoint(ObjectPropertyBranch_t* disjoint)
+void ObjectPropertyBranch_t::setSteady_disjoint(ObjectPropertyBranch_t* disjoint) noexcept
 {
   if(std::find(steady_.disjoints_.begin(), steady_.disjoints_.end(), disjoint) == steady_.disjoints_.end())
     steady_.disjoints_.push_back(disjoint);
@@ -57,13 +57,13 @@ void ObjectPropertyBranch_t::setSteady_disjoint(ObjectPropertyBranch_t* disjoint
     disjoints_.push_back(disjoint);
 }
 
-void ObjectPropertyBranch_t::setSteady_properties(Properties_t properties)
+void ObjectPropertyBranch_t::setSteady_properties(Properties_t properties) noexcept
 {
   steady_.properties_ = properties;
   properties_ = properties;
 }
 
-void ObjectPropertyBranch_t::setSteady_inverse(ObjectPropertyBranch_t* inverse)
+void ObjectPropertyBranch_t::setSteady_inverse(ObjectPropertyBranch_t* inverse) noexcept
 {
   if(std::find(steady_.inverses_.begin(), steady_.inverses_.end(), inverse) == steady_.inverses_.end())
     steady_.inverses_.push_back(inverse);
@@ -71,7 +71,7 @@ void ObjectPropertyBranch_t::setSteady_inverse(ObjectPropertyBranch_t* inverse)
     inverses_.push_back(inverse);
 }
 
-void ObjectPropertyBranch_t::setSteady_domain(ClassBranch_t* domain)
+void ObjectPropertyBranch_t::setSteady_domain(ClassBranch_t* domain) noexcept
 {
   if(std::find(steady_.domains_.begin(), steady_.domains_.end(), domain) == steady_.domains_.end())
     steady_.domains_.push_back(domain);
@@ -79,7 +79,7 @@ void ObjectPropertyBranch_t::setSteady_domain(ClassBranch_t* domain)
     domains_.push_back(domain);
 }
 
-void ObjectPropertyBranch_t::setSteady_range(ClassBranch_t* range)
+void ObjectPropertyBranch_t::setSteady_range(ClassBranch_t* range) noexcept
 {
   if(std::find(steady_.ranges_.begin(), steady_.ranges_.end(), range) == steady_.ranges_.end())
     steady_.ranges_.push_back(range);
@@ -87,17 +87,17 @@ void ObjectPropertyBranch_t::setSteady_range(ClassBranch_t* range)
     ranges_.push_back(range);
 }
 
-void ObjectPropertyBranch_t::set_chain(std::vector<ObjectPropertyBranch_t*> chain)
+void ObjectPropertyBranch_t::set_chain(std::vector<ObjectPropertyBranch_t*> chain) noexcept
 {
   chains_.push_back(chain);
 }
 
-void ObjectPropertyBranch_t::setSteady_chain(std::vector<std::string> chain)
+void ObjectPropertyBranch_t::setSteady_chain(std::vector<std::string> chain) noexcept
 {
   steady_.str_chains_.push_back(chain);
 }
 
-void ObjectPropertyBranch_t::setSteady_child(ObjectPropertyBranch_t* child)
+void ObjectPropertyBranch_t::setSteady_child(ObjectPropertyBranch_t* child) noexcept
 {
   if(std::find(steady_.childs_.begin(), steady_.childs_.end(), child) == steady_.childs_.end())
     steady_.childs_.push_back(child);
@@ -105,7 +105,7 @@ void ObjectPropertyBranch_t::setSteady_child(ObjectPropertyBranch_t* child)
     childs_.push_back(child);
 }
 
-void ObjectPropertyBranch_t::setSteady_mother(ObjectPropertyBranch_t* mother)
+void ObjectPropertyBranch_t::setSteady_mother(ObjectPropertyBranch_t* mother) noexcept
 {
   if(std::find(steady_.mothers_.begin(), steady_.mothers_.end(), mother) == steady_.mothers_.end())
     steady_.mothers_.push_back(mother);
@@ -113,13 +113,13 @@ void ObjectPropertyBranch_t::setSteady_mother(ObjectPropertyBranch_t* mother)
     mothers_.push_back(mother);
 }
 
-void ObjectPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word)
+void ObjectPropertyBranch_t::setSteady_dictionary(std::string lang, std::string word) noexcept
 {
   steady_.dictionary_[lang].push_back(word);
   dictionary_[lang].push_back(word);
 }
 
-void ObjectPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary)
+void ObjectPropertyBranch_t::setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept
 {
   steady_.dictionary_ = dictionary;
   dictionary_ = dictionary;

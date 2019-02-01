@@ -10,15 +10,15 @@ public:
   explicit ObjectPropertyChecker(ObjectPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
   ~ObjectPropertyChecker() {}
 
-  size_t check();
-  void printStatus(){ValidityChecker<ObjectPropertyBranch_t>::printStatus(std::string("object property"), std::string("object properties"), graph_vect_.size());}
+  size_t check() noexcept;
+  void printStatus() noexcept {ValidityChecker<ObjectPropertyBranch_t>::printStatus(std::string("object property"), std::string("object properties"), graph_vect_.size());}
 private:
-  void checkDisjoint();
-  void checkCharacteristics();
+  void checkDisjoint() noexcept;
+  void checkCharacteristics() noexcept;
 
   ObjectPropertyGraph* property_graph_;
 
-  ObjectPropertyBranch_t* findIntersection(std::unordered_set<ObjectPropertyBranch_t*>& base, std::unordered_set<ObjectPropertyBranch_t*>& comp)
+  ObjectPropertyBranch_t* findIntersection(std::unordered_set<ObjectPropertyBranch_t*>& base, std::unordered_set<ObjectPropertyBranch_t*>& comp) noexcept
   {
     for (ObjectPropertyBranch_t* it : comp)
     {

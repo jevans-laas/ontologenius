@@ -7,7 +7,7 @@ FeedStorage::FeedStorage() : base_regex("^\\[(\\w+)\\](.*)\\|(.*)\\|(.*)$"),
   queue_choice_ = true;
 }
 
-void FeedStorage::add(std::string& regex)
+void FeedStorage::add(std::string& regex) noexcept
 {
   std::smatch base_match;
   feed_t feed;
@@ -63,7 +63,7 @@ void FeedStorage::add(std::string& regex)
   mutex_.unlock();
 }
 
-std::queue<feed_t> FeedStorage::get()
+std::queue<feed_t> FeedStorage::get() noexcept
 {
   std::queue<feed_t> tmp;
   mutex_.lock();

@@ -20,15 +20,15 @@ public:
   Graph() { language_ = "en"; }
   virtual ~Graph() {}
 
-  void setLanguage(std::string language) {language_ = language; }
-  std::string getLanguage() {return language_; }
+  void setLanguage(std::string language) noexcept {language_ = language; }
+  std::string getLanguage() noexcept {return language_; }
 
   virtual void close() = 0;
 
   virtual std::vector<B*> get() = 0;
-  virtual B* findBranch(std::string name);
-  virtual B* findBranchUnsafe(std::string name);
-  virtual B* create(std::string name);
+  virtual B* findBranch(std::string name) noexcept;
+  virtual B* findBranchUnsafe(std::string name) noexcept;
+  virtual B* create(std::string name) noexcept;
 
   BranchContainerMap<B> container_;
 
@@ -40,7 +40,7 @@ public:
 };
 
 template <typename B>
-B* Graph<B>::findBranch(std::string name)
+B* Graph<B>::findBranch(std::string name) noexcept
 {
   B* indiv = nullptr;
   std::shared_lock<std::shared_timed_mutex> lock(mutex_);
@@ -50,7 +50,7 @@ B* Graph<B>::findBranch(std::string name)
 }
 
 template <typename B>
-B* Graph<B>::findBranchUnsafe(std::string name)
+B* Graph<B>::findBranchUnsafe(std::string name) noexcept
 {
   B* indiv = nullptr;
   indiv = container_.find(name);
@@ -59,7 +59,7 @@ B* Graph<B>::findBranchUnsafe(std::string name)
 }
 
 template <typename B>
-B* Graph<B>::create(std::string name)
+B* Graph<B>::create(std::string name) noexcept
 {
   B* indiv = nullptr;
   {

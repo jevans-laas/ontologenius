@@ -13,7 +13,7 @@ ClassGraph::ClassGraph(IndividualGraph* individual_graph, ObjectPropertyGraph* o
   data_property_graph_ = data_property_graph;
 }
 
-void ClassGraph::add(const std::string& value, ObjectVectors_t& object_vector)
+void ClassGraph::add(const std::string& value, ObjectVectors_t& object_vector) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
   ClassBranch_t* me = nullptr;
@@ -136,7 +136,7 @@ void ClassGraph::add(const std::string& value, ObjectVectors_t& object_vector)
     me->dictionary_["en"].push_back(me->value());
 }
 
-void ClassGraph::add(std::vector<std::string>& disjoints)
+void ClassGraph::add(std::vector<std::string>& disjoints) noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
 
@@ -195,7 +195,7 @@ void ClassGraph::add(std::vector<std::string>& disjoints)
 *
 *********/
 
-void ClassGraph::addObjectPropertyName(ClassBranch_t* me, std::string& name, bool deduced)
+void ClassGraph::addObjectPropertyName(ClassBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties = false;
 
@@ -255,7 +255,7 @@ void ClassGraph::addObjectPropertyName(ClassBranch_t* me, std::string& name, boo
   }
 }
 
-void ClassGraph::addObjectPropertyOn(ClassBranch_t* me, std::string& name, bool deduced)
+void ClassGraph::addObjectPropertyOn(ClassBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties_on = false;
 
@@ -280,7 +280,7 @@ void ClassGraph::addObjectPropertyOn(ClassBranch_t* me, std::string& name, bool 
   }
 }
 
-void ClassGraph::addDataPropertyName(ClassBranch_t* me, std::string& name, bool deduced)
+void ClassGraph::addDataPropertyName(ClassBranch_t* me, std::string& name, bool deduced) noexcept
 {
   bool i_find_my_properties = false;
 
@@ -340,7 +340,7 @@ void ClassGraph::addDataPropertyName(ClassBranch_t* me, std::string& name, bool 
   }
 }
 
-void ClassGraph::addDataPropertyData(ClassBranch_t* me, data_t& data, bool deduced)
+void ClassGraph::addDataPropertyData(ClassBranch_t* me, data_t& data, bool deduced) noexcept
 {
   if(deduced == false)
     me->setSteady_data_properties_data(data);
@@ -354,7 +354,7 @@ void ClassGraph::addDataPropertyData(ClassBranch_t* me, data_t& data, bool deduc
 *
 *********/
 
-std::unordered_set<std::string> ClassGraph::getDisjoint(const std::string& value)
+std::unordered_set<std::string> ClassGraph::getDisjoint(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -367,13 +367,13 @@ std::unordered_set<std::string> ClassGraph::getDisjoint(const std::string& value
   return res;
 }
 
-void ClassGraph::getDisjoint(ClassBranch_t* branch, std::unordered_set<ClassBranch_t*>& res)
+void ClassGraph::getDisjoint(ClassBranch_t* branch, std::unordered_set<ClassBranch_t*>& res) noexcept
 {
   for(ClassBranch_t* it : branch->disjoints_)
     getDownPtr(it, res);
 }
 
-std::unordered_set<std::string> ClassGraph::select(std::unordered_set<std::string>& on, const std::string& class_selector)
+std::unordered_set<std::string> ClassGraph::select(std::unordered_set<std::string>& on, const std::string& class_selector) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -387,7 +387,7 @@ std::unordered_set<std::string> ClassGraph::select(std::unordered_set<std::strin
   return res;
 }
 
-std::unordered_set<std::string> ClassGraph::getRelationFrom(const std::string& _class, int depth)
+std::unordered_set<std::string> ClassGraph::getRelationFrom(const std::string& _class, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -403,7 +403,7 @@ std::unordered_set<std::string> ClassGraph::getRelationFrom(const std::string& _
   return res;
 }
 
-void ClassGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth)
+void ClassGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
   if(class_branch != nullptr)
@@ -416,7 +416,7 @@ void ClassGraph::getRelationFrom(ClassBranch_t* class_branch, std::unordered_set
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getRelatedFrom(const std::string& property)
+std::unordered_set<std::string> ClassGraph::getRelatedFrom(const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -427,7 +427,7 @@ std::unordered_set<std::string> ClassGraph::getRelatedFrom(const std::string& pr
   return res;
 }
 
-void ClassGraph::getRelatedFrom(std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res)
+void ClassGraph::getRelatedFrom(std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
   for(size_t i = 0; i < all_branchs_.size(); i++)
@@ -452,7 +452,7 @@ void ClassGraph::getRelatedFrom(std::unordered_set<uint32_t>& object_properties,
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getRelationOn(const std::string& _class, int depth)
+std::unordered_set<std::string> ClassGraph::getRelationOn(const std::string& _class, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -474,7 +474,7 @@ std::unordered_set<std::string> ClassGraph::getRelationOn(const std::string& _cl
   return res;
 }
 
-void ClassGraph::getRelationOnDataProperties(const std::string& _class, std::unordered_set<std::string>& res, int depth)
+void ClassGraph::getRelationOnDataProperties(const std::string& _class, std::unordered_set<std::string>& res, int depth) noexcept
 {
   for(size_t i = 0; i < all_branchs_.size(); i++)
     for(size_t prop_i = 0; prop_i < all_branchs_[i]->data_properties_data_.size(); prop_i++)
@@ -482,7 +482,7 @@ void ClassGraph::getRelationOnDataProperties(const std::string& _class, std::uno
         data_property_graph_->getUp(all_branchs_[i]->data_properties_name_[prop_i], res, depth);
 }
 
-std::unordered_set<std::string> ClassGraph::getRelatedOn(const std::string& property)
+std::unordered_set<std::string> ClassGraph::getRelatedOn(const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -506,7 +506,7 @@ std::unordered_set<std::string> ClassGraph::getRelatedOn(const std::string& prop
   return res;
 }
 
-void ClassGraph::getRelatedOnDataProperties(const std::string& property, std::unordered_set<std::string>& res)
+void ClassGraph::getRelatedOnDataProperties(const std::string& property, std::unordered_set<std::string>& res) noexcept
 {
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
 
@@ -519,7 +519,7 @@ void ClassGraph::getRelatedOnDataProperties(const std::string& property, std::un
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getRelationWith(const std::string& _class)
+std::unordered_set<std::string> ClassGraph::getRelationWith(const std::string& _class) noexcept
 {
   std::unordered_set<std::string> res;
   ClassBranch_t* class_branch = container_.find(_class);
@@ -535,7 +535,7 @@ std::unordered_set<std::string> ClassGraph::getRelationWith(const std::string& _
   return res;
 }
 
-void ClassGraph::getRelationWith(ClassBranch_t* class_branch, std::map<std::string, int>& properties, std::vector<int>& depths, std::vector<std::string>& res, int depth)
+void ClassGraph::getRelationWith(ClassBranch_t* class_branch, std::map<std::string, int>& properties, std::vector<int>& depths, std::vector<std::string>& res, int depth) noexcept
 {
   depth++;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -589,7 +589,7 @@ void ClassGraph::getRelationWith(ClassBranch_t* class_branch, std::map<std::stri
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getRelatedWith(const std::string& _class)
+std::unordered_set<std::string> ClassGraph::getRelatedWith(const std::string& _class) noexcept
 {
   std::unordered_set<std::string> res;
   std::unordered_set<uint32_t> doNotTake;
@@ -613,7 +613,7 @@ std::unordered_set<std::string> ClassGraph::getRelatedWith(const std::string& _c
   return res;
 }
 
-void ClassGraph::dataGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake)
+void ClassGraph::dataGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake) noexcept
 {
   if(doNotTake.find(class_branch->get()) != doNotTake.end())
     return;
@@ -642,7 +642,7 @@ void ClassGraph::dataGetRelatedWith(ClassBranch_t* class_branch, const std::stri
   }
 }
 
-void ClassGraph::objectGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake)
+void ClassGraph::objectGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake) noexcept
 {
   if(doNotTake.find(class_branch->get()) != doNotTake.end())
     return;
@@ -670,7 +670,7 @@ void ClassGraph::objectGetRelatedWith(ClassBranch_t* class_branch, const std::st
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getFrom(const std::string& param)
+std::unordered_set<std::string> ClassGraph::getFrom(const std::string& param) noexcept
 {
   std::unordered_set<std::string> res;
   std::string _class;
@@ -685,7 +685,7 @@ std::unordered_set<std::string> ClassGraph::getFrom(const std::string& param)
   return res;
 }
 
-std::unordered_set<std::string> ClassGraph::getFrom(const std::string& _class, const std::string& property)
+std::unordered_set<std::string> ClassGraph::getFrom(const std::string& _class, const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -718,7 +718,7 @@ std::unordered_set<std::string> ClassGraph::getFrom(const std::string& _class, c
   return res;
 }
 
-std::unordered_set<std::string> ClassGraph::getOn(const std::string& param)
+std::unordered_set<std::string> ClassGraph::getOn(const std::string& param) noexcept
 {
   std::unordered_set<std::string> res;
   std::string _class;
@@ -733,7 +733,7 @@ std::unordered_set<std::string> ClassGraph::getOn(const std::string& param)
   return res;
 }
 
-std::unordered_set<std::string> ClassGraph::getOn(const std::string& _class, const std::string& property)
+std::unordered_set<std::string> ClassGraph::getOn(const std::string& _class, const std::string& property) noexcept
 {
   std::unordered_set<uint32_t> object_properties = object_property_graph_->getDownIdSafe(property);
   std::unordered_set<uint32_t> data_properties = data_property_graph_->getDownIdSafe(property);
@@ -748,7 +748,7 @@ std::unordered_set<std::string> ClassGraph::getOn(const std::string& _class, con
   return res;
 }
 
-void ClassGraph::getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res, uint32_t current_depth, int& found_depth)
+void ClassGraph::getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res, uint32_t current_depth, int& found_depth) noexcept
 {
   if(class_branch != nullptr)
   {
@@ -781,7 +781,7 @@ void ClassGraph::getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getWith(const std::string& param, int depth)
+std::unordered_set<std::string> ClassGraph::getWith(const std::string& param, int depth) noexcept
 {
   std::unordered_set<std::string> res;
   size_t pose = param.find(":");
@@ -794,7 +794,7 @@ std::unordered_set<std::string> ClassGraph::getWith(const std::string& param, in
   return res;
 }
 
-std::unordered_set<std::string> ClassGraph::getWith(const std::string& first_class, const std::string& second_class, int depth)
+std::unordered_set<std::string> ClassGraph::getWith(const std::string& first_class, const std::string& second_class, int depth) noexcept
 {
   std::unordered_set<std::string> res;
 
@@ -818,7 +818,7 @@ std::unordered_set<std::string> ClassGraph::getWith(const std::string& first_cla
   return res;
 }
 
-void ClassGraph::getWith(ClassBranch_t* first_class, const std::string& second_class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake, uint32_t current_depth, int& found_depth, int depth_prop, std::unordered_set<ClassBranch_t*>& next_step)
+void ClassGraph::getWith(ClassBranch_t* first_class, const std::string& second_class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake, uint32_t current_depth, int& found_depth, int depth_prop, std::unordered_set<ClassBranch_t*>& next_step) noexcept
 {
   if(first_class != nullptr)
   {
@@ -857,7 +857,7 @@ void ClassGraph::getWith(ClassBranch_t* first_class, const std::string& second_c
   }
 }
 
-std::unordered_set<std::string> ClassGraph::getDownIndividual(ClassBranch_t* branch)
+std::unordered_set<std::string> ClassGraph::getDownIndividual(ClassBranch_t* branch) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -868,14 +868,14 @@ std::unordered_set<std::string> ClassGraph::getDownIndividual(ClassBranch_t* bra
   return res;
 }
 
-void ClassGraph::getDownIndividual(ClassBranch_t* branch, std::unordered_set<std::string>& res)
+void ClassGraph::getDownIndividual(ClassBranch_t* branch, std::unordered_set<std::string>& res) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
   for(auto indiv : branch->individual_childs_)
     res.insert(indiv->value());
 }
 
-std::unordered_set<IndividualBranch_t*> ClassGraph::getDownIndividualPtrSafe(ClassBranch_t* branch)
+std::unordered_set<IndividualBranch_t*> ClassGraph::getDownIndividualPtrSafe(ClassBranch_t* branch) noexcept
 {
   std::unordered_set<IndividualBranch_t*> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
@@ -886,14 +886,14 @@ std::unordered_set<IndividualBranch_t*> ClassGraph::getDownIndividualPtrSafe(Cla
   return res;
 }
 
-void ClassGraph::getDownIndividualPtrSafe(ClassBranch_t* branch, std::unordered_set<IndividualBranch_t*>& res)
+void ClassGraph::getDownIndividualPtrSafe(ClassBranch_t* branch, std::unordered_set<IndividualBranch_t*>& res) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<ClassBranch_t>::mutex_);
   for(auto indiv : branch->individual_childs_)
     res.insert(indiv);
 }
 
-void ClassGraph::deleteClass(ClassBranch_t* _class)
+void ClassGraph::deleteClass(ClassBranch_t* _class) noexcept
 {
   if(_class != nullptr)
   {
@@ -950,7 +950,7 @@ void ClassGraph::deleteClass(ClassBranch_t* _class)
   }
 }
 
-int ClassGraph::deletePropertiesOnClass(ClassBranch_t* _class, std::vector<ClassBranch_t*> vect)
+int ClassGraph::deletePropertiesOnClass(ClassBranch_t* _class, std::vector<ClassBranch_t*> vect) noexcept
 {
   int class_index = -1;
   for(size_t class_i = 0; class_i < vect.size(); class_i++)
@@ -981,7 +981,7 @@ int ClassGraph::deletePropertiesOnClass(ClassBranch_t* _class, std::vector<Class
   return class_index;
 }
 
-void ClassGraph::addLang(std::string& _class, std::string& lang, std::string& name)
+void ClassGraph::addLang(std::string& _class, std::string& lang, std::string& name) noexcept
 {
   ClassBranch_t* branch = findBranch(_class);
   if(branch != nullptr)
@@ -993,7 +993,7 @@ void ClassGraph::addLang(std::string& _class, std::string& lang, std::string& na
   }
 }
 
-void ClassGraph::addInheritage(std::string& class_base, std::string& class_inherited)
+void ClassGraph::addInheritage(std::string& class_base, std::string& class_inherited) noexcept
 {
   ClassBranch_t* branch = findBranch(class_base);
   if(branch != nullptr)
@@ -1019,7 +1019,7 @@ void ClassGraph::addInheritage(std::string& class_base, std::string& class_inher
   }
 }
 
-bool ClassGraph::addProperty(std::string& class_from, std::string& property, std::string& class_on)
+bool ClassGraph::addProperty(std::string& class_from, std::string& property, std::string& class_on) noexcept
 {
   ClassBranch_t* branch_from = findBranch(class_from);
   if(branch_from != nullptr)
@@ -1061,7 +1061,7 @@ bool ClassGraph::addProperty(std::string& class_from, std::string& property, std
   return false;
 }
 
-bool ClassGraph::addProperty(std::string& class_from, std::string& property, std::string& type, std::string& data)
+bool ClassGraph::addProperty(std::string& class_from, std::string& property, std::string& type, std::string& data) noexcept
 {
   ClassBranch_t* branch_from = findBranch(class_from);
   if(branch_from != nullptr)
@@ -1094,7 +1094,7 @@ bool ClassGraph::addProperty(std::string& class_from, std::string& property, std
   return false;
 }
 
-bool ClassGraph::addPropertyInvert(std::string& class_from, std::string& property, std::string& class_on)
+bool ClassGraph::addPropertyInvert(std::string& class_from, std::string& property, std::string& class_on) noexcept
 {
   ClassBranch_t* branch_on = findBranch(class_on);
   if(branch_on != nullptr)
@@ -1136,7 +1136,7 @@ bool ClassGraph::addPropertyInvert(std::string& class_from, std::string& propert
   return false;
 }
 
-void ClassGraph::setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPropertyBranch_t* branch_prop, ClassBranch_t* branch_on)
+void ClassGraph::setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPropertyBranch_t* branch_prop, ClassBranch_t* branch_on) noexcept
 {
   bool found = false;
   for(size_t i = 0; i < branch_from->steady_.object_properties_name_.size(); i++)
@@ -1171,7 +1171,7 @@ void ClassGraph::setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPrope
   }
 }
 
-void ClassGraph::setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t data)
+void ClassGraph::setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t data) noexcept
 {
   bool found = false;
   for(size_t i = 0; i < branch_from->steady_.data_properties_name_.size(); i++)
@@ -1206,7 +1206,7 @@ void ClassGraph::setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyB
   }
 }
 
-void ClassGraph::removeLang(std::string& indiv, std::string& lang, std::string& name)
+void ClassGraph::removeLang(std::string& indiv, std::string& lang, std::string& name) noexcept
 {
   ClassBranch_t* branch = findBranch(indiv);
 
@@ -1228,7 +1228,7 @@ void ClassGraph::removeLang(std::string& indiv, std::string& lang, std::string& 
   }
 }
 
-void ClassGraph::removeInheritage(std::string& class_base, std::string& class_inherited)
+void ClassGraph::removeInheritage(std::string& class_base, std::string& class_inherited) noexcept
 {
   ClassBranch_t* branch_base = findBranch(class_base);
   ClassBranch_t* branch_inherited = findBranch(class_inherited);
@@ -1268,7 +1268,7 @@ void ClassGraph::removeInheritage(std::string& class_base, std::string& class_in
   branch_inherited->updated_ = true;
 }
 
-bool ClassGraph::removeProperty(std::string& class_from, std::string& property, std::string& class_on)
+bool ClassGraph::removeProperty(std::string& class_from, std::string& property, std::string& class_on) noexcept
 {
   ClassBranch_t* branch_from = findBranch(class_from);
   if(branch_from != nullptr)
@@ -1314,7 +1314,7 @@ bool ClassGraph::removeProperty(std::string& class_from, std::string& property, 
   return false;
 }
 
-bool ClassGraph::removeProperty(std::string& class_from, std::string& property, std::string& type, std::string& data)
+bool ClassGraph::removeProperty(std::string& class_from, std::string& property, std::string& type, std::string& data) noexcept
 {
   ClassBranch_t* branch_from = findBranch(class_from);
   if(branch_from != nullptr)
@@ -1359,7 +1359,7 @@ bool ClassGraph::removeProperty(std::string& class_from, std::string& property, 
   return false;
 }
 
-bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, ObjectPropertyBranch_t* prop, ClassBranch_t* on)
+bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, ObjectPropertyBranch_t* prop, ClassBranch_t* on) noexcept
 {
   std::unordered_set<ClassBranch_t*> up_from;
   getUpPtr(from, up_from);
@@ -1417,7 +1417,7 @@ bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, ObjectPropertyBranch_t
   return true;
 }
 
-bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, DataPropertyBranch_t* prop, data_t& data)
+bool ClassGraph::checkRangeAndDomain(ClassBranch_t* from, DataPropertyBranch_t* prop, data_t& data) noexcept
 {
   std::unordered_set<ClassBranch_t*> up_from;
   getUpPtr(from, up_from);

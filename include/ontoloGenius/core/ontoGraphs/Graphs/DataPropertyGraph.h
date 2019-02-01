@@ -38,25 +38,25 @@ public:
   explicit DataPropertyGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
   ~DataPropertyGraph() {}
 
-  void linkGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
+  void linkGraph(ClassGraph* class_graph) noexcept {class_graph_ = class_graph; }
 
-  void add(std::string value, DataPropertyVectors_t& property_vectors);
-  void add(std::vector<std::string>& disjoints);
+  void add(std::string value, DataPropertyVectors_t& property_vectors) noexcept;
+  void add(std::vector<std::string>& disjoints) noexcept;
 
-  std::unordered_set<std::string> getDisjoint(const std::string& value);
-  std::unordered_set<std::string> getDomain(const std::string& value);
-  void getDomainPtr(DataPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1);
-  std::unordered_set<std::string> getRange(const std::string& value);
-  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& selector);
+  std::unordered_set<std::string> getDisjoint(const std::string& value) noexcept;
+  std::unordered_set<std::string> getDomain(const std::string& value) noexcept;
+  void getDomainPtr(DataPropertyBranch_t* branch, std::unordered_set<ClassBranch_t*>& res, size_t depth = -1) noexcept;
+  std::unordered_set<std::string> getRange(const std::string& value) noexcept;
+  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& selector) noexcept;
 
-  bool add(DataPropertyBranch_t* prop, std::string& relation, std::string& data);
-  bool addInvert(DataPropertyBranch_t* prop, std::string& relation, std::string& data);
-  bool remove(DataPropertyBranch_t* prop, std::string& relation, std::string& data);
+  bool add(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
+  bool addInvert(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
+  bool remove(DataPropertyBranch_t* prop, std::string& relation, std::string& data) noexcept;
 
 private:
   ClassGraph* class_graph_;
 
-  void isMyDisjoint(DataPropertyBranch_t* me, const std::string& disjoint, std::map<std::string, DataPropertyBranch_t*>& vect, bool& find, bool all = true)
+  void isMyDisjoint(DataPropertyBranch_t* me, const std::string& disjoint, std::map<std::string, DataPropertyBranch_t*>& vect, bool& find, bool all = true) noexcept
   {
     if(find)
       return;
@@ -71,7 +71,7 @@ private:
     }
   }
 
-  void isMyDomain(DataPropertyBranch_t* me, const std::string& domain, std::map<std::string, ClassBranch_t*>& vect, bool& find)
+  void isMyDomain(DataPropertyBranch_t* me, const std::string& domain, std::map<std::string, ClassBranch_t*>& vect, bool& find) noexcept
   {
     if(find)
       return;

@@ -37,18 +37,18 @@ public:
 
   explicit ObjectPropertyBranch_t(std::string value = "") : Branch_t(value) {}
 
-  void setFullSteady();
-  void setSteady_disjoint(ObjectPropertyBranch_t* disjoint);
-  void setSteady_properties(Properties_t properties);
-  void setSteady_inverse(ObjectPropertyBranch_t* inverse);
-  void setSteady_domain(ClassBranch_t* domain);
-  void setSteady_range(ClassBranch_t* range);
-  void set_chain(std::vector<ObjectPropertyBranch_t*> chain);
-  void setSteady_chain(std::vector<std::string> chain);
-  void setSteady_child(ObjectPropertyBranch_t* child);
-  void setSteady_mother(ObjectPropertyBranch_t* mother);
-  void setSteady_dictionary(std::string lang, std::string word);
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary);
+  void setFullSteady() noexcept;
+  void setSteady_disjoint(ObjectPropertyBranch_t* disjoint) noexcept;
+  void setSteady_properties(Properties_t properties) noexcept;
+  void setSteady_inverse(ObjectPropertyBranch_t* inverse) noexcept;
+  void setSteady_domain(ClassBranch_t* domain) noexcept;
+  void setSteady_range(ClassBranch_t* range) noexcept;
+  void set_chain(std::vector<ObjectPropertyBranch_t*> chain) noexcept;
+  void setSteady_chain(std::vector<std::string> chain) noexcept;
+  void setSteady_child(ObjectPropertyBranch_t* child) noexcept;
+  void setSteady_mother(ObjectPropertyBranch_t* mother) noexcept;
+  void setSteady_dictionary(std::string lang, std::string word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
 };
 
 #endif

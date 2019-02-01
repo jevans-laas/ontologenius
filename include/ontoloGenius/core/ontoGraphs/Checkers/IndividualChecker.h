@@ -10,22 +10,22 @@ public:
   explicit IndividualChecker(IndividualGraph* graph) : ValidityChecker(graph) {individual_graph_ = graph;}
   ~IndividualChecker() {}
 
-  size_t check();
-  void printStatus(){ValidityChecker<IndividualBranch_t>::printStatus(std::string("individual"), std::string("individuals"), graph_vect_.size());}
+  size_t check() noexcept;
+  void printStatus() noexcept {ValidityChecker<IndividualBranch_t>::printStatus(std::string("individual"), std::string("individuals"), graph_vect_.size());}
 private:
   IndividualGraph* individual_graph_;
 
-  void checkSame();
-  void checkReflexive();
-  void checkObectPropertyDomain();
-  void checkObectPropertyRange();
+  void checkSame() noexcept;
+  void checkReflexive() noexcept;
+  void checkObectPropertyDomain() noexcept;
+  void checkObectPropertyRange() noexcept;
 
-  void checkDataPropertyDomain();
-  void checkDataPropertyRange();
+  void checkDataPropertyDomain() noexcept;
+  void checkDataPropertyRange() noexcept;
 
-  void checkAssymetric();
+  void checkAssymetric() noexcept;
 
-  bool symetricExist(IndividualBranch_t* indiv_on, ObjectPropertyBranch_t* sym_prop, IndividualBranch_t* sym_indiv);
+  bool symetricExist(IndividualBranch_t* indiv_on, ObjectPropertyBranch_t* sym_prop, IndividualBranch_t* sym_indiv) noexcept;
 };
 
 #endif

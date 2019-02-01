@@ -35,15 +35,15 @@ public:
 
   explicit DataPropertyBranch_t(std::string value = "") : Branch_t(value) {}
 
-  void setFullSteady();
-  void setSteady_disjoint(DataPropertyBranch_t* disjoint);
-  void setSteady_properties(Properties_t properties);
-  void setSteady_domain(ClassBranch_t* domain);
-  void setSteady_range(std::string range);
-  void setSteady_child(DataPropertyBranch_t* child);
-  void setSteady_mother(DataPropertyBranch_t* mother);
-  void setSteady_dictionary(std::string lang, std::string word);
-  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary);
+  void setFullSteady() noexcept;
+  void setSteady_disjoint(DataPropertyBranch_t* disjoint) noexcept;
+  void setSteady_properties(Properties_t properties) noexcept;
+  void setSteady_domain(ClassBranch_t* domain) noexcept;
+  void setSteady_range(std::string range) noexcept;
+  void setSteady_child(DataPropertyBranch_t* child) noexcept;
+  void setSteady_mother(DataPropertyBranch_t* mother) noexcept;
+  void setSteady_dictionary(std::string lang, std::string word) noexcept;
+  void setSteady_dictionary(std::map<std::string, std::vector<std::string>> dictionary) noexcept;
 };
 
 

@@ -25,35 +25,35 @@ public:
   OntoGraph() {}
   ~OntoGraph();
 
-  void close();
+  void close() noexcept;
 
-  std::unordered_set<std::string> getDown(const std::string& value, int depth = -1);
-  std::unordered_set<std::string> getUp(const std::string& value, int depth = -1);
-  std::unordered_set<uint32_t> getDownIdSafe(const std::string& value, int depth = -1);
-  std::unordered_set<uint32_t> getUpIdSafe(const std::string& value, int depth = -1);
-  std::string getName(const std::string& value);
-  std::vector<std::string> getNames(const std::string& value);
-  std::unordered_set<std::string> find(const std::string& value);
-  bool touch(const std::string& value);
+  std::unordered_set<std::string> getDown(const std::string& value, int depth = -1) noexcept;
+  std::unordered_set<std::string> getUp(const std::string& value, int depth = -1) noexcept;
+  std::unordered_set<uint32_t> getDownIdSafe(const std::string& value, int depth = -1) noexcept;
+  std::unordered_set<uint32_t> getUpIdSafe(const std::string& value, int depth = -1) noexcept;
+  std::string getName(const std::string& value) noexcept;
+  std::vector<std::string> getNames(const std::string& value) noexcept;
+  std::unordered_set<std::string> find(const std::string& value) noexcept;
+  bool touch(const std::string& value) noexcept;
 
-  void getDown(B* branch, std::unordered_set<std::string>& res, int depth = -1, unsigned int current_depth = 0);
-  void getUp(B* branch, std::unordered_set<std::string>& res, int depth = -1, unsigned int current_depth = 0);
-  void getDownIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth = -1, unsigned int current_depth = 0);
-  void getUpIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth = -1, unsigned int current_depth = 0);
+  void getDown(B* branch, std::unordered_set<std::string>& res, int depth = -1, unsigned int current_depth = 0) noexcept;
+  void getUp(B* branch, std::unordered_set<std::string>& res, int depth = -1, unsigned int current_depth = 0) noexcept;
+  void getDownIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth = -1, unsigned int current_depth = 0) noexcept;
+  void getUpIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth = -1, unsigned int current_depth = 0) noexcept;
 
-  std::unordered_set<B*> getDownPtrSafe(B* branch, int depth = -1);
-  void getDownPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth = 0);
-  inline void getDownPtr(B* branch, std::unordered_set<B*>& res);
-  std::unordered_set<B*> getUpPtrSafe(B* branch, int depth = -1);
-  void getUpPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth = 0);
-  inline void getUpPtr(B* branch, std::unordered_set<B*>& res);
+  std::unordered_set<B*> getDownPtrSafe(B* branch, int depth = -1) noexcept;
+  void getDownPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth = 0) noexcept;
+  inline void getDownPtr(B* branch, std::unordered_set<B*>& res) noexcept;
+  std::unordered_set<B*> getUpPtrSafe(B* branch, int depth = -1) noexcept;
+  void getUpPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth = 0) noexcept;
+  inline void getUpPtr(B* branch, std::unordered_set<B*>& res) noexcept;
 
-  std::vector<B*> get()
+  std::vector<B*> get() noexcept
   {
     return all_branchs_;
   }
 
-  std::vector<B*> getSafe()
+  std::vector<B*> getSafe() noexcept
   {
     std::shared_lock<std::shared_timed_mutex> lock(Graph<B>::mutex_);
 
@@ -69,10 +69,10 @@ protected:
 
   int depth_;
 
-  void link();
-  void add_family(B* branch, uint8_t family);
-  void amIA(B** me, std::map<std::string, B*>& vect, const std::string& value, bool erase = true);
-  void isMyMother(B* me, const std::string& mother, std::map<std::string, B*>& vect, bool& find);
+  void link() noexcept;
+  void add_family(B* branch, uint8_t family) noexcept;
+  void amIA(B** me, std::map<std::string, B*>& vect, const std::string& value, bool erase = true) noexcept;
+  void isMyMother(B* me, const std::string& mother, std::map<std::string, B*>& vect, bool& find) noexcept;
 };
 
 template <typename B>
@@ -87,7 +87,7 @@ OntoGraph<B>::~OntoGraph()
 }
 
 template <typename B>
-void OntoGraph<B>::close()
+void OntoGraph<B>::close() noexcept
 {
   std::lock_guard<std::shared_timed_mutex> lock(Graph<B>::mutex_);
 
@@ -106,7 +106,7 @@ void OntoGraph<B>::close()
 }
 
 template <typename B>
-std::unordered_set<std::string> OntoGraph<B>::getDown(const std::string& value, int depth)
+std::unordered_set<std::string> OntoGraph<B>::getDown(const std::string& value, int depth) noexcept
 {
   std::unordered_set<std::string> res;
 
@@ -120,7 +120,7 @@ std::unordered_set<std::string> OntoGraph<B>::getDown(const std::string& value, 
 }
 
 template <typename B>
-std::unordered_set<std::string> OntoGraph<B>::getUp(const std::string& value, int depth)
+std::unordered_set<std::string> OntoGraph<B>::getUp(const std::string& value, int depth) noexcept
 {
   std::unordered_set<std::string> res;
 
@@ -134,7 +134,7 @@ std::unordered_set<std::string> OntoGraph<B>::getUp(const std::string& value, in
 }
 
 template <typename B>
-std::unordered_set<uint32_t> OntoGraph<B>::getDownIdSafe(const std::string& value, int depth)
+std::unordered_set<uint32_t> OntoGraph<B>::getDownIdSafe(const std::string& value, int depth) noexcept
 {
   std::unordered_set<uint32_t> res;
 
@@ -148,7 +148,7 @@ std::unordered_set<uint32_t> OntoGraph<B>::getDownIdSafe(const std::string& valu
 }
 
 template <typename B>
-std::unordered_set<uint32_t> OntoGraph<B>::getUpIdSafe(const std::string& value, int depth)
+std::unordered_set<uint32_t> OntoGraph<B>::getUpIdSafe(const std::string& value, int depth) noexcept
 {
   std::unordered_set<uint32_t> res;
 
@@ -163,7 +163,7 @@ std::unordered_set<uint32_t> OntoGraph<B>::getUpIdSafe(const std::string& value,
 
 
 template <typename B>
-std::string OntoGraph<B>::getName(const std::string& value)
+std::string OntoGraph<B>::getName(const std::string& value) noexcept
 {
   std::string res = "";
 
@@ -205,7 +205,7 @@ std::string OntoGraph<B>::getName(const std::string& value)
 }
 
 template <typename B>
-std::vector<std::string> OntoGraph<B>::getNames(const std::string& value)
+std::vector<std::string> OntoGraph<B>::getNames(const std::string& value) noexcept
 {
   std::vector<std::string> res;
 
@@ -223,7 +223,7 @@ std::vector<std::string> OntoGraph<B>::getNames(const std::string& value)
 }
 
 template <typename B>
-bool OntoGraph<B>::touch(const std::string& value)
+bool OntoGraph<B>::touch(const std::string& value) noexcept
 {
   std::shared_lock<std::shared_timed_mutex> lock(Graph<B>::mutex_);
   B* branch = this->container_.find(value);
@@ -234,7 +234,7 @@ bool OntoGraph<B>::touch(const std::string& value)
 }
 
 template <typename B>
-void OntoGraph<B>::link()
+void OntoGraph<B>::link() noexcept
 {
   depth_ = 0;
 
@@ -248,7 +248,7 @@ void OntoGraph<B>::link()
 }
 
 template <typename B>
-void OntoGraph<B>::add_family(B* branch, uint8_t family)
+void OntoGraph<B>::add_family(B* branch, uint8_t family) noexcept
 {
   branch->family += family/branch->nb_mothers_;
   for(size_t i = 0; i < branch->childs_.size(); i++)
@@ -261,7 +261,7 @@ void OntoGraph<B>::add_family(B* branch, uint8_t family)
 }
 
 template <typename B>
-void OntoGraph<B>::amIA(B** me, std::map<std::string, B*>& vect, const std::string& value, bool erase)
+void OntoGraph<B>::amIA(B** me, std::map<std::string, B*>& vect, const std::string& value, bool erase) noexcept
 {
   if(*me == nullptr)
   {
@@ -276,7 +276,7 @@ void OntoGraph<B>::amIA(B** me, std::map<std::string, B*>& vect, const std::stri
 }
 
 template <typename B>
-void OntoGraph<B>::isMyMother(B* me, const std::string& mother, std::map<std::string, B*>& vect, bool& find)
+void OntoGraph<B>::isMyMother(B* me, const std::string& mother, std::map<std::string, B*>& vect, bool& find) noexcept
 {
   if(find)
     return;
@@ -300,7 +300,7 @@ void OntoGraph<B>::isMyMother(B* me, const std::string& mother, std::map<std::st
 }
 
 template <typename B>
-void OntoGraph<B>::getDown(B* branch, std::unordered_set<std::string>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getDown(B* branch, std::unordered_set<std::string>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth < (unsigned int)depth)
   {
@@ -316,7 +316,7 @@ void OntoGraph<B>::getDown(B* branch, std::unordered_set<std::string>& res, int 
 }
 
 template <typename B>
-void OntoGraph<B>::getUp(B* branch, std::unordered_set<std::string>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getUp(B* branch, std::unordered_set<std::string>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth < (unsigned int)depth)
   {
@@ -332,7 +332,7 @@ void OntoGraph<B>::getUp(B* branch, std::unordered_set<std::string>& res, int de
 }
 
 template <typename B>
-void OntoGraph<B>::getDownIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getDownIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth < (unsigned int)depth)
   {
@@ -347,7 +347,7 @@ void OntoGraph<B>::getDownIdSafe(B* branch, std::unordered_set<uint32_t>& res, i
 }
 
 template <typename B>
-void OntoGraph<B>::getUpIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getUpIdSafe(B* branch, std::unordered_set<uint32_t>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth < (unsigned int)depth)
   {
@@ -362,7 +362,7 @@ void OntoGraph<B>::getUpIdSafe(B* branch, std::unordered_set<uint32_t>& res, int
 }
 
 template <typename B>
-std::unordered_set<B*> OntoGraph<B>::getDownPtrSafe(B* branch, int depth)
+std::unordered_set<B*> OntoGraph<B>::getDownPtrSafe(B* branch, int depth) noexcept
 {
   std::unordered_set<B*> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<B>::mutex_);
@@ -371,7 +371,7 @@ std::unordered_set<B*> OntoGraph<B>::getDownPtrSafe(B* branch, int depth)
 }
 
 template <typename B>
-void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth <= (unsigned int)depth)
   {
@@ -385,7 +385,7 @@ void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res, int depth,
 }
 
 template <typename B>
-void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res)
+void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res) noexcept
 {
   res.insert(branch);
 
@@ -395,7 +395,7 @@ void OntoGraph<B>::getDownPtr(B* branch, std::unordered_set<B*>& res)
 }
 
 template <typename B>
-std::unordered_set<B*> OntoGraph<B>::getUpPtrSafe(B* branch, int depth)
+std::unordered_set<B*> OntoGraph<B>::getUpPtrSafe(B* branch, int depth) noexcept
 {
   std::unordered_set<B*> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<B>::mutex_);
@@ -404,7 +404,7 @@ std::unordered_set<B*> OntoGraph<B>::getUpPtrSafe(B* branch, int depth)
 }
 
 template <typename B>
-void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth)
+void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res, int depth, unsigned int current_depth) noexcept
 {
   if(current_depth <= (unsigned int)depth)
   {
@@ -416,11 +416,10 @@ void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res, int depth, u
       if(res.find(branch->mothers_[i]) == res.end())
         getUpPtr(branch->mothers_[i], res, depth, current_depth);
   }
-
 }
 
 template <typename B>
-void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res)
+void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res) noexcept
 {
   res.insert(branch);
 
@@ -430,7 +429,7 @@ void OntoGraph<B>::getUpPtr(B* branch, std::unordered_set<B*>& res)
 }
 
 template <typename D>
-bool comparator(D* branch, std::string value, std::string lang)
+bool comparator(D* branch, std::string value, std::string lang) noexcept
 {
   if(branch->dictionary_.find(lang) != branch->dictionary_.end())
     for(size_t i = 0; i < branch->dictionary_[lang].size(); i++)
@@ -440,7 +439,7 @@ bool comparator(D* branch, std::string value, std::string lang)
 }
 
 template <typename B>
-std::unordered_set<std::string> OntoGraph<B>::find(const std::string& value)
+std::unordered_set<std::string> OntoGraph<B>::find(const std::string& value) noexcept
 {
   std::unordered_set<std::string> res;
   std::shared_lock<std::shared_timed_mutex> lock(Graph<B>::mutex_);

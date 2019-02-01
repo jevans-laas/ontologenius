@@ -45,70 +45,70 @@ public:
   ClassGraph(IndividualGraph* individual_graph, ObjectPropertyGraph* object_property_graph, DataPropertyGraph* data_property_graph);
   ~ClassGraph() {}
 
-  void add(const std::string& value, ObjectVectors_t& object_vector);
-  void add(std::vector<std::string>& disjoints);
+  void add(const std::string& value, ObjectVectors_t& object_vector) noexcept;
+  void add(std::vector<std::string>& disjoints) noexcept;
 
-  std::unordered_set<std::string> getDisjoint(const std::string& value);
-  void getDisjoint(ClassBranch_t* branch, std::unordered_set<ClassBranch_t*>& res);
-  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& class_selector);
+  std::unordered_set<std::string> getDisjoint(const std::string& value) noexcept;
+  void getDisjoint(ClassBranch_t* branch, std::unordered_set<ClassBranch_t*>& res) noexcept;
+  std::unordered_set<std::string> select(std::unordered_set<std::string>& on, const std::string& class_selector) noexcept;
 
-  std::unordered_set<std::string> getRelationFrom(const std::string& _class, int depth = -1);  //C3
-  std::unordered_set<std::string> getRelatedFrom(const std::string& property);     //C3
-  std::unordered_set<std::string> getRelationOn(const std::string& _class, int depth = -1);    //C4
-  std::unordered_set<std::string> getRelatedOn(const std::string& property);       //C3
-  std::unordered_set<std::string> getRelationWith(const std::string& _class);  //C3
-  std::unordered_set<std::string> getRelatedWith(const std::string& _class);   //C3
-  std::unordered_set<std::string> getFrom(const std::string& param);
-  std::unordered_set<std::string> getFrom(const std::string& _class, const std::string& property);
-  std::unordered_set<std::string> getOn(const std::string& param);
-  std::unordered_set<std::string> getOn(const std::string& _class, const std::string& property);
-  std::unordered_set<std::string> getWith(const std::string& param, int depth = -1);
-  std::unordered_set<std::string> getWith(const std::string& first_class, const std::string& second_class, int depth = -1);
+  std::unordered_set<std::string> getRelationFrom(const std::string& _class, int depth = -1) noexcept;  //C3
+  std::unordered_set<std::string> getRelatedFrom(const std::string& property) noexcept;     //C3
+  std::unordered_set<std::string> getRelationOn(const std::string& _class, int depth = -1) noexcept;    //C4
+  std::unordered_set<std::string> getRelatedOn(const std::string& property) noexcept;       //C3
+  std::unordered_set<std::string> getRelationWith(const std::string& _class) noexcept;  //C3
+  std::unordered_set<std::string> getRelatedWith(const std::string& _class) noexcept;   //C3
+  std::unordered_set<std::string> getFrom(const std::string& param) noexcept;
+  std::unordered_set<std::string> getFrom(const std::string& _class, const std::string& property) noexcept;
+  std::unordered_set<std::string> getOn(const std::string& param) noexcept;
+  std::unordered_set<std::string> getOn(const std::string& _class, const std::string& property) noexcept;
+  std::unordered_set<std::string> getWith(const std::string& param, int depth = -1) noexcept;
+  std::unordered_set<std::string> getWith(const std::string& first_class, const std::string& second_class, int depth = -1) noexcept;
 
-  std::unordered_set<std::string> getDownIndividual(ClassBranch_t* branch);
-  void getDownIndividual(ClassBranch_t* branch, std::unordered_set<std::string>& res);
-  std::unordered_set<IndividualBranch_t*> getDownIndividualPtrSafe(ClassBranch_t* branch);
-  void getDownIndividualPtrSafe(ClassBranch_t* branch, std::unordered_set<IndividualBranch_t*>& res);
+  std::unordered_set<std::string> getDownIndividual(ClassBranch_t* branch) noexcept;
+  void getDownIndividual(ClassBranch_t* branch, std::unordered_set<std::string>& res) noexcept;
+  std::unordered_set<IndividualBranch_t*> getDownIndividualPtrSafe(ClassBranch_t* branch) noexcept;
+  void getDownIndividualPtrSafe(ClassBranch_t* branch, std::unordered_set<IndividualBranch_t*>& res) noexcept;
 
-  void deleteClass(ClassBranch_t* _class);
-  int deletePropertiesOnClass(ClassBranch_t* _class, std::vector<ClassBranch_t*> vect);
-  void addLang(std::string& _class, std::string& lang, std::string& name);
-  void addInheritage(std::string& class_base, std::string& class_inherited);
-  bool addProperty(std::string& class_from, std::string& property, std::string& class_on);
-  bool addProperty(std::string& class_from, std::string& property, std::string& type, std::string& data);
-  bool addPropertyInvert(std::string& class_from, std::string& property, std::string& class_on);
-  void removeLang(std::string& indiv, std::string& lang, std::string& name);
-  void removeInheritage(std::string& class_base, std::string& class_inherited);
-  bool removeProperty(std::string& class_from, std::string& property, std::string& class_on);
-  bool removeProperty(std::string& class_from, std::string& property, std::string& type, std::string& data);
+  void deleteClass(ClassBranch_t* _class) noexcept;
+  int deletePropertiesOnClass(ClassBranch_t* _class, std::vector<ClassBranch_t*> vect) noexcept;
+  void addLang(std::string& _class, std::string& lang, std::string& name) noexcept;
+  void addInheritage(std::string& class_base, std::string& class_inherited) noexcept;
+  bool addProperty(std::string& class_from, std::string& property, std::string& class_on) noexcept;
+  bool addProperty(std::string& class_from, std::string& property, std::string& type, std::string& data) noexcept;
+  bool addPropertyInvert(std::string& class_from, std::string& property, std::string& class_on) noexcept;
+  void removeLang(std::string& indiv, std::string& lang, std::string& name) noexcept;
+  void removeInheritage(std::string& class_base, std::string& class_inherited) noexcept;
+  bool removeProperty(std::string& class_from, std::string& property, std::string& class_on) noexcept;
+  bool removeProperty(std::string& class_from, std::string& property, std::string& type, std::string& data) noexcept;
 
 private:
   ObjectPropertyGraph* object_property_graph_;
   DataPropertyGraph* data_property_graph_;
   IndividualGraph* individual_graph_;
 
-  void addObjectPropertyName(ClassBranch_t* me, std::string& name, bool deduced);
-  void addObjectPropertyOn(ClassBranch_t* me, std::string& name, bool deduced);
-  void addDataPropertyName(ClassBranch_t* me, std::string& name, bool deduced);
-  void addDataPropertyData(ClassBranch_t* me, data_t& data, bool deduced);
+  void addObjectPropertyName(ClassBranch_t* me, std::string& name, bool deduced) noexcept;
+  void addObjectPropertyOn(ClassBranch_t* me, std::string& name, bool deduced) noexcept;
+  void addDataPropertyName(ClassBranch_t* me, std::string& name, bool deduced) noexcept;
+  void addDataPropertyData(ClassBranch_t* me, data_t& data, bool deduced) noexcept;
 
-  void setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPropertyBranch_t* branch_prop, ClassBranch_t* branch_on);
-  void setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t data);
+  void setSteadyObjectProperty(ClassBranch_t* branch_from, ObjectPropertyBranch_t* branch_prop, ClassBranch_t* branch_on) noexcept;
+  void setSteadyDataProperty(ClassBranch_t* branch_from, DataPropertyBranch_t* branch_prop, data_t data) noexcept;
 
-  void getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth);
-  void getRelatedFrom(std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res);
-  void getRelationOnDataProperties(const std::string& _class, std::unordered_set<std::string>& res, int depth);
-  void getRelatedOnDataProperties(const std::string& property, std::unordered_set<std::string>& res);
-  void getRelationWith(ClassBranch_t* class_branch, std::map<std::string, int>& properties, std::vector<int>& depths, std::vector<std::string>& res, int depth);
-  void dataGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake);
-  void objectGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake);
-  void getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res, uint32_t current_depth, int& found_depth);
-  void getWith(ClassBranch_t* first_class, const std::string& second_class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake, uint32_t current_depth, int& found_depth, int depth_prop, std::unordered_set<ClassBranch_t*>& next_step);
+  void getRelationFrom(ClassBranch_t* class_branch, std::unordered_set<std::string>& res, int depth) noexcept;
+  void getRelatedFrom(std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res) noexcept;
+  void getRelationOnDataProperties(const std::string& _class, std::unordered_set<std::string>& res, int depth) noexcept;
+  void getRelatedOnDataProperties(const std::string& property, std::unordered_set<std::string>& res) noexcept;
+  void getRelationWith(ClassBranch_t* class_branch, std::map<std::string, int>& properties, std::vector<int>& depths, std::vector<std::string>& res, int depth) noexcept;
+  void dataGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake) noexcept;
+  void objectGetRelatedWith(ClassBranch_t* class_branch, const std::string& property, const std::string& _class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake) noexcept;
+  void getOn(ClassBranch_t* class_branch, std::unordered_set<uint32_t>& object_properties, std::unordered_set<uint32_t>& data_properties, std::unordered_set<std::string>& res, uint32_t current_depth, int& found_depth) noexcept;
+  void getWith(ClassBranch_t* first_class, const std::string& second_class, std::unordered_set<std::string>& res, std::unordered_set<uint32_t>& doNotTake, uint32_t current_depth, int& found_depth, int depth_prop, std::unordered_set<ClassBranch_t*>& next_step) noexcept;
 
-  bool checkRangeAndDomain(ClassBranch_t* from, ObjectPropertyBranch_t* prop, ClassBranch_t* on);
-  bool checkRangeAndDomain(ClassBranch_t* from, DataPropertyBranch_t* prop, data_t& data);
+  bool checkRangeAndDomain(ClassBranch_t* from, ObjectPropertyBranch_t* prop, ClassBranch_t* on) noexcept;
+  bool checkRangeAndDomain(ClassBranch_t* from, DataPropertyBranch_t* prop, data_t& data) noexcept;
 
-  void isMyDisjoint(ClassBranch_t* me, const std::string& disjoint, std::map<std::string, ClassBranch_t*>& vect, bool& find, bool all = true)
+  void isMyDisjoint(ClassBranch_t* me, const std::string& disjoint, std::map<std::string, ClassBranch_t*>& vect, bool& find, bool all = true) noexcept
   {
     if(find)
       return;
@@ -123,7 +123,7 @@ private:
     }
   }
 
-  void isMyObjectPropertiesOn(ClassBranch_t* me, const std::string& propertyOn, std::map<std::string, ClassBranch_t*>& vect, bool& find, bool deduced)
+  void isMyObjectPropertiesOn(ClassBranch_t* me, const std::string& propertyOn, std::map<std::string, ClassBranch_t*>& vect, bool& find, bool deduced) noexcept
   {
     if(find)
       return;
@@ -140,7 +140,7 @@ private:
     }
   }
 
-  ClassBranch_t* findIntersection(std::unordered_set<ClassBranch_t*>& base, std::unordered_set<ClassBranch_t*>& comp)
+  ClassBranch_t* findIntersection(std::unordered_set<ClassBranch_t*>& base, std::unordered_set<ClassBranch_t*>& comp) noexcept
   {
     for (ClassBranch_t* it : comp)
     {
