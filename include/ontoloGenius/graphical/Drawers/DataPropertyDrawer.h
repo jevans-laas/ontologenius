@@ -7,10 +7,10 @@
 class DataPropertyDrawer : public GraphDrawer
 {
 public:
-  DataPropertyDrawer(DataPropertyGraph* graph = nullptr);
+  explicit DataPropertyDrawer(DataPropertyGraph* graph = nullptr);
   ~DataPropertyDrawer() {}
 
-  void setGraph(DataPropertyGraph* graph) {graph_ = graph; init(); };
+  void setGraph(DataPropertyGraph* graph) {graph_ = graph; init(); }
 
   void putInLayers();
 

@@ -17,7 +17,7 @@ class StringType : public FunctionContainer
 {
 public:
   StringType();
-  ~StringType() {};
+  ~StringType() {}
 
   std::string add(std::string text, size_t line_start, size_t line_stop);
   std::string get(std::string id);

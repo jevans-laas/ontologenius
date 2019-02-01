@@ -8,8 +8,6 @@
 #include <time.h>       /* time */
 #include <unordered_set>
 
-using namespace std::chrono;
-
 std::string set2string(std::unordered_set<std::string> word_set)
 {
   std::string result = "";
@@ -85,13 +83,13 @@ std::vector<std::string> generate_sequence(ClassGraph& onto)
 
 double testOne(std::vector<std::string>& seq, Ontology& onto)
 {
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   for(size_t i = 0; i < seq.size(); i++)
     std::unordered_set<std::string> out = onto.class_graph_.getUp(seq[i]);
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
   std::cout << "  " << time_span.count() << " for " << seq.size() << " getUp " << std::endl;
   return time_span.count();
@@ -106,7 +104,7 @@ int main(int argc, char** argv)
   reasoners.load();
   reasoners.list();
 
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   /*onto.readFromFile("/home/gsarthou/Robots/Pr2/Semantic/catkin_ws/src/ontologenius/files/attribute.owl");
   onto.readFromFile("/home/gsarthou/Robots/Pr2/Semantic/catkin_ws/src/ontologenius/files/positionProperty.owl");
@@ -118,21 +116,21 @@ int main(int argc, char** argv)
   onto.readFromFile("/home/gsarthou/openrobots/share/ontologies/testsuite.owl");
   //onto.readFromUri("https://raw.githubusercontent.com/severin-lemaignan/oro-server/master/testing/testsuite.oro.owl");
 
-  high_resolution_clock::time_point t3 = high_resolution_clock::now();
-  duration<double> time_span2 = duration_cast<duration<double>>(t3 - t1);
+  std::chrono::high_resolution_clock::time_point t3 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t1);
   std::cout << "It took me " << time_span2.count() << " seconds to read" << std::endl;
 
   onto.close();
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
   std::cout << "It took me " << time_span.count() << " seconds to read" << std::endl;
   double read_time = time_span.count();
 
   reasoners.runPostReasoners();
 
-  high_resolution_clock::time_point t4 = high_resolution_clock::now();
-  duration<double> time_span3 = duration_cast<duration<double>>(t4 - t1);
+  std::chrono::high_resolution_clock::time_point t4 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span3 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t1);
   std::cout << "It took me " << time_span3.count() << " seconds to runPostReasoners" << std::endl;
 
   /*int epoch = 10000;

@@ -7,7 +7,7 @@
 class IndividualChecker : public ValidityChecker<IndividualBranch_t>
 {
 public:
-  IndividualChecker(IndividualGraph* graph) : ValidityChecker(graph) {individual_graph_ = graph;}
+  explicit IndividualChecker(IndividualGraph* graph) : ValidityChecker(graph) {individual_graph_ = graph;}
   ~IndividualChecker() {}
 
   size_t check();

@@ -22,7 +22,7 @@ struct Properties_t
                     symetric_property_(false),
                     antisymetric_property_(false),
                     reflexive_property_(false),
-                    irreflexive_property_(false) {};
+                    irreflexive_property_(false) {}
 };
 
 template <typename B>

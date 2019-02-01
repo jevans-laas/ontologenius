@@ -13,7 +13,7 @@
 class Compiler
 {
 public:
-  Compiler(Code* code);
+  explicit Compiler(Code* code);
   ~Compiler();
 
   size_t compile();

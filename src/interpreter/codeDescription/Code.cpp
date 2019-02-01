@@ -103,7 +103,7 @@ void Code::removeNonEffectiveCode(std::string& code)
     size_t tmp_useless = code.size() - 1;
     if(code[tmp_useless] ==']')
     {
-      while(code[--tmp_useless] != '[');
+      while(code[--tmp_useless] != '[') {}
       if(code.find("__comment[", tmp_useless - 9) != std::string::npos)
       {
         code = code.substr(0, tmp_useless - 9);

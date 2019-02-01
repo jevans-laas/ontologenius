@@ -20,7 +20,7 @@ class VariablesType : public Namespace, public FunctionContainer
 {
 public:
   VariablesType();
-  ~VariablesType() {};
+  ~VariablesType() {}
 
   std::string add(std::string name);
 

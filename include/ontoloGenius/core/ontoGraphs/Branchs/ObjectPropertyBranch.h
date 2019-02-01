@@ -35,7 +35,7 @@ class ObjectPropertyBranch_t :  public Branch_t<ObjectPropertyBranch_t>,
 public:
   ObjectPropertySteady_t steady_;
 
-  ObjectPropertyBranch_t(std::string value = "") : Branch_t(value) {};
+  explicit ObjectPropertyBranch_t(std::string value = "") : Branch_t(value) {}
 
   void setFullSteady();
   void setSteady_disjoint(ObjectPropertyBranch_t* disjoint);

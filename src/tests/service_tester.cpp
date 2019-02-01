@@ -8,8 +8,6 @@
 #include <vector>
 #include <string>
 
-using namespace std::chrono;
-
 #define NB_PER_SERVICE 10000
 
 ros::NodeHandle* n_;
@@ -32,7 +30,7 @@ double tester(std::vector<std::string>& actions, const std::string& service)
   ros::ServiceClient client = n_->serviceClient<ontologenius::OntologeniusService>("ontologenius/" + service, true);
   for(size_t i = 0; i < NB_PER_SERVICE; i++)
   {
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
     for(size_t j = 0; j < actions.size(); j++)
     {
       ontologenius::OntologeniusService srv;
@@ -42,8 +40,8 @@ double tester(std::vector<std::string>& actions, const std::string& service)
       if(!client.call(srv))
         return -1;
     }
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
     std::cout << "[ " << i/(NB_PER_SERVICE/100.0) << "%] " << time_span.count()/actions.size() << std::endl;
     res += time_span.count()/actions.size();
   }

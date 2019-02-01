@@ -12,7 +12,7 @@
 class TextManipulator
 {
 public:
-  TextManipulator(std::string textual) {text = textual;}
+  explicit TextManipulator(std::string textual) {text = textual;}
   ~TextManipulator() {}
 
   std::string text;

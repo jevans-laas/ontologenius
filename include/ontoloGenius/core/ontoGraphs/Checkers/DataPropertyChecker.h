@@ -7,7 +7,7 @@
 class DataPropertyChecker : public ValidityChecker<DataPropertyBranch_t>
 {
 public:
-  DataPropertyChecker(DataPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
+  explicit DataPropertyChecker(DataPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
   ~DataPropertyChecker() {}
 
   size_t check();

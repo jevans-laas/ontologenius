@@ -10,8 +10,6 @@
 #include <math.h>
 #include <atomic>
 
-using namespace std::chrono;
-
 OntologyManipulator* onto_ptr;
 std::atomic<bool> end_;
 
@@ -28,12 +26,12 @@ void insertWords(size_t nb)
 double R1()
 {
   std::cout << "R1" << std::endl;
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   std::vector<std::string> res = onto_ptr->individuals.getType("Animal");
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
   std::cout << "Found " << res.size() << " individuals." << std::endl;
   std::cout << "Reasoning level 1: " << 1 << " statements retrieved in " << time_span.count()*1000 << "s (" << 1 / time_span.count() << " stmt/sec)." << std::endl;
@@ -44,7 +42,7 @@ double R1()
 double R2()
 {
   std::cout << "R2" << std::endl;
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   std::vector<std::string> res;
   std::vector<std::string> plant = onto_ptr->individuals.getType("Plant");
@@ -54,8 +52,8 @@ double R2()
     res.insert(res.end(), none.begin(), none.end());
   }
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
   std::cout << "Found " << res.size() << " individuals." << std::endl;
   std::cout << "Reasoning level 2: " << 1 << " statements retrieved in " << time_span.count()*1000 << "s (" << 1 / time_span.count() << " stmt/sec)." << std::endl;
@@ -66,12 +64,12 @@ double R2()
 double R3()
 {
   std::cout << "R3" << std::endl;
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   std::vector<std::string> res = onto_ptr->individuals.getOn("apple", "isUnder");
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
   std::cout << "Found " << res.size() << " individuals." << std::endl;
   std::cout << "Reasoning level 3: " << 1 << " statements retrieved in " << time_span.count()*1000 << "s (" << 1 / time_span.count() << " stmt/sec)." << std::endl;

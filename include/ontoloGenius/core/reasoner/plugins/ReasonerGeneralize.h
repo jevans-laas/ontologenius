@@ -124,7 +124,7 @@ void PropertiesCounter<B,P>::get(std::vector<B>& properties, std::vector<P>& dat
     {
       for(size_t j = 0; j < index_set[i].size(); j++)
         if(counts_[index_set[i][j]] >= min_count)
-          if(counts_[index_set[i][j]] / (double)counts_set[i] >= min_percent)
+          if(counts_[index_set[i][j]] / static_cast<double>(counts_set[i]) >= min_percent)
           {
             properties.push_back(properties_set[i]);
             datas.push_back(datas_[index_set[i][j]]);

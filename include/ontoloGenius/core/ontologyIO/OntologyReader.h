@@ -20,7 +20,7 @@ class OntologyReader
 {
 public:
   OntologyReader(ClassGraph* class_graph, ObjectPropertyGraph* object_property_graph, DataPropertyGraph* data_property_graph, IndividualGraph* individual_graph);
-  OntologyReader(Ontology& onto);
+  explicit OntologyReader(Ontology& onto);
   ~OntologyReader() {}
 
   int readFromUri(std::string& uri, bool individual = false);

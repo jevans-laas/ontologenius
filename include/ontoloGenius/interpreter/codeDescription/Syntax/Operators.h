@@ -28,7 +28,7 @@ struct OperatorDescriptor_t
 class Operators
 {
 public:
-  Operators(std::string* code) {code_ = code; }
+  explicit Operators(std::string* code) {code_ = code; }
   ~Operators() {}
 
   bool describe(std::string op, std::string function, bool whole_line, uint8_t priority);

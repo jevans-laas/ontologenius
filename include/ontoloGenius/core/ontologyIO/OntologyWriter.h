@@ -14,7 +14,7 @@ class OntologyWriter
 {
 public:
   OntologyWriter(ClassGraph* class_graph, ObjectPropertyGraph* object_property_graph, DataPropertyGraph* data_property_graph, IndividualGraph* individual_graph);
-  OntologyWriter(Ontology& onto);
+  explicit OntologyWriter(Ontology& onto);
   ~OntologyWriter() {}
 
   void setFileName(std::string name) {file_name_ = name; }

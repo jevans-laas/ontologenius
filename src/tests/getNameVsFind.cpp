@@ -12,7 +12,7 @@
 class FileReader
 {
 public:
-  FileReader(std::string path)
+  explicit FileReader(std::string path)
   {
     len = cpt = 0;
     file_ = NULL;
@@ -60,8 +60,6 @@ private:
 
   FILE* file_;
 };
-
-using namespace std::chrono;
 
 OntologyManipulator* onto_ptr;
 
@@ -119,7 +117,7 @@ double find(std::vector<std::string>& words, bool individual)
 
   if(individual == false)
   {
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
     for(size_t j = 0; j < 3; j++)
       for(size_t i = 0; i < words.size(); i++)
@@ -129,13 +127,13 @@ double find(std::vector<std::string>& words, bool individual)
       }
 
     std::cout << syn << " SYN" << std::endl;
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
     return time_span.count() /3;// (double)(words.size() * 3);
   }
   else
   {
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
     for(size_t j = 0; j < 3; j++)
       for(size_t i = 0; i < words.size(); i++)
@@ -145,8 +143,8 @@ double find(std::vector<std::string>& words, bool individual)
       }
 
     std::cout << syn << " SYN" << std::endl;
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
     return time_span.count() /3;// (double)(words.size() * 3);
   }
 }
@@ -156,7 +154,7 @@ double getName(std::vector<std::string>& words, bool individual)
   if(individual == false)
   {
     std::vector<std::string> verify;
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
     for(size_t j = 0; j < 3; j++)
     {
@@ -165,8 +163,8 @@ double getName(std::vector<std::string>& words, bool individual)
         verify.push_back(onto_ptr->classes.getName(words[i]));
     }
 
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
     size_t err = 0;
     for(size_t i = 0; i < words.size(); i++)
@@ -182,7 +180,7 @@ double getName(std::vector<std::string>& words, bool individual)
   else
   {
     std::vector<std::string> verify;
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
     for(size_t j = 0; j < 3; j++)
     {
@@ -191,8 +189,8 @@ double getName(std::vector<std::string>& words, bool individual)
         verify.push_back(onto_ptr->individuals.getName(words[i]));
     }
 
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+    std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 
     size_t err = 0;
     std::cout << words.size() << " : " << verify.size() << std::endl;

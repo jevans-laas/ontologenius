@@ -58,10 +58,10 @@ public slots:
   void individualClickedSlot();
   void closeOntologySlot();
   void nameEditingFinishedSlot();
-  void ReasonerClickedSlot(int);
+  void ReasonerClickedSlot(int state);
   void ReasonerhoverEnterSlot();
   void ReasonerhoverLeaveSlot();
-  void currentTabChangedSlot(int);
+  void currentTabChangedSlot(int index);
 
   void displayOntologiesListSlot();
   void addOntologySlot();

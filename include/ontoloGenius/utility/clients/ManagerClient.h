@@ -6,7 +6,7 @@
 class ManagerClient : public ClientBase
 {
 public:
-  ManagerClient(ros::NodeHandle* n) : ClientBase(n, "manage")
+  explicit ManagerClient(ros::NodeHandle* n) : ClientBase(n, "manage")
   {
   }
 

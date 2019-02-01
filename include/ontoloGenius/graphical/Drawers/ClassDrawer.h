@@ -7,10 +7,10 @@
 class ClassDrawer : public GraphDrawer
 {
 public:
-  ClassDrawer(ClassGraph* graph = nullptr);
+  explicit ClassDrawer(ClassGraph* graph = nullptr);
   ~ClassDrawer() {}
 
-  void setGraph(ClassGraph* graph) {graph_ = graph; init(); };
+  void setGraph(ClassGraph* graph) {graph_ = graph; init(); }
 
   void putInLayers();
 

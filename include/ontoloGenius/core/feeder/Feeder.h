@@ -8,7 +8,7 @@ class Ontology;
 class Feeder
 {
 public:
-  Feeder(Ontology* onto) {onto_ = onto; }
+  explicit Feeder(Ontology* onto) {onto_ = onto; }
 
   void store(std::string feed) { feed_storage_.add(feed); }
   bool run();

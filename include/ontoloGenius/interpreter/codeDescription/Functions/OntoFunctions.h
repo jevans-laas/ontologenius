@@ -14,7 +14,7 @@ class OntoFunctions : public Namespace, public FunctionContainer
 {
 public:
   OntoFunctions();
-  ~OntoFunctions() {};
+  ~OntoFunctions() {}
 
 private:
 };

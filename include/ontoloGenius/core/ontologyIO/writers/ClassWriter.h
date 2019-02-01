@@ -12,8 +12,8 @@ class ClassBranch_t;
 class ClassWriter : private NodeWriter
 {
 public:
-  ClassWriter(ClassGraph* class_graph) {class_graph_ = class_graph; };
-  ~ClassWriter() {};
+  explicit ClassWriter(ClassGraph* class_graph) {class_graph_ = class_graph; }
+  ~ClassWriter() {}
 
   void write(FILE* file);
   void writeGeneralAxioms(FILE* file);

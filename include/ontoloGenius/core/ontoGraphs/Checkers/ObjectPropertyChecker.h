@@ -7,7 +7,7 @@
 class ObjectPropertyChecker : public ValidityChecker<ObjectPropertyBranch_t>
 {
 public:
-  ObjectPropertyChecker(ObjectPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
+  explicit ObjectPropertyChecker(ObjectPropertyGraph* graph) : ValidityChecker(graph) {property_graph_ = graph;}
   ~ObjectPropertyChecker() {}
 
   size_t check();

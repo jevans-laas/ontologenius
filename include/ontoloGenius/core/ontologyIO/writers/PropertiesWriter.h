@@ -10,8 +10,8 @@ template <typename T>
 class PropertiesWriter : public NodeWriter
 {
 public:
-  PropertiesWriter() {};
-  ~PropertiesWriter() {};
+  PropertiesWriter() {}
+  ~PropertiesWriter() {}
 
 protected:
 

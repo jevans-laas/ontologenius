@@ -62,8 +62,8 @@ TEST(global_tests, language)
   res = onto_ptr->classes.find(test_word);
   EXPECT_TRUE((res.size() == 1) && (res[0] == "affair"));
 
-  EXPECT_TRUE(onto_ptr->classes.getName(test_word) == "affair");
-  EXPECT_FALSE(onto_ptr->classes.getName(test_word) == "affaire");
+  EXPECT_EQ(onto_ptr->classes.getName(test_word), "affair");
+  EXPECT_NE(onto_ptr->classes.getName(test_word), "affaire");
 
   EXPECT_TRUE(onto_ptr->actions.setLang("fr"));
 
@@ -75,8 +75,8 @@ TEST(global_tests, language)
   EXPECT_TRUE((res.size() == 1) && (res[0] == "affair"));
 
   test_word = "affair";
-  EXPECT_TRUE(onto_ptr->classes.getName(test_word) == "affaire");
-  EXPECT_FALSE(onto_ptr->classes.getName(test_word) == "affair");
+  EXPECT_EQ(onto_ptr->classes.getName(test_word), "affaire");
+  EXPECT_NE(onto_ptr->classes.getName(test_word), "affair");
 }
 
 TEST(global_tests, reasoners_effect)

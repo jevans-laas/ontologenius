@@ -11,7 +11,7 @@
 class Parser
 {
 public:
-  Parser(Code* code, size_t current_line = 1, bool subparser = false);
+  explicit Parser(Code* code, size_t current_line = 1, bool subparser = false);
   ~Parser();
 
   Error& getError() {return error_; }

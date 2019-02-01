@@ -14,7 +14,7 @@
 class FileReader
 {
 public:
-  FileReader(std::string path)
+  explicit FileReader(std::string path)
   {
     len = cpt = 0;
     file_ = NULL;
@@ -63,8 +63,6 @@ private:
   FILE* file_;
 };
 
-using namespace std::chrono;
-
 std::vector<ValuedNode*> full_words;
 
 void readFullWords()
@@ -88,13 +86,13 @@ void readFullWords()
 
 double findAll(BranchContainerBase<ValuedNode>* container, std::vector<ValuedNode*> words)
 {
-  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
   for(size_t i = 0; i < words.size(); i++)
     ValuedNode* none = container->find(words[i]->value());
 
-  high_resolution_clock::time_point t2 = high_resolution_clock::now();
-  duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+  std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
   return time_span.count() / words.size();
 }
 

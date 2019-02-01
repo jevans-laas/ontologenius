@@ -12,7 +12,7 @@
 class Reasoners
 {
 public:
-  Reasoners(Ontology* onto);
+  explicit Reasoners(Ontology* onto);
   ~Reasoners();
 
   void link(Ontology* onto);

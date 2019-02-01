@@ -11,28 +11,28 @@
 
 struct rect_t
 {
-  long int x,y;
-  long int width, height;
+  int32_t x,y;
+  int32_t width, height;
 
-  rect_t(long int p_x = 0, long int p_y = 0, long int p_width = 0, long int p_height = 0) : x(p_x), y(p_y), width(p_width), height(p_height) {}
+  explicit rect_t(int32_t p_x = 0, int32_t p_y = 0, int32_t p_width = 0, int32_t p_height = 0) : x(p_x), y(p_y), width(p_width), height(p_height) {}
 
-  long int x_middle_top() { return x + width/2; }
-  long int y_middle_top() { return y; }
-  long int x_middle_bot() { return x + width/2; }
-  long int y_middle_bot() { return y + height; }
+  int32_t x_middle_top() { return x + width/2; }
+  int32_t y_middle_top() { return y; }
+  int32_t x_middle_bot() { return x + width/2; }
+  int32_t y_middle_bot() { return y + height; }
 };
 
 struct node_t
 {
   std::string value;
-  long int layer;
-  long int pos;
+  int32_t layer;
+  int32_t pos;
   bool marker;
   std::vector<node_t*> prev;
   rect_t rect;
   int family;
 
-  node_t(std::string p_value, int p_layer = -1) : value(p_value), layer(p_layer), pos(-1), marker(false) {}
+  explicit node_t(std::string p_value, int p_layer = -1) : value(p_value), layer(p_layer), pos(-1), marker(false) {}
 };
 
 class GraphDrawer

@@ -32,7 +32,7 @@ struct SubsectionBlock_t
 class Code : public TextManipulator
 {
 public:
-  Code(std::string code) : TextManipulator(code), operators_(&text) {}
+  explicit Code(std::string code) : TextManipulator(code), operators_(&text) {}
   ~Code();
 
   std::map<std::string, CommentBlock_t> comments_;

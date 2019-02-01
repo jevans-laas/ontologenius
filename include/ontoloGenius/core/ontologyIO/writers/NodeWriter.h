@@ -8,8 +8,8 @@ class ValuedNodeData;
 class NodeWriter
 {
 public:
-  NodeWriter() {file_ = nullptr; };
-  ~NodeWriter() {};
+  NodeWriter() {file_ = nullptr; }
+  ~NodeWriter() {}
 
   FILE* file_;
 

@@ -11,7 +11,7 @@
 class Error
 {
 public:
-  Error(Code* code = nullptr);
+  explicit Error(Code* code = nullptr);
   ~Error() {}
 
   void printError(size_t pose, std::string message);

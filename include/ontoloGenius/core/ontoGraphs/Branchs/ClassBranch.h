@@ -43,7 +43,7 @@ class ClassBranch_t : public Branch_t<ClassBranch_t>, public ClassBranchData_t<C
 public:
   ClassSteady_t steady_;
 
-  ClassBranch_t(std::string value = "") : Branch_t(value) {};
+  explicit ClassBranch_t(std::string value = "") : Branch_t(value) {}
 
   void setFullSteady();
   void setSteady_disjoint(ClassBranch_t* disjoint);

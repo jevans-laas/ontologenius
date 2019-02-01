@@ -19,7 +19,7 @@
 class RosInterface
 {
 public:
-  RosInterface(ros::NodeHandle* n, std::string name = "");
+  explicit RosInterface(ros::NodeHandle* n, std::string name = "");
   ~RosInterface();
 
   void init(std::string& lang, std::string intern_file, std::vector<std::string>& files);

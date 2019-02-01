@@ -6,7 +6,7 @@
 class Namespace
 {
 public:
-  Namespace(std::string name);
+  explicit Namespace(std::string name);
   ~Namespace() {}
 
   bool isThisNamespace(std::string ns);

@@ -12,7 +12,7 @@
 class OntologyDrawer
 {
 public:
-  OntologyDrawer(Ontology* ontology = nullptr);
+  explicit OntologyDrawer(Ontology* ontology = nullptr);
   ~OntologyDrawer() {}
 
   void setOntology(Ontology* ontology);

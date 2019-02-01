@@ -12,7 +12,7 @@
 class OntologiesManipulator : public ManagerClient
 {
 public:
-  OntologiesManipulator(ros::NodeHandle* n);
+  explicit OntologiesManipulator(ros::NodeHandle* n);
   ~OntologiesManipulator();
 
   void waitInit(int32_t timeout = -1);

@@ -1,8 +1,10 @@
+#ifndef ONTOLOGENIUS_CORE_UTILITY_UTILITY_H
+#define ONTOLOGENIUS_CORE_UTILITY_UTILITY_H
+
 #include <string>
 
 #include "ontologenius/REST.h"
 #include "ros/ros.h"
-
 
 int send_request(std::string method, std::string url, std::string body, std::string* response)
 {
@@ -26,3 +28,5 @@ int send_request(std::string method, std::string url, std::string body, std::str
     return 0;
   }
 }
+
+#endif //ONTOLOGENIUS_CORE_UTILITY_UTILITY_H

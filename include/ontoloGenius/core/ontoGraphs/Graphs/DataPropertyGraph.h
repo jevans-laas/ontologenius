@@ -35,7 +35,7 @@ class DataPropertyGraph : public OntoGraph<DataPropertyBranch_t>
   friend IndividualGraph;
   friend ClassGraph;
 public:
-  DataPropertyGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
+  explicit DataPropertyGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }
   ~DataPropertyGraph() {}
 
   void linkGraph(ClassGraph* class_graph) {class_graph_ = class_graph; }

@@ -7,7 +7,7 @@
 class ClassChecker : public ValidityChecker<ClassBranch_t>
 {
 public:
-  ClassChecker(ClassGraph* graph) : ValidityChecker(graph) {class_graph_ = graph;}
+  explicit ClassChecker(ClassGraph* graph) : ValidityChecker(graph) {class_graph_ = graph;}
   ~ClassChecker() {}
 
   size_t check();

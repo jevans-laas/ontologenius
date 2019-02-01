@@ -13,10 +13,10 @@ void ClassDrawer::putInLayers()
   if((graph_ != nullptr) && (graph_->roots_.size() != 0))
   {
     //init markers
-    for(unsigned long int i = 0; i < branchs_nodes.size(); i++)
+    for(uint32_t i = 0; i < branchs_nodes.size(); i++)
       branchs_nodes[i]->marker = false;
 
-    for(unsigned long int i = 0; i < roots_nodes.size(); i++)
+    for(uint32_t i = 0; i < roots_nodes.size(); i++)
     {
       roots_nodes[i]->marker = false;
       roots_nodes[i]->pos = i;
@@ -45,14 +45,14 @@ int ClassDrawer::createNode(ClassBranch_t* branch, node_t* mother)
     branchs_nodes.push_back(node);
     node->prev.push_back(mother);
     node->family = branch->family;
-    for(unsigned long int i = 0; i < branch->childs_.size(); i++)
+    for(uint32_t i = 0; i < branch->childs_.size(); i++)
       family += createNode(branch->childs_[i], node);
 
     family = family / (branch->childs_.size() + 1);
   }
   else
   {
-    for(unsigned long int i = 0; i < branchs_nodes.size(); i++)
+    for(uint32_t i = 0; i < branchs_nodes.size(); i++)
       if(branchs_nodes[i]->value == branch->value())
         branchs_nodes[i]->prev.push_back(mother);
   }
@@ -72,7 +72,7 @@ void ClassDrawer::init()
       node->family = it.second->family;
       int family = it.second->family;
 
-      for(unsigned long int branch = 0; branch < it.second->childs_.size(); branch++)
+      for(uint32_t branch = 0; branch < it.second->childs_.size(); branch++)
         family += createNode(it.second->childs_[branch], node);
 
       family = family / (it.second->childs_.size() + 1);
@@ -82,14 +82,14 @@ void ClassDrawer::init()
         couple.push_back(node);
     }
 
-    unsigned long int middle = single.size()/2;
-    for(unsigned long int i = 0; i < middle; i++)
+    uint32_t middle = single.size()/2;
+    for(uint32_t i = 0; i < middle; i++)
       roots_nodes.push_back(single[i]);
 
-    for(unsigned long int i = 0; i < couple.size(); i++)
+    for(uint32_t i = 0; i < couple.size(); i++)
       roots_nodes.push_back(couple[i]);
 
-    for(unsigned long int i = middle; i < single.size(); i++)
+    for(uint32_t i = middle; i < single.size(); i++)
       roots_nodes.push_back(single[i]);
   }
 }
