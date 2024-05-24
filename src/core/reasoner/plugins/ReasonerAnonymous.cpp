@@ -1,6 +1,6 @@
 #include "ontologenius/core/reasoner/plugins/ReasonerAnonymous.h"
 
-#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.hpp>
 
 namespace ontologenius {
 

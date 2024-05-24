@@ -30,9 +30,6 @@ endfunction(add_onto_library)
 ##          Find macros and libraries         ##
 ################################################
 
-find_package(cmake_modules REQUIRED)
-find_package(TinyXML REQUIRED)
-find_package(pluginlib REQUIRED)
 find_package(Qt5 COMPONENTS Core Gui Widgets PrintSupport)
 find_package(PkgConfig REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -40,6 +37,9 @@ find_package(OpenCV REQUIRED)
 pkg_search_module(CURL REQUIRED libcurl IMPORTED_TARGET GLOBAL)
 
 if($ENV{ROS_VERSION} STREQUAL "1")
+find_package(cmake_modules REQUIRED)
+find_package(TinyXML REQUIRED)
+find_package(pluginlib REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
@@ -55,6 +55,8 @@ elseif($ENV{ROS_VERSION} STREQUAL "2")
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(pluginlib)
+# find_package(TinyXML REQUIRED)
 find_package(TinyXML2 REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 
@@ -172,6 +174,7 @@ target_include_directories(ontologenius_ontoGraphs_lib
 )
 target_link_libraries(ontologenius_ontoGraphs_lib
  PUBLIC
+  tinyxml # todo: un-hardcode this
   ${TinyXML_LIBRARIES} ${TinyXML2_LIBRARIES}
 PRIVATE
   PkgConfig::CURL
@@ -189,7 +192,7 @@ add_onto_library(ontologenius_core_lib
 target_include_directories(ontologenius_core_lib
  PUBLIC ${pluginlib_INCLUDE_DIRS}
  /opt/ros/humble/include/pluginlib/
-) # todo figure out why pluginlib is not inside pluginlib_INCLUDE_DIRS
+) # todo: figure out why pluginlib is not inside pluginlib_INCLUDE_DIRS
 target_link_libraries(ontologenius_core_lib
  PUBLIC
   ontologenius_ontoGraphs_lib ${pluginlib_LIBRARIES}
@@ -498,6 +501,7 @@ install(TARGETS
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
+    # INCLUDES DESTINATION include
     DESTINATION lib/${PROJECT_NAME})
 
 install(TARGETS
@@ -598,5 +602,5 @@ pluginlib_export_plugin_description_file(ontologenius reasoners_plugins_ros2.xml
 
 ament_export_include_directories(include include/ontologenius/API)
 ament_package()
-  
+
 endif()
